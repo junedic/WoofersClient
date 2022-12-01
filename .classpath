@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.osgi_3.17.200.v20220215-2237.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.osgi_3.17.200.v20220215-2237.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.core.commands_3.10.100.v20210722-1426.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.core.commands_3.10.100.v20210722-1426.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.equinox.common_3.16.0.v20220211-2322.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.equinox.common_3.16.0.v20220211-2322.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.equinox.registry_3.11.100.v20211021-1418.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.equinox.registry_3.11.100.v20211021-1418.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.core.runtime_3.24.100.v20220211-2001.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.core.runtime_3.24.100.v20220211-2001.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.text_3.12.0.v20210512-1644.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.text_3.12.0.v20210512-1644.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.119.0.v20220223-1102.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.119.0.v20220223-1102.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.jface_3.25.0.v20220218-1636.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.jface_3.25.0.v20220218-1636.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.jface.text_3.20.0.v20220218-1549.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.jface.text_3.20.0.v20220218-1549.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.ui.workbench_3.125.0.v20220308-0722.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.ui.workbench_3.125.0.v20220308-0722.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar" sourcepath="C:/Users/Saltboi/.p2/pool/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar"/>
+	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="jdatepicker-2.0.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
