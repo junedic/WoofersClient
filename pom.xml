@@ -15,6 +15,14 @@
             <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
             <version>4.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
