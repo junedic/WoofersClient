@@ -9,7 +9,7 @@ public class Bestaetigungsfenster {
 
 	public Bestaetigungsfenster(String ueberschrift, String beschreibung) {
 		int n = JOptionPane.showConfirmDialog(new JFrame(), beschreibung, ueberschrift, JOptionPane.YES_NO_OPTION);
-		setBestaetigt((n == 0) ? true : false);
+		setBestaetigt(n == 0);
 	}
 
 	public boolean getBestaetigt() {

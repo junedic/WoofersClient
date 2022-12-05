@@ -1,79 +1,40 @@
-package view.bearbeiteKunden;
+package view.update;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import view.commons.Hauptfenster;
-import view.commons.Meldungsfenster;
+import java.io.Closeable;
+import java.io.IOException;
 
-public class Profilbearbeitung {
+public class UpdateCustomer implements Closeable {
 
-	protected Shell shlTerminidEingeben;
+	protected Shell shell;
 	private Text text;
 	private Text text_1;
 	private Text txtGntherwebde;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			Profilbearbeitung window = new Profilbearbeitung();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public UpdateCustomer(Shell shell) {
+		this.shell = shell;
+		initShell();
 	}
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-
-		/** get the size of the screen */
-		Monitor primary = display.getPrimaryMonitor();
-		Rectangle bounds = primary.getBounds();
-		/** get the size of the window */
-		Rectangle rect = shlTerminidEingeben.getBounds();
-		/** calculate the centre */
-		int x = bounds.x + (bounds.width - rect.width) / 2;
-		int y = bounds.y + (bounds.height - rect.height) / 2;
-		/** set the new location */
-		shlTerminidEingeben.setLocation(x, y);
-
-		shlTerminidEingeben.open();
-		shlTerminidEingeben.layout();
-		while (!shlTerminidEingeben.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
-		}
+	private void initShell() {
+		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		shell.setSize(391, 437);
+		shell.setText("Kunden bearbeiten");
+		shell.setLayout(null);
 	}
 
 	/**
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shlTerminidEingeben = new Shell();
-		shlTerminidEingeben.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		shlTerminidEingeben.setSize(391, 437);
-		shlTerminidEingeben.setText("Kunden bearbeiten");
-		shlTerminidEingeben.setLayout(null);
 
-		Label lblNewLabel = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblNewLabel = new Label(shell, SWT.NONE);
 		lblNewLabel.setAlignment(SWT.RIGHT);
 		lblNewLabel.setForeground(SWTResourceManager.getColor(255, 255, 128));
 		lblNewLabel.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
@@ -81,7 +42,8 @@ public class Profilbearbeitung {
 		lblNewLabel.setBounds(5, 48, 120, 37);
 		lblNewLabel.setText("KundeID:");
 
-		Button btnZurck = new Button(shlTerminidEingeben, SWT.NONE);
+		Button btnZurck = new Button(shell, SWT.NONE);
+		/*
 		btnZurck.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -89,53 +51,54 @@ public class Profilbearbeitung {
 				try {
 					// TODO Profilbearbeitung: Kundendaten m�ssen in DB aktualisiert werden
 					new Meldungsfenster("Kundendaten gespeichert", "Ihre Kundendaten wurden aktualisiert!");
-					shlTerminidEingeben.close();
+					shell.close();
 					Hauptfenster.main(null);
 				} catch (Exception e2) {
 
 				}
 			}
 		});
+		 */
 		btnZurck.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		btnZurck.setText("Speichern");
 		btnZurck.setBounds(143, 325, 75, 25);
 
-		Label lblTerminid = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblTerminid = new Label(shell, SWT.NONE);
 		lblTerminid.setText("Nachname");
 		lblTerminid.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblTerminid.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		lblTerminid.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblTerminid.setBounds(46, 122, 110, 37);
 
-		text = new Text(shlTerminidEingeben, SWT.BORDER);
+		text = new Text(shell, SWT.BORDER);
 		// TODO Profilbearbeitung: Eigentlichen Nachnamen reinklatschen
 		text.setText("G�nther");
 		text.setBounds(200, 122, 130, 21);
 
-		Label lblTelefonnummer = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblTelefonnummer = new Label(shell, SWT.NONE);
 		lblTelefonnummer.setText("Telefonnummer");
 		lblTelefonnummer.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblTelefonnummer.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		lblTelefonnummer.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblTelefonnummer.setBounds(46, 190, 145, 37);
 
-		Label lblMail = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblMail = new Label(shell, SWT.NONE);
 		lblMail.setText("Mail");
 		lblMail.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblMail.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		lblMail.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblMail.setBounds(46, 258, 145, 37);
 
-		text_1 = new Text(shlTerminidEingeben, SWT.BORDER);
+		text_1 = new Text(shell, SWT.BORDER);
 		// TODO Profilbearbeitung: Eigentlichen Telefonnummer einsetzen
 		text_1.setText("+49 5252");
 		text_1.setBounds(200, 190, 130, 21);
 
-		txtGntherwebde = new Text(shlTerminidEingeben, SWT.BORDER);
+		txtGntherwebde = new Text(shell, SWT.BORDER);
 		txtGntherwebde.setText("G\u00FCnther@web.de");
 		txtGntherwebde.setBounds(200, 258, 130, 21);
 
-		Label lblNewLabel_1 = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblNewLabel_1 = new Label(shell, SWT.NONE);
 		lblNewLabel_1.setForeground(SWTResourceManager.getColor(255, 255, 0));
 		lblNewLabel_1.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblNewLabel_1.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
@@ -143,7 +106,7 @@ public class Profilbearbeitung {
 		// TODO Profilbearbeitung: Eigentlichen KundenID einsetzen
 		lblNewLabel_1.setText("X");
 
-		Label lblProfil = new Label(shlTerminidEingeben, SWT.NONE);
+		Label lblProfil = new Label(shell, SWT.NONE);
 		lblProfil.setAlignment(SWT.CENTER);
 		lblProfil.setText("Profil");
 		lblProfil.setForeground(SWTResourceManager.getColor(255, 255, 255));
@@ -151,5 +114,10 @@ public class Profilbearbeitung {
 		lblProfil.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblProfil.setBounds(207, 38, 110, 47);
 
+	}
+
+	@Override
+	public void close() throws IOException {
+		
 	}
 }

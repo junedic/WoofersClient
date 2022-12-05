@@ -13,11 +13,15 @@ public  class TableMapping {
         }
     }
 
-    protected Table kunde = new Table();
-    protected Table termin = new Table();
-    protected Table gebuchteDienstleistung;
+    public Table kunde = new Table();
+    public Table termin = new Table();
+    public Table gebuchteDienstleistung;
 
     protected TableMapping() {
+        initializeTables();
+    }
+
+    private void initializeTables() {
 
     }
 
