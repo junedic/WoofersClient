@@ -4,7 +4,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import java.io.Closeable;
 
 public class Hauptfenster implements View {
 
@@ -15,15 +18,42 @@ public class Hauptfenster implements View {
 	private Button 	appointmentCustomer;
 	private Button 	appointmentEmployee;
 	private Button 	editCustomer;
+	private Button 	setIp;
+	private Text	ip;
 	
 	public Hauptfenster() {
+		shell = new Shell();
+		terminal = new Label(shell, SWT.NONE);
+		createAppointment = new Button(shell, SWT.NONE);
+		deleteAppointment = new Button(shell, SWT.NONE);
+		appointmentEmployee = new Button(shell, SWT.NONE);
+		appointmentCustomer = new Button(shell, SWT.NONE);
+		editCustomer = new Button(shell, SWT.NONE);
+		setIp = new Button(shell, SWT.NONE);
+		ip = new Text(shell, SWT.BORDER);
+		ip.insert("IP-Address");
+		init();
+	}
+
+	@Override
+	public void reassign() {
+		terminal 				= new Label(shell, SWT.NONE);
+		createAppointment 		= new Button(shell, SWT.NONE);
+		deleteAppointment 		= new Button(shell, SWT.NONE);
+		appointmentEmployee 	= new Button(shell, SWT.NONE);
+		appointmentCustomer 	= new Button(shell, SWT.NONE);
+		editCustomer		 	= new Button(shell, SWT.NONE);
+		ip 						= new Text(shell, SWT.BORDER);
+	}
+
+	@Override
+	public void init() {
 		initShell();
 		initTerminal();
 		initButtons();
 	}
 
 	private void initShell() {
-		shell = new Shell();
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setSize(570, 418);
 		shell.setText("Hauptfenster");
@@ -42,7 +72,6 @@ public class Hauptfenster implements View {
 	}
 
 	private void initTerminal() {
-		terminal = new Label(shell, SWT.NONE);
 		terminal.setAlignment(SWT.CENTER);
 		terminal.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		terminal.setFont(SWTResourceManager.getFont("Eras Demi ITC", 22, SWT.NORMAL));
@@ -52,13 +81,11 @@ public class Hauptfenster implements View {
 	}
 
 	private void initButtons() {
-		createAppointment = new Button(shell, SWT.NONE);
 		createAppointment.setForeground(SWTResourceManager.getColor(64, 0, 64));
 		createAppointment.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
 		createAppointment.setBounds(143, 143, 122, 37);
 		createAppointment.setText("Termin erstellen");
 
-		deleteAppointment = new Button(shell, SWT.NONE);
 		/*
 		deleteAppointment.addMouseListener(new MouseAdapter() {
 			@Override
@@ -73,19 +100,16 @@ public class Hauptfenster implements View {
 		deleteAppointment.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
 		deleteAppointment.setBounds(269, 143, 122, 37);
 
-		appointmentEmployee = new Button(shell, SWT.NONE);
 		appointmentEmployee.setText("Terminliste von Mitarbeiter ausgeben");
 		appointmentEmployee.setForeground(SWTResourceManager.getColor(64, 0, 64));
 		appointmentEmployee.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
 		appointmentEmployee.setBounds(143, 186, 248, 37);
 
-		appointmentCustomer = new Button(shell, SWT.NONE);
 		appointmentCustomer.setText("Terminliste von Kunden ausgeben");
 		appointmentCustomer.setForeground(SWTResourceManager.getColor(64, 0, 64));
 		appointmentCustomer.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
 		appointmentCustomer.setBounds(143, 229, 248, 37);
 
-		editCustomer = new Button(shell, SWT.NONE);
 		/*
 		editCustomer.addMouseListener(new MouseAdapter() {
 			@Override
@@ -99,6 +123,13 @@ public class Hauptfenster implements View {
 		editCustomer.setForeground(SWTResourceManager.getColor(64, 0, 64));
 		editCustomer.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
 		editCustomer.setBounds(143, 272, 248, 37);
+
+		setIp.setText("Set IP");
+		setIp.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		setIp.setFont(SWTResourceManager.getFont("Arial", 8, SWT.BOLD));
+		setIp.setBounds(269, 115, 123, 25);
+
+		ip.setBounds(143, 115, 123, 25);
 	}
 
 	public Shell getShell() {
@@ -129,6 +160,10 @@ public class Hauptfenster implements View {
 		return editCustomer;
 	}
 
+	public Button getSetIp() { return setIp; }
+
+	public Text getIp() { return ip; }
+
 	public void dispose() {
 		terminal.dispose();
 		createAppointment.dispose();
@@ -136,5 +171,14 @@ public class Hauptfenster implements View {
 		appointmentCustomer.dispose();
 		appointmentEmployee.dispose();
 		editCustomer.dispose();
+		setIp.dispose();
+		ip.dispose();
 	}
+
+	/*
+	@Override
+	public void close() {
+		shell.close();
+	}
+	 */
 }

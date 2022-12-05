@@ -2,6 +2,8 @@ package controller.events;
 
 import controller.GuiController;
 import controller.QueryController;
+import model.sql.CRUD;
+import model.sql.SQLStatments;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Shell;
@@ -12,6 +14,7 @@ import view.commons.Meldungsfenster;
 import view.delete.InputAppointmentID;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GuiJourney {
 
@@ -20,23 +23,15 @@ public class GuiJourney {
 
     private GuiController guiController;
     private QueryController queryController;
-    private View current;
-    private Shell shell;
     private DeleteAppointment deleteAppointment;
     private EditCustomer editCustomer;
-    private GuiController.GUI gui;
-    /*
-    private MouseAdapter deleteAppointment;
-    private MouseAdapter editCustomer;
-     */
+    private ArrayList<Object> param;
 
 
-    public GuiJourney(GuiController guiController, Shell shell, View current, GuiController.GUI gui) {
+    public GuiJourney(GuiController guiController, QueryController queryController) {
         this.guiController = guiController;
-        this.shell = shell;
-        this.current = current;
-        this.gui = gui;
-        queryController = new QueryController();
+        this.queryController = queryController;
+        param = new ArrayList<>();
         initAppointment();
         initCustomer();
     }
@@ -47,9 +42,9 @@ public class GuiJourney {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
-                        current.dispose();
-                        guiController.setCurrent(current = gui.inputAppointmentID());
-                        ((InputAppointmentID) current).init();
+                        guiController.current.dispose();
+                        guiController.setCurrent(guiController.current = guiController.inputAppointmentID);
+                        guiController.inputAppointmentID.init();
                         guiController.open();
                     }
                 },
@@ -57,15 +52,13 @@ public class GuiJourney {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
-                        System.out.println("confirmed");
-                        Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich l\u00F6schen");
-                        if (bf.getBestaetigt()) {
-                            Text text = ((InputAppointmentID) current).getText();
-                            new Meldungsfenster("Termin vernichtet", "Der Termin wurde gel\u00F6scht");
-                            //guiController.reset();
-                        } else {
-                            guiController.dispose();
-                            guiController.reset();
+                        Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich absagen");
+                        if(bf.getBestaetigt()) {
+                            Text text = ((InputAppointmentID) guiController.current).getText();
+                            param.add(Integer.parseInt(text.getText()));
+                            System.out.println(Integer.parseInt(text.getText()));
+                            queryController.query(SQLStatments.DeleteAppointment, param, CRUD.SQL.DELETE);
+                            new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht");
                         }
                     }
                 },
@@ -73,6 +66,7 @@ public class GuiJourney {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
+                        guiController.reset();
                     }
                 }
         );

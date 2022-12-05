@@ -28,6 +28,19 @@ public class InputAppointmentID implements View {
 		back = new Button(shell, SWT.NONE);
 	}
 
+	public void reassign() {
+		appointmentIDInput = new Label(shell, SWT.NONE);
+		appointmentID = new Label(shell, SWT.NONE);
+		confirm = new Button(shell, SWT.NONE);
+		back = new Button(shell, SWT.NONE);
+	}
+
+	public void init() {
+		initShell();
+		initLabels();
+		initButtons();
+	}
+
 	private void initShell() {
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setText("TerminID eingeben");
@@ -97,12 +110,6 @@ public class InputAppointmentID implements View {
 		back.setBounds(75, 179, 75, 25);
 	}
 
-	public void init() {
-		initShell();
-		initLabels();
-		initButtons();
-	}
-
 	public Label getAppointmentIDInput() {
 		return appointmentIDInput;
 	}
@@ -125,6 +132,11 @@ public class InputAppointmentID implements View {
 
 	@Override
 	public void dispose() {
-
+		appointmentIDInput.dispose();
+		appointmentID.dispose();
+		confirm.dispose();
+		back.dispose();
+		text.dispose();
+		reassign();
 	}
 }

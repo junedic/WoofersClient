@@ -1,6 +1,8 @@
 package controller;
 
 import controller.events.GuiJourney;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -8,9 +10,14 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import view.Hauptfenster;
 import view.View;
+import view.commons.Bestaetigungsfenster;
+import view.commons.Meldungsfenster;
 import view.delete.InputAppointmentID;
 
-import java.awt.event.MouseAdapter;
+import java.lang.reflect.Field;
+import java.lang.reflect.RecordComponent;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class GuiController {
 
@@ -18,11 +25,12 @@ public class GuiController {
 
     private Display display;
     private Monitor primary;
-    private View current;
+    public View current;
     private Hauptfenster mainWin;
-    private InputAppointmentID inputAppointmentID;
+    public InputAppointmentID inputAppointmentID;
     private Shell shell;
-    private GUI gui;
+    public GUI gui;
+    private GuiJourney journey;
 
     public GuiController() {
         mainWin = new Hauptfenster();
@@ -58,10 +66,20 @@ public class GuiController {
     }
 
     public void initialize() {
-        GuiJourney journey = new GuiJourney(this, shell, current, gui);
-        mainWin.getDeleteAppointment().addMouseListener(journey.getDeleteAppointment().deleteAppointment());
-        inputAppointmentID.getConfirm().addMouseListener(journey.getDeleteAppointment().confirm());
-        inputAppointmentID.getBack().addMouseListener(journey.getDeleteAppointment().back());
+        final String[] ip = new String[1];
+        final GuiController controller = this;
+        mainWin.getSetIp().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent mouseEvent) {
+                super.mouseDown(mouseEvent);
+                ip[0] = mainWin.getIp().getText();
+                Meldungsfenster m = new Meldungsfenster("IP Adresse", "Adresse gesetzt");
+                journey = new GuiJourney(controller, new QueryController(ip[0]));
+                mainWin.getDeleteAppointment().addMouseListener(journey.getDeleteAppointment().deleteAppointment());
+                inputAppointmentID.getConfirm().addMouseListener(journey.getDeleteAppointment().confirm());
+                inputAppointmentID.getBack().addMouseListener(journey.getDeleteAppointment().back());
+            }
+        });
         open();
     }
 
@@ -74,11 +92,11 @@ public class GuiController {
     }
 
     public void reset() {
-        current = (mainWin = new Hauptfenster());
-        shell = mainWin.getShell();
-    }
-
-    public void dispose() {
         current.dispose();
+        current = mainWin;
+        mainWin.reassign();
+        mainWin.init();
+        shell = mainWin.getShell();
+        initialize();
     }
 }
