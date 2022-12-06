@@ -3,6 +3,7 @@ package controller;
 import controller.sql.QueryExecutor;
 import controller.sql.ResultHandler;
 import model.sql.CRUD;
+import model.viewmodel.Journey;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,11 +15,11 @@ public class QueryController {
     private QueryExecutor executor;
 
     public QueryController(String ip) {
-        handler = new ResultHandler();
+        handler = new ResultHandler(this);
         executor = new QueryExecutor(handler, ip);
     }
 
-    public void query(String sql, ArrayList<Object> param, CRUD.SQL type) {
+    public void query(String sql, ArrayList<Object> param, Journey.JourneyResultType type) {
         try {
             executor.executeSQL(sql, param, type);
         } catch (IOException e) {
@@ -26,6 +27,10 @@ public class QueryController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public QueryExecutor getExecutor() {
+        return executor;
     }
 
 }

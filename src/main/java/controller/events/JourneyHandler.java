@@ -2,27 +2,24 @@ package controller.events;
 
 import controller.GuiController;
 import controller.QueryController;
+import model.viewmodel.Journey.*;
 import model.sql.CRUD;
 import model.sql.SQLStatments;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import view.View;
 import view.commons.Bestaetigungsfenster;
 import view.commons.Meldungsfenster;
 import view.delete.InputAppointmentID;
+import view.update.InputCustomerID;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Logik der GUI, i.e. Verbindung zw. Fenstern und Button Listeners
  */
-public class GuiJourney {
-
-    public record DeleteAppointment(MouseAdapter deleteAppointment, MouseAdapter confirm, MouseAdapter back) {}
-    public record EditCustomer(MouseAdapter inputCustomerId, MouseAdapter updateCustomer) {}
+public class JourneyHandler {
 
     private GuiController guiController;
     private QueryController queryController;
@@ -31,7 +28,7 @@ public class GuiJourney {
     private ArrayList<Object> param;
 
 
-    public GuiJourney(GuiController guiController, QueryController queryController) {
+    public JourneyHandler(GuiController guiController, QueryController queryController) {
         this.guiController = guiController;
         this.queryController = queryController;
         param = new ArrayList<>();
@@ -65,7 +62,7 @@ public class GuiJourney {
                             Text text = ((InputAppointmentID) guiController.getCurrent()).getText();
                             param.add(Integer.parseInt(text.getText()));
                             System.out.println(Integer.parseInt(text.getText()));
-                            queryController.query(SQLStatments.DeleteAppointment, param, CRUD.SQL.DELETE);
+                            queryController.query(SQLStatments.DeleteAppointment, param, JourneyResultType.DeleteAppointment);
                             new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht");
                         }
                     }
@@ -86,6 +83,7 @@ public class GuiJourney {
             public void mouseDown(MouseEvent e) {
                 super.mouseDown(e);
                 openWindow(guiController.getGui().inputCustomerId());
+                Text params = ((InputCustomerID) guiController.getCurrent()).getText();
             }
         },
         new MouseAdapter() {

@@ -1,25 +1,18 @@
 package controller;
 
-import controller.events.GuiJourney;
+import controller.events.JourneyHandler;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import view.Hauptfenster;
 import view.View;
-import view.commons.Bestaetigungsfenster;
 import view.commons.Meldungsfenster;
 import view.delete.InputAppointmentID;
 import view.update.InputCustomerID;
 import view.update.UpdateCustomer;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.RecordComponent;
-import java.util.Iterator;
-import java.util.function.Consumer;
 
 /**
  * zentraler State der GUI
@@ -35,7 +28,7 @@ public class GuiController {
     private Hauptfenster mainWin;
     private Shell shell;
     private GUI gui;
-    private GuiJourney journey;
+    private JourneyHandler journey;
 
     public GuiController() {
         mainWin = new Hauptfenster();
@@ -78,7 +71,7 @@ public class GuiController {
                 super.mouseDown(mouseEvent);
                 ip[0] = mainWin.getIp().getText();
                 Meldungsfenster m = new Meldungsfenster("IP Adresse", "Adresse gesetzt");
-                journey = new GuiJourney(controller, new QueryController(ip[0]));
+                journey = new JourneyHandler(controller, new QueryController(ip[0]));
                 mainWin.getDeleteAppointment().addMouseListener(journey.getDeleteAppointment().deleteAppointment());
                 gui.inputAppointmentID().getConfirm().addMouseListener(journey.getDeleteAppointment().confirm());
                 gui.inputAppointmentID().getBack().addMouseListener(journey.getDeleteAppointment().back());

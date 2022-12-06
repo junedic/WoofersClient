@@ -16,7 +16,7 @@ public class CRUD {
      * @param mobile  Params Telefonnummer, Nr
      * @param email   Params Email, Nr
      */
-    public record Update(String surname, String mobile, String email) {}
+    public record Update(String customer) {}
     /**
      * @param appointment Params: ID
      * @param booking     Params: Termin.ID
@@ -28,7 +28,7 @@ public class CRUD {
      */
     public static final Create  CSQL        = new Create(CreateAppointment, CreateBooking);
     public static final Read    RSQL        = new Read();
-    public static final Update  USQL        = new Update(UpdateSurname, UpdateMobile, UpdateEmail);
+    public static final Update  USQL        = new Update(UpdateCustomer);
     public static final Delete  DSQL        = new Delete(DeleteAppointment, DeleteBooking);
 
     /**
@@ -47,9 +47,12 @@ public class CRUD {
         }
     }
 
-    //evtl. irrelevant
     public static TableMapping tableMapping = new TableMapping();
     private static final HashMap<String, TableMapping.Table> sqlToTable = new HashMap();
+    static {
+        sqlToTable.put(DSQL.appointment, tableMapping.termin);
+    }
+
     protected static void mapStatement(String sql, TableMapping.Table table) {
         sqlToTable.put(sql, table);
     }

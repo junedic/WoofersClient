@@ -1,4 +1,4 @@
-package model;
+package model.db;
 
 public class Auth {
 

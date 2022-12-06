@@ -14,12 +14,11 @@ public class SQLStatments {
     public static final String CreateBooking       = "INSERT INTO gebuchteDienstleistung (Termin.ID, Dienstleistung.ID) VALUES (?, ?)";
     //
     //READ
+    public static final String readAll             = "SELECT * FROM %s";
     public static final String ReadCustomer        = "SELECT * FROM Kunde WHERE Nr = ?";
     //
     //UPDATE
-    public static final String UpdateSurname       = "UPDATE Kunde SET Nachname = ? WHERE Nr = ?;";
-    public static final String UpdateMobile        = "UPDATE Kunde SET Telefonnummer = ? WHERE Nr = ?";
-    public static final String UpdateEmail         = "UPDATE Kunde SET E-Mail = ? WHERE Nr = ?";
+    public static final String UpdateCustomer       = "UPDATE Kunde SET Nachname = ?, Telefonnummer = ?, Email = ? WHERE Nr = ?;";
     //
     //DELETE
     public static final String DeleteAppointment   = "DELETE FROM Termin WHERE ID = ?";

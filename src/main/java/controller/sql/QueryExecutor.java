@@ -1,8 +1,9 @@
 package controller.sql;
 
 import model.sql.CRUD;
-import model.DB;
+import model.db.DB;
 import model.sql.SQLStatments;
+import model.viewmodel.Journey;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -83,21 +82,33 @@ public class QueryExecutor {
      * @throws IOException
      * @throws SQLException
      */
-    public void executeSQL(String sql, ArrayList<Object> param, CRUD.SQL type) throws IOException, SQLException {
+    public void executeSQL(String sql, ArrayList<Object> param, Journey.JourneyResultType type) throws IOException, SQLException {
         try(DB db = new DB(ip)) {
             Connection con = db.getCon();
             ps = con.prepareStatement(sql);
 
             AtomicInteger paramCounter = new AtomicInteger(1);
-            param.forEach((o) -> {  try { handleSetParam(sql, ps, paramCounter.get(), o, type); }
+            param.forEach((o) -> {  try { handleSetParam(sql, ps, paramCounter.get(), o, type.getCrudType()); }
                                     catch (SQLException e) { throw new RuntimeException(e); }
                                     paramCounter.getAndIncrement(); });
 
-            if(type.equals(CRUD.SQL.READ)) {
+            if(type.getCrudType().equals(CRUD.SQL.READ)) {
                 ResultSet rs = ps.executeQuery(); //wird an ResultHandler uebergeben
+                handler.handleResult(rs, type);
             } else {
                 ps.execute();
+                handler.handleResult(type);
             }
+        }
+    }
+
+    public ResultSet executeSQL(String sql) throws IOException, SQLException {
+        try(DB db = new DB(ip)) {
+            Connection con = db.getCon();
+            ps = con.prepareStatement(sql);
+            if(ps.getParameterMetaData().getParameterCount() == 0)
+                return ps.executeQuery();
+            return null;
         }
     }
 }

@@ -1,6 +1,8 @@
-package model;
+package model.db;
 
 import com.mysql.cj.jdbc.Driver;
+import model.db.Auth;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.sql.DriverManager;
