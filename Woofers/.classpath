@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-12">
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-12">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.osgi_3.17.0.v20210823-1805.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.osgi_3.17.0.v20210823-1805.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.core.commands_3.10.100.v20210722-1426.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.core.commands_3.10.100.v20210722-1426.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.equinox.common_3.15.0.v20210518-0604.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.equinox.common_3.15.0.v20210518-0604.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.equinox.registry_3.11.0.v20210723-1953.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.equinox.registry_3.11.0.v20210723-1953.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.core.runtime_3.23.0.v20210730-2035.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.core.runtime_3.23.0.v20210730-2035.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.text_3.12.0.v20210512-1644.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.text_3.12.0.v20210512-1644.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.117.0.v20210906-0842.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.117.0.v20210906-0842.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.jface_3.23.0.v20210723-1324.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.jface_3.23.0.v20210723-1324.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.jface.text_3.18.100.v20210820-1651.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.jface.text_3.18.100.v20210820-1651.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.ui.workbench_3.123.0.v20210817-0704.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.ui.workbench_3.123.0.v20210817-0704.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.ui.forms_3.11.200.v20210622-0925.jar" sourcepath="C:/Users/Erlel.LULZIMS-TABLET-/.p2/pool/plugins/org.eclipse.ui.forms_3.11.200.v20210622-0925.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.css.swt_0.14.400.v20211026-1534.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.css.swt_0.14.600.v20220621-1327.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.css.swt.theme_0.13.0.v20201026-1147.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.css.swt.theme_0.13.100.v20220310-1056.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.swt.win32_1.1.0.v20201119-1132.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.workbench.addons.swt_1.4.400.v20211102-0453.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.workbench.renderers.swt_0.15.400.v20220308-0630.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.workbench.renderers.swt_0.15.600.v20220715-1400.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.workbench.swt_0.16.400.v20220222-1128.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.e4.ui.workbench.swt_0.16.600.v20220607-1204.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt_3.119.0.v20220223-1102.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt_3.121.0.v20220829-1402.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt.chromium_68.0.0.202001161613.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt.chromium.64b_68.0.0.202001161613.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt.chromium.win32.win32.x86_64_68.0.0.202001161613.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt.win32.win32.x86_64_3.119.0.v20220223-1102.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt.win32.win32.x86_64_3.121.0.v20220829-1402.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.rcp.SWT_AWT_1.9.1.202210231159.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.rcp.SWT_AWT_1.9.1.202211171015.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.swt_1.9.1.202210231159.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.swt_1.9.1.202211171015.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.swt.widgets.baseline_1.9.1.202210231159.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.wb.swt.widgets.baseline_1.9.1.202211171015.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

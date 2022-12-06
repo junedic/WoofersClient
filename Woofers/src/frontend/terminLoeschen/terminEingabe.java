@@ -1,4 +1,5 @@
-package frontend.terminLöschen;
+package frontend.terminLoeschen;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -60,11 +61,11 @@ public class terminEingabe {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(64, 0, 128));
 		frame.getContentPane().setLayout(null);
-		
+
 		TextField textField = new TextField();
 		textField.setBounds(344, 166, 106, 21);
 		frame.getContentPane().add(textField);
-		
+
 		JLabel lblNewLabel = new JLabel("TerminID");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 23));
@@ -72,20 +73,20 @@ public class terminEingabe {
 		lblNewLabel.setBackground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(160, 147, 120, 67);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Bitte geben Sie ID des Termins ein");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 28));
 		lblNewLabel_1.setBounds(117, 43, 470, 82);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton = new JButton("Zur\u00FCck");
 		btnNewButton.setForeground(new Color(0, 0, 255));
 		btnNewButton.setBackground(new Color(255, 128, 64));
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 19));
 		btnNewButton.setBounds(136, 247, 120, 52);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JButton btnOk = new JButton("OK");
 		btnOk.setForeground(new Color(0, 0, 255));
 		btnOk.setBackground(new Color(255, 128, 64));
@@ -101,11 +102,13 @@ public class terminEingabe {
 					showMenu(e);
 				}
 			}
+
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
+
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
