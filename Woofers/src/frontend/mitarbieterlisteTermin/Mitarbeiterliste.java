@@ -17,7 +17,7 @@ public class Mitarbeiterliste {
 	protected Shell shlMehrereGleichnamigeKunden;
 
 	/**
-	 * Launch the application.
+	 * Launch the application..
 	 * 
 	 * @param args
 	 */

@@ -1,33 +1,17 @@
 package frontend.kundenBearbeiten;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JSpinner;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JPopupMenu;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JDesktopPane;
-import javax.swing.JToolBar;
-import javax.swing.JProgressBar;
-import java.awt.TextArea;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.TextField;
-import java.awt.Insets;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class kundenprofil {
 
@@ -37,7 +21,7 @@ public class kundenprofil {
 	private JTextField textField_2;
 
 	/**
-	 * Launch the application.
+	 * Launch the application .
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
