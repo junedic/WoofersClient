@@ -31,7 +31,7 @@ public class terminErstellen {
 	 * b_* 	-> sind buttons
 	 * dd_* -> sind drop-downs
 	 * 
-	 * @version 1.1
+	 * @version 1.2
 	 */
 	
 	protected Shell shlTerminbuchung;
@@ -69,16 +69,16 @@ public class terminErstellen {
 	 */
 	protected void createContents() {
 		shlTerminbuchung = new Shell();
-		shlTerminbuchung.setSize(483, 624);
+		shlTerminbuchung.setSize(483, 655);
 		shlTerminbuchung.setText("Terminbuchung");
 		shlTerminbuchung.setLayout(null);
 		
 		DateTime date_picker = new DateTime(shlTerminbuchung, SWT.BORDER | SWT.CALENDAR);
-		date_picker.setLocation(22, 264);
+		date_picker.setLocation(22, 309);
 		date_picker.setSize(202, 211);
 		
 		Composite comp_zeitslot_buttons = new Composite(shlTerminbuchung, SWT.NONE);
-		comp_zeitslot_buttons.setBounds(265, 264, 161, 211);
+		comp_zeitslot_buttons.setBounds(265, 309, 161, 211);
 		comp_zeitslot_buttons.setLayout(null);
 		
 		Label l_verfuegbare_zeitslots = new Label(comp_zeitslot_buttons, SWT.NONE);
@@ -86,6 +86,11 @@ public class terminErstellen {
 		l_verfuegbare_zeitslots.setText("Verfuegbaren Zeitslots");
 		
 		Button b_zeitslot1 = new Button(comp_zeitslot_buttons, SWT.NONE);
+		b_zeitslot1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		// Eventhandler wenn Button 'Zeitslot 1' gewählt wurde
 		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button ausgegraut / selektierbar sein
 		b_zeitslot1.addMouseListener(new MouseAdapter() {
@@ -94,9 +99,10 @@ public class terminErstellen {
 			}
 		});
 		b_zeitslot1.setBounds(35, 26, 90, 30);
-		b_zeitslot1.setText("New Button");
+		b_zeitslot1.setText("08:00 - 09:30");
 		
 		Button b_zeitslot2 = new Button(comp_zeitslot_buttons, SWT.NONE);
+		b_zeitslot2.setText("09:45 - 11:15");
 		// Eventhandler wenn Button 'Zeitslot 2' gewählt wurde
 		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button ausgegraut / selektierbar sein
 		b_zeitslot2.addMouseListener(new MouseAdapter() {
@@ -105,7 +111,6 @@ public class terminErstellen {
 			}
 		});
 		b_zeitslot2.setBounds(35, 62, 90, 30);
-		b_zeitslot2.setText("New Button");
 		
 		Button b_zeitslot3 = new Button(comp_zeitslot_buttons, SWT.NONE);
 		// Eventhandler wenn Button 'Zeitslot 3' gewählt wurde
@@ -116,7 +121,7 @@ public class terminErstellen {
 			}
 		});
 		b_zeitslot3.setBounds(35, 98, 90, 30);
-		b_zeitslot3.setText("New Button");
+		b_zeitslot3.setText("12:00 - 13:30");
 		
 		Button b_zeitslot4 = new Button(comp_zeitslot_buttons, SWT.NONE);
 		// Eventhandler wenn Button 'Zeitslot 4' gewählt wurde
@@ -127,7 +132,7 @@ public class terminErstellen {
 			}
 		});
 		b_zeitslot4.setBounds(35, 134, 90, 30);
-		b_zeitslot4.setText("New Button");
+		b_zeitslot4.setText("13:40 - 15:10");
 		
 		Button b_zeitslot5 = new Button(comp_zeitslot_buttons, SWT.NONE);
 		// Eventhandler wenn Button 'Zeitslot 5' gewählt wurde
@@ -138,7 +143,7 @@ public class terminErstellen {
 			}
 		});
 		b_zeitslot5.setBounds(35, 170, 90, 30);
-		b_zeitslot5.setText("New Button");
+		b_zeitslot5.setText("15:20 - 16:50");
 		
 		Composite comp_dienstleistungs_buttons = new Composite(shlTerminbuchung, SWT.NONE);
 		comp_dienstleistungs_buttons.setBounds(332, 61, 16, 120);
@@ -190,10 +195,13 @@ public class terminErstellen {
 		});
 		
 		Combo dd_hundauswahl = new Combo(shlTerminbuchung, SWT.NONE);
-		dd_hundauswahl.setBounds(291, 187, 97, 28);
+		dd_hundauswahl.setBounds(278, 187, 132, 28);
+		
+		Combo dd_mitarbeiterauswahl = new Combo(shlTerminbuchung, SWT.NONE);
+		dd_mitarbeiterauswahl.setBounds(278, 221, 132, 28);
 		
 		Composite comp_dienstleistungs_labels = new Composite(shlTerminbuchung, SWT.NONE);
-		comp_dienstleistungs_labels.setBounds(22, 32, 185, 183);
+		comp_dienstleistungs_labels.setBounds(22, 32, 202, 252);
 		
 		Label l_buchbare_dienstleistungen = new Label(comp_dienstleistungs_labels, SWT.NONE);
 		l_buchbare_dienstleistungen.setBounds(0, 0, 176, 20);
@@ -223,12 +231,25 @@ public class terminErstellen {
 		l_waschen_baden.setBounds(0, 25, 114, 20);
 		l_waschen_baden.setText("Waschen / Baden");
 		
-		Button b_termin_buchen = new Button(shlTerminbuchung, SWT.NONE);
-		b_termin_buchen.setBounds(278, 520, 132, 30);
-		b_termin_buchen.setText("Termin Buchen");
+		Label l_mitarbeiterauswahl = new Label(comp_dienstleistungs_labels, SWT.NONE);
+		l_mitarbeiterauswahl.setBounds(0, 184, 192, 20);
+		l_mitarbeiterauswahl.setText("Waehlen Sie den Mitarbeiter");
+		
+		Label l_preis = new Label(comp_dienstleistungs_labels, SWT.NONE);
+		l_preis.setBounds(0, 226, 70, 20);
+		l_preis.setText("Preis :");
+		
+		Button b_bestelluebersicht = new Button(shlTerminbuchung, SWT.NONE);
+		b_bestelluebersicht.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		b_bestelluebersicht.setBounds(275, 556, 151, 30);
+		b_bestelluebersicht.setText("Zur Terminuebersicht");
 		
 		Button b_zurueck = new Button(shlTerminbuchung, SWT.NONE);
-		b_zurueck.setLocation(22, 519);
+		b_zurueck.setLocation(22, 556);
 		b_zurueck.setSize(62, 30);
 		b_zurueck.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -236,6 +257,10 @@ public class terminErstellen {
 			}
 		});
 		b_zurueck.setText("Zurueck");
+		
+		Label l_preis_var = new Label(shlTerminbuchung, SWT.NONE);
+		l_preis_var.setBounds(320, 266, 47, 20);
+		l_preis_var.setText("[Preis]");
 		
 		
 	}
