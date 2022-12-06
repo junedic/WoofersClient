@@ -150,4 +150,48 @@ public class UpdateCustomer implements View {
 		emailInput.setBounds(200, 258, 130, 21);
 	}
 
+	public Shell getShell() {
+		return shell;
+	}
+
+	public Label getCustomerId() {
+		return customerId;
+	}
+
+	public Label getSurnameId() {
+		return surnameId;
+	}
+
+	public Label getMobile() {
+		return mobile;
+	}
+
+	public Label getEmail() {
+		return email;
+	}
+
+	public Label getCustomerIdInput() {
+		return customerIdInput;
+	}
+
+	public Label getProfile() {
+		return profile;
+	}
+
+	public Text getName() {
+		return name;
+	}
+
+	public Text getMobileInput() {
+		return mobileInput;
+	}
+
+	public Text getEmailInput() {
+		return emailInput;
+	}
+
+	public Button getSave() {
+		return save;
+	}
+
 }

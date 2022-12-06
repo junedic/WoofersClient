@@ -13,6 +13,9 @@ public class SQLStatments {
     public static final String CreateAppointment   = "INSERT INTO Termin (ID, Mitarbeiter.Nr, Hund.ID, Kunde.Nr, Datum, Uhrzeit) VALUES (?,?,?,?,?,?)";
     public static final String CreateBooking       = "INSERT INTO gebuchteDienstleistung (Termin.ID, Dienstleistung.ID) VALUES (?, ?)";
     //
+    //READ
+    public static final String ReadCustomer        = "SELECT * FROM Kunde WHERE Nr = ?";
+    //
     //UPDATE
     public static final String UpdateSurname       = "UPDATE Kunde SET Nachname = ? WHERE Nr = ?;";
     public static final String UpdateMobile        = "UPDATE Kunde SET Telefonnummer = ? WHERE Nr = ?";
@@ -32,12 +35,6 @@ public class SQLStatments {
         temp.put(DeleteAppointment, tempInternal);
         DeleteParamMap = temp;
     }
-
-    /*Map.of(
-            DeleteAppointment, Map.of(0, Integer.class)
-    );
-     */
-    //
 
     public static void initMappings() {
         CRUD.mapStatement(CreateAppointment, CRUD.tableMapping.termin);
