@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class GuiJourney {
 
     public record DeleteAppointment(MouseAdapter deleteAppointment, MouseAdapter confirm, MouseAdapter back) {}
-    public record EditCustomer(MouseAdapter adapter) {}
+    public record EditCustomer(MouseAdapter inputCustomerId, MouseAdapter updateCustomer) {}
 
     private GuiController guiController;
     private QueryController queryController;
@@ -39,16 +39,21 @@ public class GuiJourney {
         initCustomer();
     }
 
+    private void openWindow(View view) {
+        guiController.getCurrent().dispose();
+        guiController.setCurrent(view);
+        view.init();
+        guiController.open();
+    }
+
+
     private void initAppointment() {
         deleteAppointment = new DeleteAppointment(
                 new MouseAdapter() {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
-                        guiController.current.dispose();
-                        guiController.setCurrent(guiController.current = guiController.inputAppointmentID);
-                        guiController.inputAppointmentID.init();
-                        guiController.open();
+                        openWindow(guiController.getGui().inputAppointmentID());
                     }
                 },
                 new MouseAdapter() {
@@ -57,7 +62,7 @@ public class GuiJourney {
                         super.mouseDown(e);
                         Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich absagen");
                         if(bf.getBestaetigt()) {
-                            Text text = ((InputAppointmentID) guiController.current).getText();
+                            Text text = ((InputAppointmentID) guiController.getCurrent()).getText();
                             param.add(Integer.parseInt(text.getText()));
                             System.out.println(Integer.parseInt(text.getText()));
                             queryController.query(SQLStatments.DeleteAppointment, param, CRUD.SQL.DELETE);
@@ -79,6 +84,15 @@ public class GuiJourney {
         editCustomer = new EditCustomer(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent e) {
+                super.mouseDown(e);
+                openWindow(guiController.getGui().inputCustomerId());
+            }
+        },
+        new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent e) {
+                super.mouseDown(e);
+                openWindow(guiController.getGui().updateCustomer());
             }
         });
     }

@@ -22,23 +22,32 @@ public class InputAppointmentID implements View {
 
 	public InputAppointmentID(Shell shell) {
 		this.shell = shell;
-		appointmentIDInput = new Label(shell, SWT.NONE);
-		appointmentID = new Label(shell, SWT.NONE);
-		confirm = new Button(shell, SWT.NONE);
-		back = new Button(shell, SWT.NONE);
+		assignElements();
 	}
 
-	public void reassign() {
-		appointmentIDInput = new Label(shell, SWT.NONE);
-		appointmentID = new Label(shell, SWT.NONE);
-		confirm = new Button(shell, SWT.NONE);
-		back = new Button(shell, SWT.NONE);
-	}
-
+	@Override
 	public void init() {
 		initShell();
 		initLabels();
 		initButtons();
+	}
+
+	@Override
+	public void assignElements() {
+		appointmentIDInput = new Label(shell, SWT.NONE);
+		appointmentID = new Label(shell, SWT.NONE);
+		confirm = new Button(shell, SWT.NONE);
+		back = new Button(shell, SWT.NONE);
+	}
+
+	@Override
+	public void dispose() {
+		appointmentIDInput.dispose();
+		appointmentID.dispose();
+		confirm.dispose();
+		back.dispose();
+		text.dispose();
+		assignElements();
 	}
 
 	private void initShell() {
@@ -130,13 +139,4 @@ public class InputAppointmentID implements View {
 		return text;
 	}
 
-	@Override
-	public void dispose() {
-		appointmentIDInput.dispose();
-		appointmentID.dispose();
-		confirm.dispose();
-		back.dispose();
-		text.dispose();
-		reassign();
-	}
 }

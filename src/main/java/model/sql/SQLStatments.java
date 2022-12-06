@@ -1,8 +1,7 @@
 package model.sql;
 
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
-
 import static javax.swing.UIManager.put;
 
 /**
@@ -25,9 +24,19 @@ public class SQLStatments {
     /**
      * Position und Datentyp der SQL Parameter vgl. ?
      */
-    public static final Map<String, Map<Integer, Class>> DeleteParamMap = Map.of(
+    public static final HashMap<String, HashMap<Integer, Class>> DeleteParamMap;
+    static {
+        HashMap<String, HashMap<Integer, Class>> temp = new HashMap<>();
+        HashMap<Integer, Class> tempInternal = new HashMap<>();
+        tempInternal.put(0, Integer.class);
+        temp.put(DeleteAppointment, tempInternal);
+        DeleteParamMap = temp;
+    }
+
+    /*Map.of(
             DeleteAppointment, Map.of(0, Integer.class)
     );
+     */
     //
 
     public static void initMappings() {

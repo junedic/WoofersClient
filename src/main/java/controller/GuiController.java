@@ -13,6 +13,8 @@ import view.View;
 import view.commons.Bestaetigungsfenster;
 import view.commons.Meldungsfenster;
 import view.delete.InputAppointmentID;
+import view.update.InputCustomerID;
+import view.update.UpdateCustomer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.RecordComponent;
@@ -24,23 +26,22 @@ import java.util.function.Consumer;
  */
 public class GuiController {
 
-    public record GUI(Hauptfenster mainWin, InputAppointmentID inputAppointmentID) {}
+    public record GUI(InputAppointmentID inputAppointmentID, InputCustomerID inputCustomerId,
+                      UpdateCustomer updateCustomer) {}
 
     private Display display;
     private Monitor primary;
-    public View current;
+    private View current;
     private Hauptfenster mainWin;
-    public InputAppointmentID inputAppointmentID;
     private Shell shell;
-    public GUI gui;
+    private GUI gui;
     private GuiJourney journey;
 
     public GuiController() {
         mainWin = new Hauptfenster();
         current = mainWin;
         shell = mainWin.getShell();
-        inputAppointmentID = new InputAppointmentID(shell);
-        gui = new GUI(mainWin, inputAppointmentID);
+        gui = new GUI(new InputAppointmentID(shell), new InputCustomerID(shell), new UpdateCustomer(shell));
         initView();
     }
 
@@ -59,7 +60,6 @@ public class GuiController {
     }
 
     public void open() {
-        shell.open();
         shell.layout();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {
@@ -71,6 +71,7 @@ public class GuiController {
     public void initialize() {
         final String[] ip = new String[1];
         final GuiController controller = this;
+        shell.open();
         mainWin.getSetIp().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent mouseEvent) {
@@ -79,8 +80,11 @@ public class GuiController {
                 Meldungsfenster m = new Meldungsfenster("IP Adresse", "Adresse gesetzt");
                 journey = new GuiJourney(controller, new QueryController(ip[0]));
                 mainWin.getDeleteAppointment().addMouseListener(journey.getDeleteAppointment().deleteAppointment());
-                inputAppointmentID.getConfirm().addMouseListener(journey.getDeleteAppointment().confirm());
-                inputAppointmentID.getBack().addMouseListener(journey.getDeleteAppointment().back());
+                gui.inputAppointmentID().getConfirm().addMouseListener(journey.getDeleteAppointment().confirm());
+                gui.inputAppointmentID().getBack().addMouseListener(journey.getDeleteAppointment().back());
+
+                mainWin.getEditCustomer().addMouseListener(journey.getEditCustomer().inputCustomerId());
+                gui.inputCustomerId.getConfirm().addMouseListener(journey.getEditCustomer().updateCustomer());
             }
         });
         open();
@@ -94,11 +98,15 @@ public class GuiController {
         this.current = current;
     }
 
+    public GUI getGui() {
+        return gui;
+    }
+
     //alle fenster in gleicher shell -> disposed elemente muessen neu initialisiert werden
     public void reset() {
         current.dispose();
         current = mainWin;
-        mainWin.reassign();
+        mainWin.assignElements();
         mainWin.init();
         shell = mainWin.getShell();
         initialize();

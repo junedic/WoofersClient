@@ -62,12 +62,15 @@ public class QueryExecutor {
      * @throws SQLException
      */
     private void handleSetParam(String sql, PreparedStatement ps, int counter, Object o, CRUD.SQL type) throws SQLException {
+        System.out.println(counter);
+        System.out.println(sql);
+        System.out.println(SQLStatments.DeleteParamMap.get(sql).get(counter-1));
         switch(type) {
             case CREATE: break;
             case READ: break;
             case UPDATE: break;
             case DELETE:
-                Class c = SQLStatments.DeleteParamMap.get(sql).get(counter);
+                Class c = SQLStatments.DeleteParamMap.get(sql).get(counter-1);
                 setParam(ps, c, o, counter);
                 break;
             //ps.setString(counter, (String) o);

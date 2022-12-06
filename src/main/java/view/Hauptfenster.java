@@ -1,15 +1,13 @@
 package view;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import java.io.Closeable;
+import java.io.IOException;
 
-public class Hauptfenster implements View {
+public class Hauptfenster implements View, Closeable {
 
 	private Shell 	shell;
 	private Label 	terminal;
@@ -36,14 +34,27 @@ public class Hauptfenster implements View {
 	}
 
 	@Override
-	public void reassign() {
+	public void assignElements() {
 		terminal 				= new Label(shell, SWT.NONE);
 		createAppointment 		= new Button(shell, SWT.NONE);
 		deleteAppointment 		= new Button(shell, SWT.NONE);
 		appointmentEmployee 	= new Button(shell, SWT.NONE);
 		appointmentCustomer 	= new Button(shell, SWT.NONE);
 		editCustomer		 	= new Button(shell, SWT.NONE);
+		setIp 					= new Button(shell, SWT.NONE);
 		ip 						= new Text(shell, SWT.BORDER);
+	}
+
+	@Override
+	public void dispose() {
+		terminal.dispose();
+		createAppointment.dispose();
+		deleteAppointment.dispose();
+		appointmentCustomer.dispose();
+		appointmentEmployee.dispose();
+		editCustomer.dispose();
+		setIp.dispose();
+		ip.dispose();
 	}
 
 	@Override
@@ -164,21 +175,9 @@ public class Hauptfenster implements View {
 
 	public Text getIp() { return ip; }
 
-	public void dispose() {
-		terminal.dispose();
-		createAppointment.dispose();
-		deleteAppointment.dispose();
-		appointmentCustomer.dispose();
-		appointmentEmployee.dispose();
-		editCustomer.dispose();
-		setIp.dispose();
-		ip.dispose();
-	}
-
-	/*
 	@Override
-	public void close() {
+	public void close() throws IOException {
 		shell.close();
 	}
-	 */
+
 }
