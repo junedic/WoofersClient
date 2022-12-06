@@ -16,6 +16,9 @@ import view.delete.InputAppointmentID;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Logik der GUI, i.e. Verbindung zw. Fenstern und Button Listeners
+ */
 public class GuiJourney {
 
     public record DeleteAppointment(MouseAdapter deleteAppointment, MouseAdapter confirm, MouseAdapter back) {}

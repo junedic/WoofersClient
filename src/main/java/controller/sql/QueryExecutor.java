@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * SQL ausfuehren
+ */
 public class QueryExecutor {
 
     private PreparedStatement ps;
@@ -25,6 +28,14 @@ public class QueryExecutor {
         this.ip = ip;
     }
 
+    /**
+     * korrekte Set-Methode auswaehlen
+     * @param ps
+     * @param c
+     * @param o der Parameter
+     * @param counter Parameterindex
+     * @throws SQLException
+     */
     private void setParam(PreparedStatement ps, Class c, Object o, int counter) throws SQLException {
         System.out.println(c.getName());
         switch(c.getName()) {
@@ -41,14 +52,23 @@ public class QueryExecutor {
         }
     }
 
+    /**
+     * CRUD Typus bestimmen, Parameter Typus auslesen und setzen
+     * @param sql
+     * @param ps
+     * @param counter
+     * @param o
+     * @param type
+     * @throws SQLException
+     */
     private void handleSetParam(String sql, PreparedStatement ps, int counter, Object o, CRUD.SQL type) throws SQLException {
         switch(type) {
             case CREATE: break;
             case READ: break;
             case UPDATE: break;
             case DELETE:
-                Map m = SQLStatments.DeleteParamMap.get(sql);
-                setParam(ps, Integer.class, o, counter);
+                Class c = SQLStatments.DeleteParamMap.get(sql).get(counter);
+                setParam(ps, c, o, counter);
                 break;
             //ps.setString(counter, (String) o);
         }
@@ -71,7 +91,7 @@ public class QueryExecutor {
                                     paramCounter.getAndIncrement(); });
 
             if(type.equals(CRUD.SQL.READ)) {
-                ResultSet rs = ps.executeQuery();
+                ResultSet rs = ps.executeQuery(); //wird an ResultHandler uebergeben
             } else {
                 ps.execute();
             }

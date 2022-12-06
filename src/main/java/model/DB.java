@@ -7,7 +7,9 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-
+/**
+ * DB Anbindung
+ */
 public class DB implements Closeable {
 
     private final Connection con;

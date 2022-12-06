@@ -23,11 +23,17 @@ public class CRUD {
      */
     public record Delete(String appointment, String booking) {}
 
+    /**
+     * Sammlung der SQL statements je Typus
+     */
     public static final Create  CSQL        = new Create(CreateAppointment, CreateBooking);
     public static final Read    RSQL        = new Read();
     public static final Update  USQL        = new Update(UpdateSurname, UpdateMobile, UpdateEmail);
     public static final Delete  DSQL        = new Delete(DeleteAppointment, DeleteBooking);
 
+    /**
+     * Bestimmung von Typus eines Statements
+     */
     public enum SQL {
         CREATE (CSQL), READ (RSQL), UPDATE (USQL), DELETE (DSQL);
 
@@ -41,6 +47,7 @@ public class CRUD {
         }
     }
 
+    //evtl. irrelevant
     public static TableMapping tableMapping = new TableMapping();
     private static final HashMap<String, TableMapping.Table> sqlToTable = new HashMap();
     protected static void mapStatement(String sql, TableMapping.Table table) {

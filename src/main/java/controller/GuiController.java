@@ -19,6 +19,9 @@ import java.lang.reflect.RecordComponent;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+/**
+ * zentraler State der GUI
+ */
 public class GuiController {
 
     public record GUI(Hauptfenster mainWin, InputAppointmentID inputAppointmentID) {}
@@ -91,6 +94,7 @@ public class GuiController {
         this.current = current;
     }
 
+    //alle fenster in gleicher shell -> disposed elemente muessen neu initialisiert werden
     public void reset() {
         current.dispose();
         current = mainWin;

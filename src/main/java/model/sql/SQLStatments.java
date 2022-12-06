@@ -5,6 +5,9 @@ import java.util.Map;
 
 import static javax.swing.UIManager.put;
 
+/**
+ * Rohe SQL Daten
+ */
 public class SQLStatments {
 
     //CREATE
@@ -19,6 +22,9 @@ public class SQLStatments {
     //DELETE
     public static final String DeleteAppointment   = "DELETE FROM Termin WHERE ID = ?";
     public static final String DeleteBooking       = "DELETE FROM gebuchteDienstleistung WHERE Termin_ID = ?";
+    /**
+     * Position und Datentyp der SQL Parameter vgl. ?
+     */
     public static final Map<String, Map<Integer, Class>> DeleteParamMap = Map.of(
             DeleteAppointment, Map.of(0, Integer.class)
     );
