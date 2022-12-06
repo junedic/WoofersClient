@@ -28,7 +28,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class hauptfenster {
+public class Hauptfenster {
 
 	private JFrame frmWoofersterminal;
 
@@ -39,7 +39,7 @@ public class hauptfenster {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					hauptfenster window = new hauptfenster();
+					Hauptfenster window = new Hauptfenster();
 					window.frmWoofersterminal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class hauptfenster {
 	/**
 	 * Create the application.
 	 */
-	public hauptfenster() {
+	public Hauptfenster() {
 		initialize();
 	}
 
