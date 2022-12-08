@@ -260,6 +260,114 @@ public class Buchungsdetails implements View {
 
 	}
 
+	public Shell getShell() {
+		return shell;
+	}
+
+	public Label getLblBuchungsdetails() {
+		return lblBuchungsdetails;
+	}
+
+	public Label getLblBuchbareDienstleistungen() {
+		return lblBuchbareDienstleistungen;
+	}
+
+	public void setLblBuchbareDienstleistungen(Label lblBuchbareDienstleistungen) {
+		this.lblBuchbareDienstleistungen = lblBuchbareDienstleistungen;
+	}
+
+	public Label getLblPreisbezeichnung() {
+		return lblPreisbezeichnung;
+	}
+
+	public Label getLblTrennlinie() {
+		return lblTrennlinie;
+	}
+
+	public void setLblTrennlinie(Label lblTrennlinie) {
+		this.lblTrennlinie = lblTrennlinie;
+	}
+
+	public Label getLblWaehrung() {
+		return lblWaehrung;
+	}
+
+	public void setLblWaehrung(Label lblWaehrung) {
+		this.lblWaehrung = lblWaehrung;
+	}
+
+	public Label getLblFuerIhrenHund() {
+		return lblFuerIhrenHund;
+	}
+
+	public void setLblFuerIhrenHund(Label lblFuerIhrenHund) {
+		this.lblFuerIhrenHund = lblFuerIhrenHund;
+	}
+
+	public Label getLblUm() {
+		return lblUm;
+	}
+
+	public void setLblUm(Label lblUm) {
+		this.lblUm = lblUm;
+	}
+
+	public Label getLblBeiUnseremMitarbeiter() {
+		return lblBeiUnseremMitarbeiter;
+	}
+
+	public void setLblBeiUnseremMitarbeiter(Label lblBeiUnseremMitarbeiter) {
+		this.lblBeiUnseremMitarbeiter = lblBeiUnseremMitarbeiter;
+	}
+
+	public Label getLblAm() {
+		return lblAm;
+	}
+
+	public void setLblAm(Label lblAm) {
+		this.lblAm = lblAm;
+	}
+
+	public Label getLblWeitereInfos() {
+		return lblWeitereInfos;
+	}
+
+	public void setLblWeitereInfos(Label lblWeitereInfos) {
+		this.lblWeitereInfos = lblWeitereInfos;
+	}
+
+	public Button getBtnAngabenAnpassen() {
+		return btnAngabenAnpassen;
+	}
+
+	public void setBtnAngabenAnpassen(Button btnAngabenAnpassen) {
+		this.btnAngabenAnpassen = btnAngabenAnpassen;
+	}
+
+	public Button getBtnTerminBuchen() {
+		return btnTerminBuchen;
+	}
+
+	public void setBtnTerminBuchen(Button btnTerminBuchen) {
+		this.btnTerminBuchen = btnTerminBuchen;
+	}
+
+	public Composite getComp1() {
+		return comp1;
+	}
+
+	public void setComp1(Composite comp1) {
+		this.comp1 = comp1;
+	}
+
+	public Composite getComp2() {
+		return comp2;
+	}
+
+	public void setComp2(Composite comp2) {
+		this.comp2 = comp2;
+	}
+
 	public Label getLblPreis() {
 		return lblPreis;
 	}
