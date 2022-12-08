@@ -112,12 +112,12 @@ public class Auswahlsfenster implements View {
 		assignElements();
 	}
 
-	public Button getBtnZurueck() {
-		return btnZurueck;
+	public Label getLblAnscheinendGibtEs() {
+		return lblAnscheinendGibtEs;
 	}
 
-	public Button getBtnWeiter() {
-		return btnWeiter;
+	public void setLblAnscheinendGibtEs(Label lblAnscheinendGibtEs) {
+		this.lblAnscheinendGibtEs = lblAnscheinendGibtEs;
 	}
 
 	public Label getLblVorname() {
@@ -126,6 +126,34 @@ public class Auswahlsfenster implements View {
 
 	public void setLblVorname(Label lblVorname) {
 		this.lblVorname = lblVorname;
+	}
+
+	public Button getBtnZurueck() {
+		return btnZurueck;
+	}
+
+	public void setBtnZurueck(Button btnZurueck) {
+		this.btnZurueck = btnZurueck;
+	}
+
+	public Button getBtnWeiter() {
+		return btnWeiter;
+	}
+
+	public void setBtnWeiter(Button btnWeiter) {
+		this.btnWeiter = btnWeiter;
+	}
+
+	public Label getLblWelchenGenauMeinen() {
+		return lblWelchenGenauMeinen;
+	}
+
+	public void setLblWelchenGenauMeinen(Label lblWelchenGenauMeinen) {
+		this.lblWelchenGenauMeinen = lblWelchenGenauMeinen;
+	}
+
+	public List getList() {
+		return list;
 	}
 
 	/**
