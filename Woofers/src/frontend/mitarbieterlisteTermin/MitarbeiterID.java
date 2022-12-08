@@ -54,7 +54,7 @@ public class MitarbeiterID {
 		shlMitarbeiterAuswhlen.setSize(275, 212);
 		shlMitarbeiterAuswhlen.setText("Mitarbeiter ausw\u00E4hlen");
 
-		Combo combo = new Combo(shlMitarbeiterAuswhlen, SWT.NONE);
+		Combo combo = new Combo(shlMitarbeiterAuswhlen, SWT.READ_ONLY);
 		combo.setItems(new String[] { "1", "2", "4", "21", "32", "123" });
 		combo.setBounds(32, 71, 198, 30);
 

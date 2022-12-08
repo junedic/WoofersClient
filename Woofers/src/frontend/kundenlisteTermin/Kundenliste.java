@@ -12,7 +12,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import frontend.terminal.Hauptfenster;
 
-public class Terminliste {
+public class Kundenliste {
 
 	protected Shell shlMehrereGleichnamigeKunden;
 
@@ -23,7 +23,7 @@ public class Terminliste {
 	 */
 	public static void main(String[] args) {
 		try {
-			Terminliste window = new Terminliste();
+			Kundenliste window = new Kundenliste();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

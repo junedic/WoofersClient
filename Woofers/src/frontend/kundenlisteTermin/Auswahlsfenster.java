@@ -94,7 +94,9 @@ public class Auswahlsfenster {
 		list.setItems(new String[] { "Uli Maier mit ID:21 und dem Hund Bello", "Uli Maier mit ID:34 und dem Hund Anna",
 				"Uli Maier mit ID:28 und dem Hund Bello", "Uli Maier mit ID:22 und dem Hund Willo",
 				"Uli Maier mit ID:12 und dem Hund Shaban", "Uli Maier mit ID:42 und dem Hund Kila",
-				"Uli Maier mit ID:16 und dem Hund Lifa" });
+				"Uli Maier mit ID:16 und dem Hund Lifa", "Uli Maier mit ID:16 und dem Hund Lifa",
+				"Uli Maier mit ID:16 und dem Hund Lifa", "Uli Maier mit ID:16 und dem Hund Lifa",
+				"Uli Maier mit ID:16 und dem Hund Lifa", "Uli Maier mit ID:16 und dem Hund Lifa" });
 
 	}
 }
