@@ -7,7 +7,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
-//import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -17,7 +16,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class terminErstellenStrukturiert {
 
 	/**
-	 * @version 2.0
+	 * @version 2.1
 	 */
 
 	private Shell shell;
@@ -39,7 +38,7 @@ public class terminErstellenStrukturiert {
 	private Label schneiden;
 	private Label massage;
 	private Label waschenBaden;
-	private Label waeleHund;
+	private Label waehleHund;
 	private Label waeleMitarbeiter;
 	private Label buchbareDienstleistungen;
 	private Label preisPlatzhalter;
@@ -49,12 +48,14 @@ public class terminErstellenStrukturiert {
 	private Combo mitarbeiterAuswahl;
 	private DateTime datumsAuswahl;
 
-	public static void main(String[] args) {
-		
-		terminErstellenStrukturiert terminErstellenStrukturiert = new terminErstellenStrukturiert(new Shell());
-		terminErstellenStrukturiert.open();
-	}
-	
+	/*
+	 * public static void main(String[] args) {
+	 * 
+	 * terminErstellenStrukturiert terminErstellenStrukturiert = new
+	 * terminErstellenStrukturiert(new Shell()); terminErstellenStrukturiert.open();
+	 * }
+	 */
+
 	public void open() {
 		Display display = Display.getDefault();
 		init();
@@ -65,8 +66,7 @@ public class terminErstellenStrukturiert {
 			}
 		}
 	}
-	
-	
+
 	public terminErstellenStrukturiert(Shell shell) {
 		this.shell = shell;
 		assignElements();
@@ -83,13 +83,14 @@ public class terminErstellenStrukturiert {
 
 	// @Override
 	public void assignElements() {
+
 		terminErstellenUeberschrift = new Label(shell, SWT.NONE);
 		entlausen = new Label(shell, SWT.NONE);
 		entfilzen = new Label(shell, SWT.NONE);
 		schneiden = new Label(shell, SWT.NONE);
 		massage = new Label(shell, SWT.NONE);
 		waschenBaden = new Label(shell, SWT.NONE);
-		waeleHund = new Label(shell, SWT.NONE);
+		waehleHund = new Label(shell, SWT.NONE);
 		waeleMitarbeiter = new Label(shell, SWT.NONE);
 		buchbareDienstleistungen = new Label(shell, SWT.NONE);
 		preisPlatzhalter = new Label(shell, SWT.NONE);
@@ -110,17 +111,19 @@ public class terminErstellenStrukturiert {
 		hundeAuswahl = new Combo(shell, SWT.NONE);
 		mitarbeiterAuswahl = new Combo(shell, SWT.NONE);
 		datumsAuswahl = new DateTime(shell, SWT.BORDER | SWT.CALENDAR);
+
 	}
 
 	// @Override
 	public void dispose() {
+		
 		terminErstellenUeberschrift.dispose();
 		entlausen.dispose();
 		entfilzen.dispose();
 		schneiden.dispose();
 		massage.dispose();
 		waschenBaden.dispose();
-		waeleHund.dispose();
+		waehleHund.dispose();
 		buchbareDienstleistungen.dispose();
 		preisPlatzhalter.dispose();
 		preis.dispose();
@@ -135,90 +138,93 @@ public class terminErstellenStrukturiert {
 		hundeAuswahl.dispose();
 		mitarbeiterAuswahl.dispose();
 		assignElements();
+		
 	}
 
 	private void initShell() {
+		
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setSize(422, 660);
-		shell.setText("Termin erstellen");
+		shell.setText("Terminerstellung");
 		shell.setLayout(null);
+		
 	}
 
 	private void initLabels() {
 
+		verfuegbareZeitslots.setText("Zeitslots");
 		verfuegbareZeitslots.setForeground(SWTResourceManager.getColor(255, 128, 128));
+		verfuegbareZeitslots.setFont(SWTResourceManager.getFont("Lucida Handwriting", 11, SWT.NORMAL));
 		verfuegbareZeitslots.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		verfuegbareZeitslots.setAlignment(SWT.CENTER);
-		verfuegbareZeitslots.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		verfuegbareZeitslots.setBounds(10, 0, 148, 20);
-		verfuegbareZeitslots.setText("Verf\u00FCgbare Zeitslots");
+		verfuegbareZeitslots.setBounds(230, 341, 148, 20);
 
-		preis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		preis.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		preis.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		preis.setBounds(50, 205, 70, 20);
 		preis.setText("Preis :");
+		preis.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		preis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		preis.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		preis.setBounds(53, 285, 70, 20);
 
-		waeleHund.setAlignment(SWT.RIGHT);
-		waeleHund.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		waeleHund.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		waeleHund.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		waeleHund.setBounds(20, 145, 156, 20);
-		waeleHund.setText("Waehlen Sie ihren Hund");
+		waehleHund.setText("Wählen Sie ihren Hund");
+		waehleHund.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		waehleHund.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		waehleHund.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		waehleHund.setAlignment(SWT.RIGHT);
+		waehleHund.setBounds(40, 225, 156, 20);
 
-		entfilzen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		entfilzen.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		entfilzen.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		entfilzen.setBounds(50, 117, 57, 20);
 		entfilzen.setText("Entfilzen");
+		entfilzen.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		entfilzen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		entfilzen.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		entfilzen.setBounds(55, 191, 57, 20);
 
-		entlausen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		entlausen.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		entlausen.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		entlausen.setBounds(50, 92, 63, 20);
 		entlausen.setText("Entlausen");
+		entlausen.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		entlausen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		entlausen.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		entlausen.setBounds(55, 166, 63, 20);
 
-		schneiden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		schneiden.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		schneiden.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		schneiden.setBounds(50, 67, 68, 20);
 		schneiden.setText("Schneiden");
+		schneiden.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		schneiden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		schneiden.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		schneiden.setBounds(55, 141, 68, 20);
 
-		massage.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		massage.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		massage.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		massage.setBounds(50, 42, 58, 20);
 		massage.setText("Massage");
+		massage.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		massage.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		massage.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		massage.setBounds(55, 116, 58, 20);
 
-		waschenBaden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		waschenBaden.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		waschenBaden.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		waschenBaden.setBounds(50, 17, 114, 20);
 		waschenBaden.setText("Waschen / Baden");
+		waschenBaden.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		waschenBaden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		waschenBaden.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		waschenBaden.setBounds(55, 91, 114, 20);
 
-		waeleMitarbeiter.setAlignment(SWT.RIGHT);
-		waeleMitarbeiter.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		waeleMitarbeiter.setText("Wählen Sie den Mitarbeiter");
 		waeleMitarbeiter.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		waeleMitarbeiter.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		waeleMitarbeiter.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		waeleMitarbeiter.setBounds(5, 175, 192, 20);
-		waeleMitarbeiter.setText("W\u00E4hlen Sie den Mitarbeiter");
+		waeleMitarbeiter.setAlignment(SWT.RIGHT);
+		waeleMitarbeiter.setBounds(10, 255, 186, 20);
 
 		// .setText abändern je nachdem wie hoch preis
 		// fürs erste auf [Preis] lassen wegen Anschauligkeit
 		preisPlatzhalter.setBounds(230, 283, 132, 20);
 		preisPlatzhalter.setText("[Preis]");
 
-		terminErstellenUeberschrift.setText("Termin erstellen");
+		terminErstellenUeberschrift.setText("Terminerstellung");
 		terminErstellenUeberschrift.setForeground(SWTResourceManager.getColor(255, 128, 0));
-		terminErstellenUeberschrift.setFont(SWTResourceManager.getFont("Lucida Handwriting", 17, SWT.BOLD));
+		terminErstellenUeberschrift.setFont(SWTResourceManager.getFont("Lucida Handwriting", 12, SWT.BOLD));
 		terminErstellenUeberschrift.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		terminErstellenUeberschrift.setBounds(100, 23, 239, 30);
 
-		buchbareDienstleistungen.setBounds(125, 59, 176, 20);
+		buchbareDienstleistungen.setBounds(115, 59, 200, 20);
 		buchbareDienstleistungen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
 		buchbareDienstleistungen.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		buchbareDienstleistungen.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		buchbareDienstleistungen.setText("Buchbare Dienslteistungen");
+		buchbareDienstleistungen.setText("Buchbare Dienstleistungen");
 
 	}
 
@@ -237,10 +243,9 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot1.setBounds(35, 26, 90, 30);
+		zeitslot1.setBounds(260, 367, 90, 30);
 		zeitslot1.setText("08:00 - 09:30");
 
-		zeitslot2.setText("09:45 - 11:15");
 		// Eventhandler wenn Button 'Zeitslot 2' gewählt wurde
 		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
 		// ausgegraut / selektierbar sein
@@ -249,7 +254,8 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot2.setBounds(35, 62, 90, 30);
+		zeitslot2.setBounds(260, 403, 90, 30);
+		zeitslot2.setText("09:45 - 11:15");
 
 		// Eventhandler wenn Button 'Zeitslot 3' gewählt wurde
 		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
@@ -259,7 +265,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot3.setBounds(35, 98, 90, 30);
+		zeitslot3.setBounds(260, 439, 90, 30);
 		zeitslot3.setText("12:00 - 13:30");
 
 		// Eventhandler wenn Button 'Zeitslot 4' gewählt wurde
@@ -270,7 +276,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot4.setBounds(35, 134, 90, 30);
+		zeitslot4.setBounds(260, 475, 90, 30);
 		zeitslot4.setText("13:40 - 15:10");
 
 		// Eventhandler wenn Button 'Zeitslot 5' gewählt wurde
@@ -281,7 +287,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot5.setBounds(35, 170, 90, 30);
+		zeitslot5.setBounds(260, 511, 90, 30);
 		zeitslot5.setText("15:20 - 16:50");
 
 		massageCheck.setBounds(230, 116, 16, 20);
@@ -316,7 +322,7 @@ public class terminErstellenStrukturiert {
 			}
 		});
 
-		waschenBadenCheck.setBounds(230, 116, 16, 20);
+		waschenBadenCheck.setBounds(230, 91, 16, 19);
 		// Eventhandler wenn Checklist 'Waschen / Baden' gecheked wurde
 		waschenBadenCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -340,7 +346,7 @@ public class terminErstellenStrukturiert {
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		zurueck.setText("Zur\u00FCck");
+		zurueck.setText("Zurueck");
 
 	}
 
@@ -354,8 +360,8 @@ public class terminErstellenStrukturiert {
 
 	private void initDatePicker() {
 
-		datumsAuswahl.setLocation(33, 349);
-		datumsAuswahl.setSize(178, 143);
+		datumsAuswahl.setLocation(25, 349);
+		datumsAuswahl.setSize(193, 178);
 
 	}
 
@@ -504,11 +510,11 @@ public class terminErstellenStrukturiert {
 	}
 
 	public Label getWaeleHund() {
-		return waeleHund;
+		return waehleHund;
 	}
 
 	public void setWaeleHund(Label waeleHund) {
-		this.waeleHund = waeleHund;
+		this.waehleHund = waeleHund;
 	}
 
 	public Label getWaeleMitarbeiter() {
@@ -574,18 +580,5 @@ public class terminErstellenStrukturiert {
 	public void setDatumsAuswahl(DateTime datumsAuswahl) {
 		this.datumsAuswahl = datumsAuswahl;
 	}
-
-	/*
-	 * Composite comp_zeitslot_buttons = new Composite(shell, SWT.NONE);
-	 * comp_zeitslot_buttons.setBackground(SWTResourceManager.getColor(64, 0, 128));
-	 * comp_zeitslot_buttons.setBounds(217, 322, 161, 211);
-	 * comp_zeitslot_buttons.setLayout(null);
-	 * 
-	 * Composite comp_dienstleistungs_labels = new Composite(shell, SWT.NONE);
-	 * comp_dienstleistungs_labels.setFont(SWTResourceManager.getFont("Arial", 9,
-	 * SWT.NORMAL));
-	 * comp_dienstleistungs_labels.setBackground(SWTResourceManager.getColor(64, 0,
-	 * 128)); comp_dienstleistungs_labels.setBounds(20, 77, 202, 239);
-	 */
 
 }

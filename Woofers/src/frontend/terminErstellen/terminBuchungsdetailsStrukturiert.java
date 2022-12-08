@@ -4,39 +4,41 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class terminBuchungsdetailsStrukturiert {
 
+	/**
+	 * @version 2.1
+	 */
+
 	private Shell shell;
-	
+	private Label buchungsdetailsUeberschrift;
+	private Label gebuchteDienstleistungen;
+	private Label weitereInfos;
+	private Label gebuchteDienstleistungenPlatzhalter;
+	private Label preis;
+	private Label mitarbeiter;
+	private Label hund;
+	private Label amDatum;
+	private Label umUhrzeit;
+	private Label trennlinie;
+	private Button buchen;
+	private Button zurueck;
 
-	/**
-	 * Launch the application.
+	/*
+	 * public static void main(String[] args) {
 	 * 
-	 * @param args
-	 * @wbp.parser.entryPoint
+	 * terminBuchungsdetailsStrukturiert terminErstellenStrukturiert = new
+	 * terminBuchungsdetailsStrukturiert( new Shell());
+	 * terminErstellenStrukturiert.open(); }
 	 */
-	public static void main(String[] args) {
-		try {
-			terminBuchungsdetails window = new terminBuchungsdetails();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
+		init();
 		shell.open();
-		shell.layout();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -44,128 +46,249 @@ public class terminBuchungsdetailsStrukturiert {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 * @wbp.parser.entryPoint
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(642, 463);
-		shell.setText("SWT Application");
+	public terminBuchungsdetailsStrukturiert(Shell shell) {
 
-		/*
-		 * Je nachdem welche Dienstleistungen gebucht werden müssen diese auch angezeigt
-		 * werden gebuchte dienstleistungen können aus nem boolean array ausgelesen
-		 * werden
-		 * 
-		 */
+		this.shell = shell;
+		assignElements();
+	}
 
-		Label lblBuchungsdetails = new Label(shell, SWT.NONE);
-		lblBuchungsdetails.setFont(SWTResourceManager.getFont("Arial", 14, SWT.BOLD));
-		lblBuchungsdetails.setBounds(212, 33, 200, 30);
-		lblBuchungsdetails.setText("Buchungsdetails");
+	// @Override
+	public void init() {
 
-		Composite comp_dienstleistungs_labels = new Composite(shell, SWT.NONE);
-		comp_dienstleistungs_labels.setBounds(47, 86, 251, 252);
+		initShell();
+		initLabels();
+		initButtons();
+		
+	}
 
-		Label l_buchbare_dienstleistungen = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_buchbare_dienstleistungen.setFont(SWTResourceManager.getFont("Arial", 11, SWT.BOLD));
-		l_buchbare_dienstleistungen.setText("Gebuchte Dienstleistungen");
-		l_buchbare_dienstleistungen.setBounds(0, 0, 241, 20);
+	// @Override
+	public void assignElements() {
 
-		Label l_entfilzen = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_entfilzen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_entfilzen.setText("[Entfilzen]");
-		l_entfilzen.setBounds(0, 138, 68, 20);
-
-		Label l_entlausen = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_entlausen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_entlausen.setText("[Entlausen]");
-		l_entlausen.setBounds(0, 109, 77, 20);
-
-		Label l_schneiden = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_schneiden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_schneiden.setText("[Schneiden]");
-		l_schneiden.setBounds(0, 84, 77, 20);
-
-		Label l_massage = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_massage.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_massage.setText("[Massage]");
-		l_massage.setBounds(0, 59, 68, 20);
-
-		Label l_waschen_baden = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_waschen_baden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_waschen_baden.setText("[Waschen / Baden]");
-		l_waschen_baden.setBounds(0, 34, 136, 20);
-
-		Label l_preis = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_preis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_preis.setText("Preis :");
-		l_preis.setBounds(0, 164, 49, 20);
-
-		Label l_preis_1 = new Label(comp_dienstleistungs_labels, SWT.NONE);
-		l_preis_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		l_preis_1.setText("[Preis]");
-		l_preis_1.setBounds(48, 164, 49, 20);
-
-		Composite comp_dienstleistungs_labels_1 = new Composite(shell, SWT.NONE);
-		comp_dienstleistungs_labels_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		comp_dienstleistungs_labels_1.setBounds(324, 86, 261, 252);
-
-		Label l_buchbare_dienstleistungen_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_buchbare_dienstleistungen_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_buchbare_dienstleistungen_1.setText("Für Ihren Hund");
-		l_buchbare_dienstleistungen_1.setBounds(0, 34, 102, 20);
-
-		Label l_hundauswahl_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_hundauswahl_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_hundauswahl_1.setText("Um");
-		l_hundauswahl_1.setBounds(0, 138, 33, 20);
-
-		Label l_entfilzen_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_entfilzen_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		l_entfilzen_1.setText("[Datum]");
-		l_entfilzen_1.setBounds(39, 112, 57, 20);
-
-		Label l_entlausen_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_entlausen_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_entlausen_1.setText("Am");
-		l_entlausen_1.setBounds(0, 112, 33, 20);
-
-		Label l_schneiden_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_schneiden_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		l_schneiden_1.setText("[Mitarbeitername]");
-		l_schneiden_1.setBounds(0, 86, 132, 20);
-
-		Label l_massage_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_massage_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		l_massage_1.setText("Bei unserem Mitarbeiter :");
-		l_massage_1.setBounds(0, 60, 175, 20);
-
-		Label l_waschen_baden_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_waschen_baden_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		l_waschen_baden_1.setText("[Hundname]");
-		l_waschen_baden_1.setBounds(102, 34, 114, 20);
-
-		Label l_mitarbeiterauswahl_1 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_mitarbeiterauswahl_1.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		l_mitarbeiterauswahl_1.setText("[UhrzeitZeitslot]");
-		l_mitarbeiterauswahl_1.setBounds(39, 138, 122, 20);
-
-		Label l_buchbare_dienstleistungen_2 = new Label(comp_dienstleistungs_labels_1, SWT.NONE);
-		l_buchbare_dienstleistungen_2.setText("Weitere Informationen");
-		l_buchbare_dienstleistungen_2.setFont(SWTResourceManager.getFont("Arial", 11, SWT.BOLD));
-		l_buchbare_dienstleistungen_2.setBounds(0, 0, 241, 20);
-
-		Button btnAngabenAnpassen = new Button(shell, SWT.NONE);
-		btnAngabenAnpassen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		btnAngabenAnpassen.setBounds(45, 359, 137, 30);
-		btnAngabenAnpassen.setText("Angaben anpassen");
-
-		Button btnTerminBuchen = new Button(shell, SWT.NONE);
-		btnTerminBuchen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		btnTerminBuchen.setText("Termin buchen");
-		btnTerminBuchen.setBounds(467, 359, 118, 30);
+		buchungsdetailsUeberschrift = new Label(shell, SWT.NONE);
+		gebuchteDienstleistungen = new Label(shell, SWT.NONE);
+		weitereInfos = new Label(shell, SWT.NONE);
+		gebuchteDienstleistungenPlatzhalter = new Label(shell, SWT.NONE);
+		preis = new Label(shell, SWT.NONE);
+		mitarbeiter = new Label(shell, SWT.NONE);
+		hund = new Label(shell, SWT.NONE);
+		amDatum = new Label(shell, SWT.NONE);
+		umUhrzeit = new Label(shell, SWT.NONE);
+		trennlinie = new Label(shell, SWT.NONE);
+		buchen = new Button(shell, SWT.NONE);
+		zurueck = new Button(shell, SWT.NONE);
 
 	}
+
+	// @Override
+	public void dispose() {
+
+		buchungsdetailsUeberschrift.dispose();
+		gebuchteDienstleistungen.dispose();
+		weitereInfos.dispose();
+		gebuchteDienstleistungenPlatzhalter.dispose();
+		preis.dispose();
+		mitarbeiter.dispose();
+		hund.dispose();
+		amDatum.dispose();
+		umUhrzeit.dispose();
+		trennlinie.dispose();
+		buchen.dispose();
+		zurueck.dispose();
+		assignElements();
+		
+	}
+
+	private void initShell() {
+
+		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		shell.setSize(422, 660);
+		shell.setText("Buchungsdetails");
+		shell.setLayout(null);
+		
+	}
+
+	private void initLabels() {
+
+		// Compile den String zu 'Um : [gewähltesDatum]'
+		amDatum.setText("Am");
+		amDatum.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		amDatum.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		amDatum.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		amDatum.setBounds(400, 253, 33, 20);
+
+		// Compile den String zu 'Um : [gewählteUhrzeit]'
+		umUhrzeit.setText("Um");
+		umUhrzeit.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		umUhrzeit.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		umUhrzeit.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		umUhrzeit.setBounds(400, 279, 33, 20);
+
+		buchungsdetailsUeberschrift.setText("Buchungsdetails");
+		buchungsdetailsUeberschrift.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		buchungsdetailsUeberschrift.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		buchungsdetailsUeberschrift.setAlignment(SWT.CENTER);
+		buchungsdetailsUeberschrift.setFont(SWTResourceManager.getFont("Cascadia Mono", 14, SWT.BOLD));
+		buchungsdetailsUeberschrift.setBounds(0, 37, 634, 30);
+
+		gebuchteDienstleistungen.setText("Gebuchte Dienstleistungen");
+		gebuchteDienstleistungen.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		gebuchteDienstleistungen.setFont(SWTResourceManager.getFont("Cascadia Code", 11, SWT.NORMAL));
+		gebuchteDienstleistungen.setBackground(SWTResourceManager.getColor(0, 0, 64));
+		gebuchteDienstleistungen.setAlignment(SWT.CENTER);
+		gebuchteDienstleistungen.setBounds(47, 86, 251, 20);
+
+		weitereInfos.setText("Weitere Informationen");
+		weitereInfos.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		weitereInfos.setFont(SWTResourceManager.getFont("Cascadia Code", 11, SWT.NORMAL));
+		weitereInfos.setBackground(SWTResourceManager.getColor(0, 0, 64));
+		weitereInfos.setAlignment(SWT.CENTER);
+		weitereInfos.setBounds(324, 86, 261, 20);
+
+		// Compile den String zu einer Liste gebuchter Dienstleistugnen mit nem '-'
+		// davor oder so
+		gebuchteDienstleistungenPlatzhalter.setText("[gebuchteDienstleistungen");
+		gebuchteDienstleistungenPlatzhalter.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		gebuchteDienstleistungenPlatzhalter.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
+		gebuchteDienstleistungenPlatzhalter.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		gebuchteDienstleistungenPlatzhalter.setBounds(83, 136, 139, 20);
+
+		// Compile den String zu 'Preis : [sumPreis]'
+		preis.setText("Preis :");
+		preis.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		preis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		preis.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		preis.setAlignment(SWT.RIGHT);
+		preis.setBounds(129, 290, 49, 20);
+
+		// Compile den String zu 'Hund : /n [ausgewählterHund]'
+		hund.setText("Für Ihren Hund:");
+		hund.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		hund.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
+		hund.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		hund.setBounds(384, 127, 112, 20);
+
+		// Compile den String zu 'Bei unserem Mitarbeiter : /n
+		// [ausgewählterMitarbeiter]'
+		mitarbeiter.setText("Bei unserem Mitarbeiter :");
+		mitarbeiter.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		mitarbeiter.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		mitarbeiter.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		mitarbeiter.setBounds(384, 182, 175, 20);
+
+		trennlinie.setText("_____________________________________________");
+		trennlinie.setForeground(SWTResourceManager.getColor(255, 255, 255));
+		trennlinie.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
+		trennlinie.setBackground(SWTResourceManager.getColor(64, 0, 64));
+		trennlinie.setBounds(47, 264, 251, 20);
+	}
+
+	private void initButtons() {
+
+		zurueck.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		zurueck.setBounds(47, 359, 137, 30);
+		zurueck.setText("Angaben anpassen");
+
+		buchen.setForeground(SWTResourceManager.getColor(0, 0, 0));
+		buchen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		buchen.setText("Termin buchen");
+		buchen.setBounds(467, 359, 118, 30);
+
+	}
+
+	public Label getBuchungsdetailsUeberschrift() {
+		return buchungsdetailsUeberschrift;
+	}
+
+	public void setBuchungsdetailsUeberschrift(Label buchungsdetailsUeberschrift) {
+		this.buchungsdetailsUeberschrift = buchungsdetailsUeberschrift;
+	}
+
+	public Label getGebuchteDienstleistungen() {
+		return gebuchteDienstleistungen;
+	}
+
+	public void setGebuchteDienstleistungen(Label gebuchteDienstleistungen) {
+		this.gebuchteDienstleistungen = gebuchteDienstleistungen;
+	}
+
+	public Label getWeitereInfos() {
+		return weitereInfos;
+	}
+
+	public void setWeitereInfos(Label weitereInfos) {
+		this.weitereInfos = weitereInfos;
+	}
+
+	public Label getGebuchteDienstleistungenPlatzhalter() {
+		return gebuchteDienstleistungenPlatzhalter;
+	}
+
+	public void setGebuchteDienstleistungenPlatzhalter(Label gebuchteDienstleistungenPlatzhalter) {
+		this.gebuchteDienstleistungenPlatzhalter = gebuchteDienstleistungenPlatzhalter;
+	}
+
+	public Label getPreis() {
+		return preis;
+	}
+
+	public void setPreis(Label preis) {
+		this.preis = preis;
+	}
+
+	public Label getMitarbeiter() {
+		return mitarbeiter;
+	}
+
+	public void setMitarbeiter(Label mitarbeiter) {
+		this.mitarbeiter = mitarbeiter;
+	}
+
+	public Label getHund() {
+		return hund;
+	}
+
+	public void setHund(Label hund) {
+		this.hund = hund;
+	}
+
+	public Label getAmDatum() {
+		return amDatum;
+	}
+
+	public void setAmDatum(Label amDatum) {
+		this.amDatum = amDatum;
+	}
+
+	public Label getUmUhrzeit() {
+		return umUhrzeit;
+	}
+
+	public void setUmUhrzeit(Label umUhrzeit) {
+		this.umUhrzeit = umUhrzeit;
+	}
+
+	public Label getTrennlinie() {
+		return trennlinie;
+	}
+
+	public void setTrennlinie(Label trennlinie) {
+		this.trennlinie = trennlinie;
+	}
+
+	public Button getBuchen() {
+		return buchen;
+	}
+
+	public void setBuchen(Button buchen) {
+		this.buchen = buchen;
+	}
+
+	public Button getZurueck() {
+		return zurueck;
+	}
+
+	public void setZurueck(Button zurueck) {
+		this.zurueck = zurueck;
+	}
+
 }
