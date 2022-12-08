@@ -89,6 +89,7 @@ public class MitarbeiterID implements View {
 		lblBitteWhlenSie.dispose();
 		btnNewButton.dispose();
 		btnOk.dispose();
+		assignElements();
 
 	}
 

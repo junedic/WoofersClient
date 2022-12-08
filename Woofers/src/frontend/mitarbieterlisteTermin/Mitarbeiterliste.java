@@ -107,6 +107,7 @@ public class Mitarbeiterliste implements View {
 		lblKundenid.dispose();
 		lblX.dispose();
 		btnNewButton.dispose();
+		assignElements();
 	}
 
 	public Button getBtnNewButton() {

@@ -12,7 +12,7 @@ import view.View;
 
 public class Kundeneingabe implements View {
 
-	protected Shell shell;
+	private Shell shell;
 	private Text text;
 	private Text text_1;
 	private Label lblBitteGebenSie;
