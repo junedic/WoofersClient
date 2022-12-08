@@ -1,8 +1,6 @@
 package frontend.mitarbieterlisteTermin;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
@@ -10,79 +8,120 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import frontend.terminal.Hauptfenster;
+import view.View;
 
-public class MitarbeiterID {
+public class MitarbeiterID implements View {
 
-	protected Shell shlMitarbeiterAuswhlen;
+	private Shell shell;
+	private Combo combo;
+	private Label lblBitteWhlenSie;
+	private Button btnNewButton;
+	private Button btnOk;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			MitarbeiterID window = new MitarbeiterID();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public MitarbeiterID(Shell shell) {
+		this.shell = shell;
+		assignElements();
 	}
 
-	/**
-	 * Open the window..
-	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
-		shlMitarbeiterAuswhlen.open();
-		shlMitarbeiterAuswhlen.layout();
-		while (!shlMitarbeiterAuswhlen.isDisposed()) {
+		init();
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shlMitarbeiterAuswhlen = new Shell();
-		shlMitarbeiterAuswhlen.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		shlMitarbeiterAuswhlen.setSize(275, 212);
-		shlMitarbeiterAuswhlen.setText("Mitarbeiter ausw\u00E4hlen");
+	@Override
+	public void init() {
+		initShell();
+		initCombo();
+		initLabels();
+		initButtons();
+	}
 
-		Combo combo = new Combo(shlMitarbeiterAuswhlen, SWT.READ_ONLY);
-		combo.setItems(new String[] { "1", "2", "4", "21", "32", "123" });
+	private void initShell() {
+		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
+		shell.setSize(275, 212);
+		shell.setText("Mitarbeiter ausw\u00E4hlen");
+	}
+
+	private void initCombo() {
 		combo.setBounds(32, 71, 198, 30);
+	}
 
-		Label lblBitteWhlenSie = new Label(shlMitarbeiterAuswhlen, SWT.NONE);
+	private void initLabels() {
+		// I. Label: "Bitte waehlen Sie die ID eines Mitarbeiters"
 		lblBitteWhlenSie.setAlignment(SWT.CENTER);
 		lblBitteWhlenSie.setFont(SWTResourceManager.getFont("Arial", 14, SWT.NORMAL));
 		lblBitteWhlenSie.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblBitteWhlenSie.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblBitteWhlenSie.setBounds(22, 22, 222, 43);
 		lblBitteWhlenSie.setText("Bitte w\u00E4hlen Sie die ID eines Mitarbiters");
+	}
 
-		Button btnNewButton = new Button(shlMitarbeiterAuswhlen, SWT.NONE);
+	private void initButtons() {
+		// I. Button: Zurueck
 		btnNewButton.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Hauptfenster.main(null);
-				shlMitarbeiterAuswhlen.close();
-
-			}
-		});
 		btnNewButton.setBounds(32, 115, 93, 25);
 		btnNewButton.setText("Zur\u00FCck");
 
-		Button btnOk = new Button(shlMitarbeiterAuswhlen, SWT.NONE);
+		// II. Button: Ok
 		btnOk.setForeground(SWTResourceManager.getColor(64, 0, 64));
 		btnOk.setText("OK");
 		btnOk.setBounds(131, 115, 99, 25);
+	}
+
+	@Override
+	public void assignElements() {
+		combo = new Combo(shell, SWT.READ_ONLY);
+		lblBitteWhlenSie = new Label(shell, SWT.NONE);
+		btnNewButton = new Button(shell, SWT.NONE);
+		btnOk = new Button(shell, SWT.NONE);
+	}
+
+	@Override
+	public void dispose() {
+		combo.dispose();
+		lblBitteWhlenSie.dispose();
+		btnNewButton.dispose();
+		btnOk.dispose();
 
 	}
+
+	public Combo getCombo() {
+		return combo;
+	}
+
+	public void setCombo(String[] inhalte) {
+		this.combo.setItems(inhalte);
+	}
+
+	public Label getLblBitteWhlenSie() {
+		return lblBitteWhlenSie;
+	}
+
+	public void setLblBitteWhlenSie(Label lblBitteWhlenSie) {
+		this.lblBitteWhlenSie = lblBitteWhlenSie;
+	}
+
+	public Button getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(Button btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
+
+	public Button getBtnOk() {
+		return btnOk;
+	}
+
+	public void setBtnOk(Button btnOk) {
+		this.btnOk = btnOk;
+	}
+
 }
