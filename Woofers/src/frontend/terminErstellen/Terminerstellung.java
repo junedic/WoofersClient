@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class terminErstellenStrukturiert {
+public class Terminerstellung {
 
 	/**
 	 * @version 2.1
@@ -67,7 +67,7 @@ public class terminErstellenStrukturiert {
 		}
 	}
 
-	public terminErstellenStrukturiert(Shell shell) {
+	public Terminerstellung(Shell shell) {
 		this.shell = shell;
 		assignElements();
 	}
@@ -116,7 +116,7 @@ public class terminErstellenStrukturiert {
 
 	// @Override
 	public void dispose() {
-		
+
 		terminErstellenUeberschrift.dispose();
 		entlausen.dispose();
 		entfilzen.dispose();
@@ -138,16 +138,16 @@ public class terminErstellenStrukturiert {
 		hundeAuswahl.dispose();
 		mitarbeiterAuswahl.dispose();
 		assignElements();
-		
+
 	}
 
 	private void initShell() {
-		
+
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setSize(422, 660);
-		shell.setText("Terminerstellung");
+		shell.setText("Termin erstellen");
 		shell.setLayout(null);
-		
+
 	}
 
 	private void initLabels() {
@@ -157,7 +157,7 @@ public class terminErstellenStrukturiert {
 		verfuegbareZeitslots.setFont(SWTResourceManager.getFont("Lucida Handwriting", 11, SWT.NORMAL));
 		verfuegbareZeitslots.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		verfuegbareZeitslots.setAlignment(SWT.CENTER);
-		verfuegbareZeitslots.setBounds(230, 341, 148, 20);
+		verfuegbareZeitslots.setBounds(230, 330, 148, 20);
 
 		preis.setText("Preis :");
 		preis.setForeground(SWTResourceManager.getColor(255, 255, 255));
@@ -165,12 +165,12 @@ public class terminErstellenStrukturiert {
 		preis.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		preis.setBounds(53, 285, 70, 20);
 
-		waehleHund.setText("Wählen Sie ihren Hund");
+		waehleHund.setText("W\u00e4hlen Sie ihren Hund");
 		waehleHund.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		waehleHund.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		waehleHund.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		waehleHund.setAlignment(SWT.RIGHT);
-		waehleHund.setBounds(40, 225, 156, 20);
+		waehleHund.setBounds(25, 225, 156, 20);
 
 		entfilzen.setText("Entfilzen");
 		entfilzen.setForeground(SWTResourceManager.getColor(255, 255, 255));
@@ -202,21 +202,20 @@ public class terminErstellenStrukturiert {
 		waschenBaden.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		waschenBaden.setBounds(55, 91, 114, 20);
 
-		waeleMitarbeiter.setText("Wählen Sie den Mitarbeiter");
+		waeleMitarbeiter.setText("W\u00e4hlen Sie den Mitarbeiter");
 		waeleMitarbeiter.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		waeleMitarbeiter.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		waeleMitarbeiter.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		waeleMitarbeiter.setAlignment(SWT.RIGHT);
-		waeleMitarbeiter.setBounds(10, 255, 186, 20);
+		waeleMitarbeiter.setBounds(15, 255, 186, 20);
 
-		// .setText abändern je nachdem wie hoch preis
-		// fürs erste auf [Preis] lassen wegen Anschauligkeit
+		// Preis hier anpassen
 		preisPlatzhalter.setBounds(230, 283, 132, 20);
 		preisPlatzhalter.setText("[Preis]");
 
 		terminErstellenUeberschrift.setText("Terminerstellung");
 		terminErstellenUeberschrift.setForeground(SWTResourceManager.getColor(255, 128, 0));
-		terminErstellenUeberschrift.setFont(SWTResourceManager.getFont("Lucida Handwriting", 12, SWT.BOLD));
+		terminErstellenUeberschrift.setFont(SWTResourceManager.getFont("Lucida Handwriting", 16, SWT.BOLD));
 		terminErstellenUeberschrift.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		terminErstellenUeberschrift.setBounds(100, 23, 239, 30);
 
@@ -243,7 +242,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot1.setBounds(260, 367, 90, 30);
+		zeitslot1.setBounds(260, 355, 90, 30);
 		zeitslot1.setText("08:00 - 09:30");
 
 		// Eventhandler wenn Button 'Zeitslot 2' gewählt wurde
@@ -254,7 +253,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot2.setBounds(260, 403, 90, 30);
+		zeitslot2.setBounds(260, 390, 90, 30);
 		zeitslot2.setText("09:45 - 11:15");
 
 		// Eventhandler wenn Button 'Zeitslot 3' gewählt wurde
@@ -265,7 +264,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot3.setBounds(260, 439, 90, 30);
+		zeitslot3.setBounds(260, 425, 90, 30);
 		zeitslot3.setText("12:00 - 13:30");
 
 		// Eventhandler wenn Button 'Zeitslot 4' gewählt wurde
@@ -276,7 +275,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot4.setBounds(260, 475, 90, 30);
+		zeitslot4.setBounds(260, 460, 90, 30);
 		zeitslot4.setText("13:40 - 15:10");
 
 		// Eventhandler wenn Button 'Zeitslot 5' gewählt wurde
@@ -287,7 +286,7 @@ public class terminErstellenStrukturiert {
 			public void mouseDown(MouseEvent e) {
 			}
 		});
-		zeitslot5.setBounds(260, 511, 90, 30);
+		zeitslot5.setBounds(260, 495, 90, 30);
 		zeitslot5.setText("15:20 - 16:50");
 
 		massageCheck.setBounds(230, 116, 16, 20);
@@ -331,7 +330,7 @@ public class terminErstellenStrukturiert {
 		});
 
 		bestellUebersicht.setBounds(232, 560, 151, 30);
-		bestellUebersicht.setText("Bestelluebersicht");
+		bestellUebersicht.setText("Bestell\u00fcbersicht");
 		bestellUebersicht.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -346,7 +345,7 @@ public class terminErstellenStrukturiert {
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		zurueck.setText("Zurueck");
+		zurueck.setText("Zur\u00fcck");
 
 	}
 
