@@ -260,4 +260,52 @@ public class Buchungsdetails implements View {
 
 	}
 
+	public Label getLblPreis() {
+		return lblPreis;
+	}
+
+	public void setLblPreis(Label lblPreis) {
+		this.lblPreis = lblPreis;
+	}
+
+	public Label getLblDatum() {
+		return lblDatum;
+	}
+
+	public void setLblDatum(Label lblDatum) {
+		this.lblDatum = lblDatum;
+	}
+
+	public Label getLblMitarbeitername() {
+		return lblMitarbeitername;
+	}
+
+	public void setLblMitarbeitername(Label lblMitarbeitername) {
+		this.lblMitarbeitername = lblMitarbeitername;
+	}
+
+	public Label getLblHundename() {
+		return lblHundename;
+	}
+
+	public void setLblHundename(Label lblHundename) {
+		this.lblHundename = lblHundename;
+	}
+
+	public Label getLblUhrzeit() {
+		return lblUhrzeit;
+	}
+
+	public void setLblUhrzeit(Label lblUhrzeit) {
+		this.lblUhrzeit = lblUhrzeit;
+	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(String[] inhalte) {
+		this.list.setItems(inhalte);
+	}
+
 }
