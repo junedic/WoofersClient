@@ -1,35 +1,33 @@
 package model.sql;
 
 import java.util.HashMap;
-import static model.sql.SQLStatments.*;
+import static model.sql.SqlBefehle.*;
 
 public class CRUD {
 
     /**
-     * @param appointment Params: ID, Mitarbeiter.Nr, Hund.ID, Kunde.Nr, Datum, Uhrzeit
-     * @param booking     Params: Termin.ID, Dienstleistung.ID
+     * @param termin Params: ID, Mitarbeiter.Nr, Hund.ID, Kunde.Nr, Datum, Uhrzeit
+     * @param buchung     Params: Termin.ID, Dienstleistung.ID
      */
-    public record Create(String appointment, String booking) {}
-    public record Read() {}
+    public record Erstelle(String termin, String buchung) {}
+    public record Lese() {}
     /**
-     * @param surname Params Nachname, Nr
-     * @param mobile  Params Telefonnummer, Nr
-     * @param email   Params Email, Nr
+     * @param kunde Params: ID, Nachname, Email, Telefonnummer
      */
-    public record Update(String customer) {}
+    public record Bearbeite(String kunde) {}
     /**
-     * @param appointment Params: ID
-     * @param booking     Params: Termin.ID
+     * @param termin Params: ID
+     * @param buchung     Params: Termin.ID
      */
-    public record Delete(String appointment, String booking) {}
+    public record Entferne(String termin, String buchung) {}
 
     /**
      * Sammlung der SQL statements je Typus
      */
-    public static final Create  CSQL        = new Create(CreateAppointment, CreateBooking);
-    public static final Read    RSQL        = new Read();
-    public static final Update  USQL        = new Update(UpdateCustomer);
-    public static final Delete  DSQL        = new Delete(DeleteAppointment, DeleteBooking);
+    public static final Erstelle  CSQL      = new Erstelle(ErstelleTermin, ErstelleBuchung);
+    public static final Lese      RSQL      = new Lese();
+    public static final Bearbeite USQL      = new Bearbeite(BearbeiteKunde);
+    public static final Entferne  DSQL      = new Entferne(EntferneTermin, EntferneBuchung);
 
     /**
      * Bestimmung von Typus eines Statements
@@ -47,16 +45,14 @@ public class CRUD {
         }
     }
 
-    public static TableMapping tableMapping = new TableMapping();
-    private static final HashMap<String, TableMapping.Table> sqlToTable = new HashMap();
-    static {
-        sqlToTable.put(DSQL.appointment, tableMapping.termin);
+    //evtl. irrelevant
+    public static TabellenAbbildung tabellenAbbildung = new TabellenAbbildung();
+    private static final HashMap<String, TabellenAbbildung.Tabelle> sqlZuTabelle = new HashMap();
+    protected static void bildeBefehlAb(String sql, TabellenAbbildung.Tabelle tabelle) {
+        sqlZuTabelle.put(sql, tabelle);
     }
-
-    protected static void mapStatement(String sql, TableMapping.Table table) {
-        sqlToTable.put(sql, table);
+    public static TabellenAbbildung.Tabelle getAbbildung(String sql) {
+        return sqlZuTabelle.get(sql);
     }
-    public static TableMapping.Table getMapping(String sql) {
-        return sqlToTable.get(sql);
-    }
+    
 }

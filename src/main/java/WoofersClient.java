@@ -1,11 +1,8 @@
 import controller.GuiController;
-import controller.sql.QueryExecutor;
-import controller.sql.ResultHandler;
 import model.sql.CRUD;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class WoofersClient {
 
@@ -19,10 +16,10 @@ public class WoofersClient {
         ArrayList<String> param = new ArrayList<>();
         param.add("1");
         CRUD.Delete deleteSql = (CRUD.Delete) CRUD.SQL.DELETE.getSql();
-        executor.executeSQL(deleteSql.appointment(), param, CRUD.SQL.DELETE);
-
+        executor.fuehreAus(deleteSql.appointment(), param, CRUD.SQL.DELETE);
          */
+
         GuiController controller = new GuiController();
-        controller.initialize();
+        controller.initialisiere();
     }
 }

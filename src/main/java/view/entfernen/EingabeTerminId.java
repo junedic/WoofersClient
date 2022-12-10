@@ -1,4 +1,4 @@
-package view.delete;
+package view.entfernen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -8,10 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import view.View;
 
-import java.io.Closeable;
-import java.io.IOException;
-
-public class InputAppointmentID implements View {
+public class EingabeTerminId implements View {
 
 	private Shell shell;
 	private Label appointmentIDInput;
@@ -20,9 +17,9 @@ public class InputAppointmentID implements View {
 	private Button back;
 	private Text text;
 
-	public InputAppointmentID(Shell shell) {
+	public EingabeTerminId(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	@Override
@@ -33,7 +30,7 @@ public class InputAppointmentID implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		appointmentIDInput = new Label(shell, SWT.NONE);
 		appointmentID = new Label(shell, SWT.NONE);
 		confirm = new Button(shell, SWT.NONE);
@@ -41,13 +38,13 @@ public class InputAppointmentID implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		appointmentIDInput.dispose();
 		appointmentID.dispose();
 		confirm.dispose();
 		back.dispose();
 		text.dispose();
-		assignElements();
+		weiseElementeZu();
 	}
 
 	private void initShell() {
@@ -75,7 +72,7 @@ public class InputAppointmentID implements View {
 
 	private void initButtons() {
 		/*
-		confirm.addMouseListener(new MouseAdapter() {
+		bestaetige.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				Bestaetigungsfenster bf = new Bestaetigungsfenster("L\u00F6schen best\u00e4tigen",
@@ -107,7 +104,7 @@ public class InputAppointmentID implements View {
 		confirm.setText("OK");
 
 		/*
-		back.addMouseListener(new MouseAdapter() {
+		zurueck.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				shell.close();

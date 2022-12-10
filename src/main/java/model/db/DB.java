@@ -14,33 +14,33 @@ import java.sql.SQLException;
  */
 public class DB implements Closeable {
 
-    private final Connection con;
-    private final Driver driver;
+    private final Connection verb;
+    private final Driver treiber;
 
     public DB(String ip) {
         try {
-            driver = new Driver();
+            treiber = new Driver();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        Auth.ConData conData = Auth.conData;
-        String conInit = String.format(conData.url(), ip, conData.port(), conData.db());
-        System.out.println("\n"+conInit+"\n");
+        Auth.VerbDaten verbDaten = Auth.verbDaten;
+        String verbInit = String.format(verbDaten.url(), ip, verbDaten.port(), verbDaten.db());
+        System.out.println("\n"+verbInit+"\n");
         try {
-            con = DriverManager.getConnection(conInit, conData.usr(), conData.pwd());
+            verb = DriverManager.getConnection(verbInit, verbDaten.usr(), verbDaten.pwd());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Connection getCon() {
-        return con;
+    public Connection getVerbindung() {
+        return verb;
     }
 
     @Override
     public void close() throws IOException {
         try {
-            con.close();
+            verb.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

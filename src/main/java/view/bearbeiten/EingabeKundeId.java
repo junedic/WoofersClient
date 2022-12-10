@@ -1,4 +1,4 @@
-package view.update;
+package view.bearbeiten;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -8,10 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import view.View;
 
-import java.io.Closeable;
-import java.io.IOException;
-
-public class InputCustomerID implements View {
+public class EingabeKundeId implements View {
 
 	private Shell shell;
 	private Label customerID;
@@ -20,9 +17,9 @@ public class InputCustomerID implements View {
 	private Button back;
 	private Text text;
 
-	public InputCustomerID(Shell shell) {
+	public EingabeKundeId(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	@Override
@@ -33,7 +30,7 @@ public class InputCustomerID implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		customerID = new Label(shell, SWT.CENTER);
 		appointmentID = new Label(shell, SWT.CENTER);
 		confirm = new Button(shell, SWT.CENTER);
@@ -41,12 +38,13 @@ public class InputCustomerID implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		customerID.dispose();
 		appointmentID.dispose();
 		confirm.dispose();
 		back.dispose();
-		assignElements();
+		text.dispose();
+		weiseElementeZu();
 	}
 
 	private void initShell() {
@@ -92,7 +90,7 @@ public class InputCustomerID implements View {
 		});
 		 */
 		confirm.setBounds(226, 179, 75, 25);
-		confirm.setText("OK");
+		confirm.setText("OKiii");
 
 		/*
 		btnZurck.addMouseListener(new MouseAdapter() {

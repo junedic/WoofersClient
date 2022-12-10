@@ -1,4 +1,4 @@
-package view.commons;
+package view.gemeinsam;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

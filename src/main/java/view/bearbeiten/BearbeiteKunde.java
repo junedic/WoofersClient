@@ -1,4 +1,4 @@
-package view.update;
+package view.bearbeiten;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 import view.View;
 
-public class UpdateCustomer implements View {
+public class BearbeiteKunde implements View {
 
 	protected Shell shell;
 
@@ -25,9 +25,9 @@ public class UpdateCustomer implements View {
 
 	private Button save;
 
-	public UpdateCustomer(Shell shell) {
+	public BearbeiteKunde(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class UpdateCustomer implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		customerId = new Label(shell, SWT.NONE);
 		surnameId = new Label(shell, SWT.NONE);
 		mobile = new Label(shell, SWT.NONE);
@@ -53,7 +53,7 @@ public class UpdateCustomer implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		customerId.dispose();
 		surnameId.dispose();
 		mobile.dispose();
@@ -104,7 +104,6 @@ public class UpdateCustomer implements View {
 		customerIdInput.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		customerIdInput.setBounds(132, 48, 75, 25);
 		// TODO Profilbearbeitung: Eigentlichen KundenID einsetzen
-		customerIdInput.setText("X");
 
 		profile.setAlignment(SWT.CENTER);
 		profile.setText("Profil");
@@ -138,15 +137,12 @@ public class UpdateCustomer implements View {
 
 	private void initText() {
 		// TODO Profilbearbeitung: Eigentlichen Nachnamen reinklatschen
-		name.setText("G�nther");
 		name.setBounds(200, 122, 130, 21);
 
 
 		// TODO Profilbearbeitung: Eigentlichen Telefonnummer einsetzen
-		mobileInput.setText("+49 5252");
 		mobileInput.setBounds(200, 190, 130, 21);
 
-		emailInput.setText("G\u00FCnther@web.de");
 		emailInput.setBounds(200, 258, 130, 21);
 	}
 

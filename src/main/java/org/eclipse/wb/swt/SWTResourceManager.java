@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Utility class for managing OS resources associated with SWT controls such as colors, fonts, images, etc.
  * <p>
- * !!! IMPORTANT !!! Application code must explicitly invoke the <code>dispose()</code> method to release the
+ * !!! IMPORTANT !!! Application code must explicitly invoke the <code>entsorge()</code> method to release the
  * operating system resources managed by cached objects when those objects and OS resources are no longer
  * needed (e.g. on application shutdown)
  * <p>
@@ -273,14 +273,14 @@ public class SWTResourceManager {
 	 * Dispose all of the cached {@link Image}'s.
 	 */
 	public static void disposeImages() {
-		// dispose loaded images
+		// entsorge loaded images
 		{
 			for (Image image : m_imageMap.values()) {
 				image.dispose();
 			}
 			m_imageMap.clear();
 		}
-		// dispose decorated images
+		// entsorge decorated images
 		for (int i = 0; i < m_decoratedImageMap.length; i++) {
 			Map<Image, Map<Image, Image>> cornerDecoratedImageMap = m_decoratedImageMap[i];
 			if (cornerDecoratedImageMap != null) {

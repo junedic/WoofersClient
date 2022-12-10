@@ -11,49 +11,49 @@ public class Hauptfenster implements View, Closeable {
 
 	private Shell 	shell;
 	private Label 	terminal;
-	private Button 	createAppointment;
-	private Button 	deleteAppointment;
-	private Button 	appointmentCustomer;
-	private Button 	appointmentEmployee;
-	private Button 	editCustomer;
-	private Button 	setIp;
+	private Button erstelleTermin;
+	private Button entferneTermin;
+	private Button terminKunde;
+	private Button terminMitarbeiter;
+	private Button bearbeiteKunde;
+	private Button setzeIP;
 	private Text	ip;
 	
 	public Hauptfenster() {
 		shell = new Shell();
 		terminal = new Label(shell, SWT.NONE);
-		createAppointment = new Button(shell, SWT.NONE);
-		deleteAppointment = new Button(shell, SWT.NONE);
-		appointmentEmployee = new Button(shell, SWT.NONE);
-		appointmentCustomer = new Button(shell, SWT.NONE);
-		editCustomer = new Button(shell, SWT.NONE);
-		setIp = new Button(shell, SWT.NONE);
+		erstelleTermin = new Button(shell, SWT.NONE);
+		entferneTermin = new Button(shell, SWT.NONE);
+		terminMitarbeiter = new Button(shell, SWT.NONE);
+		terminKunde = new Button(shell, SWT.NONE);
+		bearbeiteKunde = new Button(shell, SWT.NONE);
+		setzeIP = new Button(shell, SWT.NONE);
 		ip = new Text(shell, SWT.BORDER);
-		ip.insert("IP-Address");
+		ip.insert("IP-Addresse");
 		init();
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		terminal 				= new Label(shell, SWT.NONE);
-		createAppointment 		= new Button(shell, SWT.NONE);
-		deleteAppointment 		= new Button(shell, SWT.NONE);
-		appointmentEmployee 	= new Button(shell, SWT.NONE);
-		appointmentCustomer 	= new Button(shell, SWT.NONE);
-		editCustomer		 	= new Button(shell, SWT.NONE);
-		setIp 					= new Button(shell, SWT.NONE);
+		erstelleTermin = new Button(shell, SWT.NONE);
+		entferneTermin = new Button(shell, SWT.NONE);
+		terminMitarbeiter = new Button(shell, SWT.NONE);
+		terminKunde = new Button(shell, SWT.NONE);
+		bearbeiteKunde = new Button(shell, SWT.NONE);
+		setzeIP = new Button(shell, SWT.NONE);
 		ip 						= new Text(shell, SWT.BORDER);
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		terminal.dispose();
-		createAppointment.dispose();
-		deleteAppointment.dispose();
-		appointmentCustomer.dispose();
-		appointmentEmployee.dispose();
-		editCustomer.dispose();
-		setIp.dispose();
+		erstelleTermin.dispose();
+		entferneTermin.dispose();
+		terminKunde.dispose();
+		terminMitarbeiter.dispose();
+		bearbeiteKunde.dispose();
+		setzeIP.dispose();
 		ip.dispose();
 	}
 
@@ -92,13 +92,13 @@ public class Hauptfenster implements View, Closeable {
 	}
 
 	private void initButtons() {
-		createAppointment.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		createAppointment.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
-		createAppointment.setBounds(143, 143, 122, 37);
-		createAppointment.setText("Termin erstellen");
+		erstelleTermin.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		erstelleTermin.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
+		erstelleTermin.setBounds(143, 143, 122, 37);
+		erstelleTermin.setText("Termin erstellen");
 
 		/*
-		deleteAppointment.addMouseListener(new MouseAdapter() {
+		entferneTermin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				shell.close();
@@ -106,23 +106,23 @@ public class Hauptfenster implements View, Closeable {
 			}
 		});
 		*/
-		deleteAppointment.setText("Termin l\u00F6schen");
-		deleteAppointment.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		deleteAppointment.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
-		deleteAppointment.setBounds(269, 143, 122, 37);
+		entferneTermin.setText("Termin l\u00F6schen");
+		entferneTermin.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		entferneTermin.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
+		entferneTermin.setBounds(269, 143, 122, 37);
 
-		appointmentEmployee.setText("Terminliste von Mitarbeiter ausgeben");
-		appointmentEmployee.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		appointmentEmployee.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
-		appointmentEmployee.setBounds(143, 186, 248, 37);
+		terminMitarbeiter.setText("Terminliste von Mitarbeiter ausgeben");
+		terminMitarbeiter.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		terminMitarbeiter.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
+		terminMitarbeiter.setBounds(143, 186, 248, 37);
 
-		appointmentCustomer.setText("Terminliste von Kunden ausgeben");
-		appointmentCustomer.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		appointmentCustomer.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
-		appointmentCustomer.setBounds(143, 229, 248, 37);
+		terminKunde.setText("Terminliste von Kunden ausgeben");
+		terminKunde.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		terminKunde.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
+		terminKunde.setBounds(143, 229, 248, 37);
 
 		/*
-		editCustomer.addMouseListener(new MouseAdapter() {
+		bearbeiteKunde.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				shell.close();
@@ -130,15 +130,15 @@ public class Hauptfenster implements View, Closeable {
 			}
 		});
 		 */
-		editCustomer.setText("Kundenprofil bearbeiten");
-		editCustomer.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		editCustomer.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
-		editCustomer.setBounds(143, 272, 248, 37);
+		bearbeiteKunde.setText("Kundenprofil bearbeiten");
+		bearbeiteKunde.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		bearbeiteKunde.setFont(SWTResourceManager.getFont("Arial", 10, SWT.BOLD));
+		bearbeiteKunde.setBounds(143, 272, 248, 37);
 
-		setIp.setText("Set IP");
-		setIp.setForeground(SWTResourceManager.getColor(64, 0, 64));
-		setIp.setFont(SWTResourceManager.getFont("Arial", 8, SWT.BOLD));
-		setIp.setBounds(269, 115, 123, 25);
+		setzeIP.setText("Setze IP");
+		setzeIP.setForeground(SWTResourceManager.getColor(64, 0, 64));
+		setzeIP.setFont(SWTResourceManager.getFont("Arial", 8, SWT.BOLD));
+		setzeIP.setBounds(269, 115, 123, 25);
 
 		ip.setBounds(143, 115, 123, 25);
 	}
@@ -151,27 +151,27 @@ public class Hauptfenster implements View, Closeable {
 		return terminal;
 	}
 
-	public Button getCreateAppointment() {
-		return createAppointment;
+	public Button getErstelleTermin() {
+		return erstelleTermin;
 	}
 
-	public Button getDeleteAppointment() {
-		return deleteAppointment;
+	public Button getEntferneTermin() {
+		return entferneTermin;
 	}
 
-	public Button getAppointmentCustomer() {
-		return appointmentCustomer;
+	public Button getTerminKunde() {
+		return terminKunde;
 	}
 
-	public Button getAppointmentEmployee() {
-		return appointmentEmployee;
+	public Button getTerminMitarbeiter() {
+		return terminMitarbeiter;
 	}
 
-	public Button getEditCustomer() {
-		return editCustomer;
+	public Button getBearbeiteKunde() {
+		return bearbeiteKunde;
 	}
 
-	public Button getSetIp() { return setIp; }
+	public Button getSetzeIP() { return setzeIP; }
 
 	public Text getIp() { return ip; }
 
