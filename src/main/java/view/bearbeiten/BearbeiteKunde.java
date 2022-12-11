@@ -58,12 +58,13 @@ public class BearbeiteKunde implements View {
 		surnameId.dispose();
 		mobile.dispose();
 		email.dispose();
-		customerId.dispose();
+		customerIdInput.dispose();
 		profile.dispose();
 		name.dispose();
 		mobileInput.dispose();
 		emailInput.dispose();
 		save.dispose();
+		weiseElementeZu();
 	}
 
 	private void initShell() {

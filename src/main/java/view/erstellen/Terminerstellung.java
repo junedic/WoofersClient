@@ -1,4 +1,4 @@
-package view.terminErstellen;
+package view.erstellen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
@@ -12,19 +12,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
+import view.View;
 
-public class Terminerstellung {
+public class Terminerstellung implements View {
 
 	/**
 	 * @version 2.1
 	 */
 
 	private Shell shell;
-	private Button zeitslot1;
-	private Button zeitslot2;
-	private Button zeitslot3;
-	private Button zeitslot4;
-	private Button zeitslot5;
 	private Button massageCheck;
 	private Button schneidenCheck;
 	private Button entfilzenCheck;
@@ -46,6 +42,7 @@ public class Terminerstellung {
 	private Label verfuegbareZeitslots;
 	private Combo hundeAuswahl;
 	private Combo mitarbeiterAuswahl;
+	private Combo zeitAuswahl;
 	private DateTime datumsAuswahl;
 
 	/*
@@ -69,7 +66,7 @@ public class Terminerstellung {
 
 	public Terminerstellung(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	// @Override
@@ -82,8 +79,7 @@ public class Terminerstellung {
 	}
 
 	// @Override
-	public void assignElements() {
-
+	public void weiseElementeZu() {
 		terminErstellenUeberschrift = new Label(shell, SWT.NONE);
 		entlausen = new Label(shell, SWT.NONE);
 		entfilzen = new Label(shell, SWT.NONE);
@@ -96,11 +92,6 @@ public class Terminerstellung {
 		preisPlatzhalter = new Label(shell, SWT.NONE);
 		preis = new Label(shell, SWT.NONE);
 		verfuegbareZeitslots = new Label(shell, SWT.NONE);
-		zeitslot1 = new Button(shell, SWT.NONE);
-		zeitslot2 = new Button(shell, SWT.NONE);
-		zeitslot3 = new Button(shell, SWT.NONE);
-		zeitslot4 = new Button(shell, SWT.NONE);
-		zeitslot5 = new Button(shell, SWT.NONE);
 		massageCheck = new Button(shell, SWT.BORDER | SWT.CHECK);
 		schneidenCheck = new Button(shell, SWT.BORDER | SWT.CHECK);
 		entfilzenCheck = new Button(shell, SWT.BORDER | SWT.CHECK);
@@ -110,13 +101,13 @@ public class Terminerstellung {
 		zurueck = new Button(shell, SWT.NONE);
 		hundeAuswahl = new Combo(shell, SWT.NONE);
 		mitarbeiterAuswahl = new Combo(shell, SWT.NONE);
+		zeitAuswahl = new Combo(shell, SWT.NONE);
 		datumsAuswahl = new DateTime(shell, SWT.BORDER | SWT.CALENDAR);
 
 	}
 
 	// @Override
-	public void dispose() {
-
+	public void entsorge() {
 		terminErstellenUeberschrift.dispose();
 		entlausen.dispose();
 		entfilzen.dispose();
@@ -124,20 +115,23 @@ public class Terminerstellung {
 		massage.dispose();
 		waschenBaden.dispose();
 		waehleHund.dispose();
+		waeleMitarbeiter.dispose();
 		buchbareDienstleistungen.dispose();
 		preisPlatzhalter.dispose();
 		preis.dispose();
 		verfuegbareZeitslots.dispose();
-		zeitslot1.dispose();
-		zeitslot2.dispose();
-		zeitslot3.dispose();
-		zeitslot4.dispose();
-		zeitslot5.dispose();
+		massageCheck.dispose();
+		schneidenCheck.dispose();
+		entfilzenCheck.dispose();
+		entlausenCheck.dispose();
+		waschenBadenCheck.dispose();
 		bestellUebersicht.dispose();
 		zurueck.dispose();
 		hundeAuswahl.dispose();
 		mitarbeiterAuswahl.dispose();
-		assignElements();
+		datumsAuswahl.dispose();
+		zeitAuswahl.dispose();
+		weiseElementeZu();
 
 	}
 
@@ -229,66 +223,6 @@ public class Terminerstellung {
 
 	private void initButtons() {
 
-		zeitslot1.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
-		// Eventhandler wenn Button 'Zeitslot 1' gewählt wurde
-		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
-		// ausgegraut / selektierbar sein
-		zeitslot1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-			}
-		});
-		zeitslot1.setBounds(260, 355, 90, 30);
-		zeitslot1.setText("08:00 - 09:30");
-
-		// Eventhandler wenn Button 'Zeitslot 2' gewählt wurde
-		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
-		// ausgegraut / selektierbar sein
-		zeitslot2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-			}
-		});
-		zeitslot2.setBounds(260, 390, 90, 30);
-		zeitslot2.setText("09:45 - 11:15");
-
-		// Eventhandler wenn Button 'Zeitslot 3' gewählt wurde
-		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
-		// ausgegraut / selektierbar sein
-		zeitslot3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-			}
-		});
-		zeitslot3.setBounds(260, 425, 90, 30);
-		zeitslot3.setText("12:00 - 13:30");
-
-		// Eventhandler wenn Button 'Zeitslot 4' gewählt wurde
-		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
-		// ausgegraut / selektierbar sein
-		zeitslot4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-			}
-		});
-		zeitslot4.setBounds(260, 460, 90, 30);
-		zeitslot4.setText("13:40 - 15:10");
-
-		// Eventhandler wenn Button 'Zeitslot 5' gewählt wurde
-		// Je nachdem ob der Zeitslot bereits gebucht wurde muss dieser Button
-		// ausgegraut / selektierbar sein
-		zeitslot5.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-			}
-		});
-		zeitslot5.setBounds(260, 495, 90, 30);
-		zeitslot5.setText("15:20 - 16:50");
-
 		massageCheck.setBounds(230, 116, 16, 20);
 		// Eventhandler wenn Checklist 'Massage' gecheked wurde
 		massageCheck.addMouseListener(new MouseAdapter() {
@@ -331,11 +265,6 @@ public class Terminerstellung {
 
 		bestellUebersicht.setBounds(232, 560, 151, 30);
 		bestellUebersicht.setText("Bestell\u00fcbersicht");
-		bestellUebersicht.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
 
 		// Warum ist das das einzige mit location lul
 		zurueck.setLocation(33, 560);
@@ -349,59 +278,37 @@ public class Terminerstellung {
 
 	}
 
+	public void initZeit() {
+		zeitAuswahl.removeAll();
+		zeitAuswahl.add("15:00:00");
+		zeitAuswahl.add("16:00:00");
+		zeitAuswahl.add("17:00:00");
+		zeitAuswahl.add("18:00:00");
+		zeitAuswahl.add("19:00:00");
+	}
+
 	private void initCombos() {
-
 		hundeAuswahl.setBounds(230, 220, 132, 28);
-
+		zeitAuswahl.setBounds(260, 355, 90, 30);
 		mitarbeiterAuswahl.setBounds(230, 250, 132, 28);
 
+		zeitAuswahl.add("15:00:00");
+		zeitAuswahl.add("16:00:00");
+		zeitAuswahl.add("17:00:00");
+		zeitAuswahl.add("18:00:00");
+		zeitAuswahl.add("19:00:00");
 	}
 
 	private void initDatePicker() {
-
+		datumsAuswahl.setYear(2022);
+		datumsAuswahl.setMonth(13);
 		datumsAuswahl.setLocation(25, 349);
 		datumsAuswahl.setSize(193, 178);
 
 	}
 
-	public Button getZeitslot1() {
-		return zeitslot1;
-	}
-
-	public void setZeitslot1(Button zeitslot1) {
-		this.zeitslot1 = zeitslot1;
-	}
-
-	public Button getZeitslot2() {
-		return zeitslot2;
-	}
-
-	public void setZeitslot2(Button zeitslot2) {
-		this.zeitslot2 = zeitslot2;
-	}
-
-	public Button getZeitslot3() {
-		return zeitslot3;
-	}
-
-	public void setZeitslot3(Button zeitslot3) {
-		this.zeitslot3 = zeitslot3;
-	}
-
-	public Button getZeitslot4() {
-		return zeitslot4;
-	}
-
-	public void setZeitslot4(Button zeitslot4) {
-		this.zeitslot4 = zeitslot4;
-	}
-
-	public Button getZeitslot5() {
-		return zeitslot5;
-	}
-
-	public void setZeitslot5(Button zeitslot5) {
-		this.zeitslot5 = zeitslot5;
+	public Combo getZeitAuswahl() {
+		return zeitAuswahl;
 	}
 
 	public Button getMassageCheck() {

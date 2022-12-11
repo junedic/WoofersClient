@@ -1,4 +1,4 @@
-package view.mitarbieterlisteTermin;
+package view.lesen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -20,7 +20,7 @@ public class MitarbeiterID implements View {
 
 	public MitarbeiterID(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	public void open() {
@@ -76,7 +76,7 @@ public class MitarbeiterID implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		combo = new Combo(shell, SWT.READ_ONLY);
 		lblBitteWhlenSie = new Label(shell, SWT.NONE);
 		btnNewButton = new Button(shell, SWT.NONE);
@@ -84,12 +84,12 @@ public class MitarbeiterID implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		combo.dispose();
 		lblBitteWhlenSie.dispose();
 		btnNewButton.dispose();
 		btnOk.dispose();
-		assignElements();
+		weiseElementeZu();
 
 	}
 

@@ -1,4 +1,4 @@
-package view.terminErstellen;
+package view.erstellen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -44,7 +44,7 @@ public class Buchungsdetails implements View {
 
 	public Buchungsdetails(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	public void open() {
@@ -193,7 +193,7 @@ public class Buchungsdetails implements View {
 		// I. Button
 		btnAngabenAnpassen.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		btnAngabenAnpassen.setBounds(47, 359, 137, 30);
-		btnAngabenAnpassen.setText("Angaben anpassen");
+		btnAngabenAnpassen.setText("Abbrechen");
 
 		// II. Button
 		btnTerminBuchen.setForeground(SWTResourceManager.getColor(0, 0, 0));
@@ -216,7 +216,7 @@ public class Buchungsdetails implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		lblBuchungsdetails = new Label(shell, SWT.NONE);
 		comp1 = new Composite(shell, SWT.NONE);
 		comp2 = new Composite(shell, SWT.NONE);
@@ -241,7 +241,7 @@ public class Buchungsdetails implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		lblBuchungsdetails.dispose();
 		lblBuchbareDienstleistungen.dispose();
 		lblPreisbezeichnung.dispose();
@@ -256,7 +256,7 @@ public class Buchungsdetails implements View {
 		btnTerminBuchen.dispose();
 		comp1.dispose();
 		comp2.dispose();
-		assignElements();
+		weiseElementeZu();
 
 	}
 

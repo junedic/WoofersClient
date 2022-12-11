@@ -1,4 +1,4 @@
-package view.kundenlisteTermin;
+package view.lesen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -22,7 +22,7 @@ public class Auswahlsfenster implements View {
 
 	public Auswahlsfenster(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	public void open() {
@@ -91,7 +91,7 @@ public class Auswahlsfenster implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		lblAnscheinendGibtEs = new Label(shell, SWT.NONE);
 		lblVorname = new Label(shell, SWT.NONE);
 		btnZurueck = new Button(shell, SWT.NONE);
@@ -102,14 +102,14 @@ public class Auswahlsfenster implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		lblAnscheinendGibtEs.dispose();
 		lblVorname.dispose();
 		btnZurueck.dispose();
 		btnWeiter.dispose();
 		lblWelchenGenauMeinen.dispose();
 		list.dispose();
-		assignElements();
+		weiseElementeZu();
 	}
 
 	public Label getLblAnscheinendGibtEs() {

@@ -1,5 +1,7 @@
 package model.sql;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.HashMap;
 
 /**
@@ -8,19 +10,37 @@ import java.util.HashMap;
 public class SqlBefehle {
 
     //CREATE
-    public static final String ErstelleTermin    = "INSERT INTO Termin (ID, Mitarbeiter.Nr, Hund.ID, Kunde.Nr, Datum, Uhrzeit) VALUES (?,?,?,?,?,?)";
-    public static final String ErstelleBuchung   = "INSERT INTO gebuchteDienstleistung (Termin.ID, Dienstleistung.ID) VALUES (?, ?)";
+    public static final String ErstelleTermin    = "INSERT INTO Termin (Kunde_Nr, Mitarbeiter_Nr, Hund_ID, Datum, Uhrzeit) VALUES (?,?,?,?,?)";
+    public static final String ErstelleBuchung   = "INSERT INTO gebuchteDienstleistung (Termin_ID, Dienstleistung_ID) VALUES (?, ?)";
+    public static final HashMap<String, HashMap<Integer, Class>> ErstelleParamMap;
+    static {
+        ErstelleParamMap = new HashMap<>();
+        ErstelleParamMap.put(ErstelleTermin, new HashMap<>());
+        ErstelleParamMap.get(ErstelleTermin).put(0, Integer.class);
+        ErstelleParamMap.get(ErstelleTermin).put(1, Integer.class);
+        ErstelleParamMap.get(ErstelleTermin).put(2, Integer.class);
+        ErstelleParamMap.get(ErstelleTermin).put(3, Date.class);
+        ErstelleParamMap.get(ErstelleTermin).put(4, Time.class);
+    }
     //
     //READ
     public static final String LeseAlle          = "SELECT * FROM %s";
     public static final String LeseKunde         = "SELECT * FROM Kunde WHERE Nr = ?";
+    public static final String LeseMaZeiten      = "SELECT Uhrzeit FROM Termin WHERE Mitarbeiter_Nr = ? AND DATE(Datum) = ?";
+    public static final String LeseMa            = "SELECT Nr, Vorname, Nachname FROM Mitarbeiter";
+    public static final String LeseHunde         = "SELECT ID, Name FROM Hund WHERE Kunde_Nr = ?";
     public static final HashMap<String, HashMap<Integer, Class>> LesenParamMap;
     static {
-        HashMap<String, HashMap<Integer, Class>> temp = new HashMap<>();
-        HashMap<Integer, Class> tempInternal = new HashMap<>();
-        tempInternal.put(0, Integer.class);
-        temp.put(LeseKunde, tempInternal);
-        LesenParamMap = temp;
+        LesenParamMap = new HashMap<>();
+        LesenParamMap.put(LeseKunde, new HashMap<>());
+        LesenParamMap.get(LeseKunde).put(0, Integer.class);
+
+        LesenParamMap.put(LeseMaZeiten, new HashMap<>());
+        LesenParamMap.get(LeseMaZeiten).put(0, Integer.class);
+        LesenParamMap.get(LeseMaZeiten).put(1, Date.class);
+
+        LesenParamMap.put(LeseHunde, new HashMap<>());
+        LesenParamMap.get(LeseHunde).put(0, Integer.class);
     }
     //
     //UPDATE

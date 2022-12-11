@@ -1,4 +1,4 @@
-package view.mitarbieterlisteTermin;
+package view.lesen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -10,18 +10,18 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import view.View;
 
-public class Mitarbeiterliste implements View {
+public class Kundenliste implements View {
 
 	private Shell shell;
 	private Button btnNewButton;
 	private Label lblWelchenGenauMeinen;
-	private List list;
 	private Label lblKundenid;
 	private Label lblX;
+	private List list;
 
-	public Mitarbeiterliste(Shell shell) {
+	public Kundenliste(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	public void open() {
@@ -39,7 +39,7 @@ public class Mitarbeiterliste implements View {
 	@Override
 	public void init() {
 		initShell();
-		initLabel();
+		initLabels();
 		initButtons();
 		initList();
 
@@ -52,7 +52,7 @@ public class Mitarbeiterliste implements View {
 		shell.setText("Mehrere gleichnamige Kunden");
 	}
 
-	private void initLabel() {
+	private void initLabels() {
 		// I. Label: "Terminliste"
 		lblWelchenGenauMeinen.setForeground(SWTResourceManager.getColor(255, 128, 0));
 		lblWelchenGenauMeinen.setBackground(SWTResourceManager.getColor(64, 0, 128));
@@ -61,15 +61,15 @@ public class Mitarbeiterliste implements View {
 		lblWelchenGenauMeinen.setAlignment(SWT.CENTER);
 		lblWelchenGenauMeinen.setBounds(100, 119, 272, 38);
 
-		// II. Label: "Mitarbeiter"
-		lblKundenid.setText("Mitarbeiter");
+		// II. Label: "KundenID"
+		lblKundenid.setText("KundenID:");
 		lblKundenid.setForeground(SWTResourceManager.getColor(255, 128, 0));
 		lblKundenid.setFont(SWTResourceManager.getFont("Arial", 19, SWT.NORMAL));
 		lblKundenid.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		lblKundenid.setAlignment(SWT.CENTER);
 		lblKundenid.setBounds(141, 50, 143, 38);
 
-		// III. Label: "X"
+		// III. Label: Platzhalter f�r die KundenID
 		lblX.setText("X");
 		lblX.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblX.setFont(SWTResourceManager.getFont("Arial", 19, SWT.NORMAL));
@@ -79,7 +79,8 @@ public class Mitarbeiterliste implements View {
 	}
 
 	private void initButtons() {
-		// I. Button
+		// I. Button: Zurueck zum Hauptmenue
+		btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		btnNewButton.setText("Zur\u00FCck zum Hauptemen\u00FC");
 		btnNewButton.setBounds(111, 348, 271, 25);
@@ -87,27 +88,28 @@ public class Mitarbeiterliste implements View {
 	}
 
 	private void initList() {
+		// I. List: Enthaelt alle Termine eines Kunden
 		list.setTouchEnabled(true);
 		list.setBounds(65, 179, 359, 136);
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		lblWelchenGenauMeinen = new Label(shell, SWT.NONE);
 		list = new List(shell, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		lblKundenid = new Label(shell, SWT.NONE);
 		lblX = new Label(shell, SWT.NONE);
-		btnNewButton = new Button(shell, SWT.NONE);
+
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		lblWelchenGenauMeinen.dispose();
 		list.dispose();
 		lblKundenid.dispose();
 		lblX.dispose();
-		btnNewButton.dispose();
-		assignElements();
+		weiseElementeZu();
+
 	}
 
 	public Button getBtnNewButton() {
@@ -126,14 +128,6 @@ public class Mitarbeiterliste implements View {
 		this.lblWelchenGenauMeinen = lblWelchenGenauMeinen;
 	}
 
-	public List getList() {
-		return list;
-	}
-
-	public void setList(String[] inhalte) {
-		this.list.setItems(inhalte);
-	}
-
 	public Label getLblKundenid() {
 		return lblKundenid;
 	}
@@ -148,6 +142,14 @@ public class Mitarbeiterliste implements View {
 
 	public void setLblX(Label lblX) {
 		this.lblX = lblX;
+	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(String[] inhalte) {
+		this.list.setItems(inhalte);
 	}
 
 }

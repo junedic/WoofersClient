@@ -1,4 +1,4 @@
-package view.kundenlisteTermin;
+package view.lesen;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -23,7 +23,7 @@ public class Kundeneingabe implements View {
 
 	public Kundeneingabe(Shell shell) {
 		this.shell = shell;
-		assignElements();
+		weiseElementeZu();
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Kundeneingabe implements View {
 	}
 
 	@Override
-	public void assignElements() {
+	public void weiseElementeZu() {
 		lblBitteGebenSie = new Label(shell, SWT.NONE);
 		text = new Text(shell, SWT.BORDER);
 		lblVorname = new Label(shell, SWT.NONE);
@@ -112,7 +112,7 @@ public class Kundeneingabe implements View {
 	}
 
 	@Override
-	public void dispose() {
+	public void entsorge() {
 		text.dispose();
 		text_1.dispose();
 		lblBitteGebenSie.dispose();
@@ -120,7 +120,7 @@ public class Kundeneingabe implements View {
 		lblNachname.dispose();
 		btnNewButton.dispose();
 		btnWeiter.dispose();
-		assignElements();
+		weiseElementeZu();
 
 	}
 

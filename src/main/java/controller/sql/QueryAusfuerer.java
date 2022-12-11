@@ -6,10 +6,7 @@ import model.sql.SqlBefehle;
 import model.viewmodel.Reise;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,6 +46,13 @@ public class QueryAusfuerer {
             case "java.lang.Boolean":
                 ps.setBoolean(counter, (((Boolean) o).booleanValue()));
                 break;
+            case "java.sql.Date":
+                System.out.println("henlo2");
+                ps.setDate(counter, (Date) o);
+                break;
+            case "java.sql.Time":
+                ps.setTime(counter, (Time) o);
+                break;
         }
     }
 
@@ -67,6 +71,8 @@ public class QueryAusfuerer {
         Class c = null;
         switch(type) {
             case CREATE:
+                c = SqlBefehle.ErstelleParamMap.get(sql).get(zaehler-1);
+                setParam(ps, c, o, zaehler);
                 break;
             case READ:
                 c = SqlBefehle.LesenParamMap.get(sql).get(zaehler-1);
@@ -94,7 +100,9 @@ public class QueryAusfuerer {
         try(DB db = new DB(ip)) {
             Connection con = db.getVerbindung();
             ps = con.prepareStatement(sql);
-
+            param.forEach((o) -> {
+                System.out.println("Param2: "+o.toString());
+            });
             AtomicInteger paramZaehler = new AtomicInteger(1);
             param.forEach((o) -> {  try {
                                             handhabeSetParam(sql, ps, paramZaehler.get(), o, typ.getCrudTyp());
@@ -110,7 +118,25 @@ public class QueryAusfuerer {
         }
     }
 
-    protected ArrayList<LinkedHashMap<String, String>> fuehreAus(String sql) throws IOException, SQLException {
+    public ArrayList<LinkedHashMap<String, String>> fuehreAus(String sql, ArrayList<Object> param) throws IOException, SQLException {
+        ArrayList<LinkedHashMap<String, String>> tabelle = new ArrayList<>();
+        ResultSet rs = null;
+        try(DB db = new DB(ip)) {
+            Connection con = db.getVerbindung();
+            ps = con.prepareStatement(sql);
+
+            AtomicInteger paramZaehler = new AtomicInteger(1);
+            param.forEach((o) -> {  try {
+                handhabeSetParam(sql, ps, paramZaehler.get(), o, CRUD.SQL.READ);
+            } catch (SQLException e) { throw new RuntimeException(e); }
+                paramZaehler.getAndIncrement(); });
+            rs = ps.executeQuery(); //wird an ResultHandler uebergeben
+            tabelle = handhaber.konvertiereResultat(rs);
+        }
+        return tabelle;
+    }
+
+    public ArrayList<LinkedHashMap<String, String>> fuehreAus(String sql) throws IOException, SQLException {
         ArrayList<LinkedHashMap<String, String>> tabelle = new ArrayList<>();
         ResultSet rs = null;
         try(DB db = new DB(ip)) {

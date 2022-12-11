@@ -5,29 +5,28 @@ import controller.sql.QueryController;
 import model.db.DB;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import view.Hauptfenster;
 import view.View;
+import view.erstellen.Buchungsdetails;
+import view.erstellen.Terminerstellung;
 import view.gemeinsam.Meldungsfenster;
 import view.entfernen.EingabeTerminId;
 import view.bearbeiten.EingabeKundeId;
 import view.bearbeiten.BearbeiteKunde;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.sql.Connection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * zentraler State der GUI
  */
 public class GuiController {
 
-    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId,
-                      BearbeiteKunde bearbeiteKunde) {}
+    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId_BearbeiteKunde, EingabeKundeId eingabeKundeId_TerminErstellen,
+                      BearbeiteKunde bearbeiteKunde, Terminerstellung terminErstellung, Buchungsdetails buchungsDetails) {}
 
     private Display anzeige;
     private Monitor primaer;
@@ -36,12 +35,15 @@ public class GuiController {
     private Shell shell;
     private GUI gui;
     private ReiseHandhaber reiseHandhaber;
+    private AtomicBoolean ipGesetzt;
+    private String globaleIp;
 
     public GuiController() {
         hauptfenster = new Hauptfenster();
         aktuell = hauptfenster;
         shell = hauptfenster.getShell();
-        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new BearbeiteKunde(shell));
+        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new BearbeiteKunde(shell), new Terminerstellung(shell), new Buchungsdetails(shell));
+        ipGesetzt = new AtomicBoolean(false);
         initView();
     }
 
@@ -68,6 +70,22 @@ public class GuiController {
         }
     }
 
+    public static class FehlerHandhaber implements Runnable {
+
+        String ueberschrift;
+        String beschreibung;
+
+        public FehlerHandhaber(String ueberschrift, String beschreibung) {
+            this.ueberschrift = ueberschrift;
+            this.beschreibung = beschreibung;
+        }
+
+        @Override
+        public void run() {
+            Meldungsfenster m = new Meldungsfenster(ueberschrift, beschreibung);
+        }
+    }
+
     private class IpHandhaber implements Runnable {
 
         String ip;
@@ -80,19 +98,36 @@ public class GuiController {
 
         @Override
         public void run() {
-            try(DB db = new DB(ip)) {}catch(Exception e) {
-                Meldungsfenster m = new Meldungsfenster("Fehler", "Die IP-Adresse ist ungueltig");
-                return;
+            if(!ipGesetzt.get() || globaleIp != ip) {
+                try (DB db = new DB(ip)) {
+                } catch (Exception e) {
+                    anzeige.asyncExec(new FehlerHandhaber("Fehler", "IP Adresse ung\u00FCltig"));
+                    ipGesetzt.set(false);
+                    globaleIp = null;
+                    return;
+                }
+                ipGesetzt.set(true);
+                globaleIp = ip;
+                anzeige.asyncExec(new FehlerHandhaber("Erfolg", "IP Adresse gesetzt"));
             }
-            Meldungsfenster m = new Meldungsfenster("Erfolg", "IP Adresse gesetzt");
-            reiseHandhaber = new ReiseHandhaber(controller, new QueryController(ip));
-            hauptfenster.getEntferneTermin().addMouseListener(reiseHandhaber.getDeleteAppointment().entferneTermin());
-            gui.eingabeTerminId().getConfirm().addMouseListener(reiseHandhaber.getDeleteAppointment().bestaetige());
-            gui.eingabeTerminId().getBack().addMouseListener(reiseHandhaber.getDeleteAppointment().zurueck());
+            reiseHandhaber = new ReiseHandhaber(controller, new QueryController(ip), anzeige);
+            hauptfenster.getIp().setText(globaleIp);
+            hauptfenster.getEntferneTermin().addMouseListener(reiseHandhaber.getEntferneTermin().entferneTermin());
+            gui.eingabeTerminId().getConfirm().addMouseListener(reiseHandhaber.getEntferneTermin().bestaetige());
+            gui.eingabeTerminId().getBack().addMouseListener(reiseHandhaber.getEntferneTermin().zurueck());
 
-            hauptfenster.getBearbeiteKunde().addMouseListener(reiseHandhaber.getEditCustomer().eingabeKundenId());
-            gui.eingabeKundeId().getConfirm().addMouseListener(reiseHandhaber.getEditCustomer().bestaetige());
-            gui.bearbeiteKunde().getSave().addMouseListener(reiseHandhaber.getEditCustomer().bearbeiteKunde());
+            hauptfenster.getBearbeiteKunde().addMouseListener(reiseHandhaber.getBearbeiteKunde().eingabeKundenId());
+            gui.eingabeKundeId_BearbeiteKunde().getConfirm().addMouseListener(reiseHandhaber.getBearbeiteKunde().bestaetige());
+            gui.bearbeiteKunde().getSave().addMouseListener(reiseHandhaber.getBearbeiteKunde().bearbeiteKunde());
+
+            hauptfenster.getErstelleTermin().addMouseListener(reiseHandhaber.getErstelleTermin().eingabeKundenId());
+            gui.eingabeKundeId_TerminErstellen().getConfirm().addMouseListener(reiseHandhaber.getErstelleTermin().erstelleTermin());
+            gui.terminErstellung().getBestellUebersicht().addMouseListener(reiseHandhaber.getErstelleTermin().zeigeBuchung());
+            gui.terminErstellung().getHundeAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleHund());
+            gui.terminErstellung().getMitarbeiterAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleMa());
+            gui.terminErstellung().getDatumsAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleDatum());
+            gui.buchungsDetails().getBtnAngabenAnpassen().addMouseListener(reiseHandhaber.getBestaetigeTermin().zurueck());
+            gui.buchungsDetails().getBtnTerminBuchen().addMouseListener(reiseHandhaber.getBestaetigeTermin().bestaetige());
         }
     }
 
@@ -100,16 +135,17 @@ public class GuiController {
         final String[] ip = new String[1];
         final GuiController controller = this;
         shell.open();
+        if(ipGesetzt.get())
+            anzeige.asyncExec(new IpHandhaber(globaleIp, controller));
         hauptfenster.getSetzeIP().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDown(MouseEvent mouseEvent) {
                 super.mouseDown(mouseEvent);
+                ipGesetzt.set(false);
                 ip[0] = hauptfenster.getIp().getText();
-                Meldungsfenster m1 = new Meldungsfenster("Verbinde", "Bitte Warten", true);
                 anzeige.asyncExec(new IpHandhaber(ip[0], controller));
             }
         });
-        oeffnen();
     }
 
     public View getAktuell() {

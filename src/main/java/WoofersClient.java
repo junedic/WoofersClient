@@ -21,5 +21,6 @@ public class WoofersClient {
 
         GuiController controller = new GuiController();
         controller.initialisiere();
+        controller.oeffnen();
     }
 }

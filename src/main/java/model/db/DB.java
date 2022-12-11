@@ -26,6 +26,7 @@ public class DB implements Closeable {
         Auth.VerbDaten verbDaten = Auth.verbDaten;
         String verbInit = String.format(verbDaten.url(), ip, verbDaten.port(), verbDaten.db());
         System.out.println("\n"+verbInit+"\n");
+        DriverManager.setLoginTimeout(3);
         try {
             verb = DriverManager.getConnection(verbInit, verbDaten.usr(), verbDaten.pwd());
         } catch (SQLException e) {
