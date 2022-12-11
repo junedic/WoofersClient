@@ -17,12 +17,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class QueryAusfuerer {
 
     private PreparedStatement ps;
+    private QueryController queryController;
     private final ResultatHandhaber handhaber;
     private final String ip;
 
-    public QueryAusfuerer(ResultatHandhaber handhaber, String ip) {
+    public QueryAusfuerer(ResultatHandhaber handhaber, String ip, QueryController queryController) {
         this.handhaber = handhaber;
         this.ip = ip;
+        this.queryController = queryController;
     }
 
     /**
@@ -117,6 +119,7 @@ public class QueryAusfuerer {
             } else {
                 ps.executeUpdate();
                 r = ps.getGeneratedKeys();
+                queryController.aktualisiereAbbildungen();
             }
             if(((ResultSet)r).next())
                 r = ((ResultSet)r).getInt(1);

@@ -56,6 +56,13 @@ public class ReiseHandhaber {
         this.anzeige = anzeige;
         params = new ArrayList<>();
         gebDienste = new ConcurrentHashMap<>();
+        try {
+            queryController.aktualisiereAbbildungen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         initTermin();
         initKunde();
     }
@@ -316,7 +323,6 @@ public class ReiseHandhaber {
                         if(textHalter.getText() != null) {
                             ArrayList<Object> params = new ArrayList<>();
                             params.add(Integer.parseInt(textHalter.getText()));
-                            //queryController.query(SqlBefehle.LeseKunde, params, ReiseResultatsTyp.BearbeiteKunde);
                             TabellenAbbildung.Tabelle kunde = CRUD.tabellenAbbildung.kunde;
                             (guiController.getGui().bearbeiteKunde()).getCustomerIdInput().setText(
                                     kunde.getTable().get(Integer.parseInt(textHalter.getText())-1).get("Nr")

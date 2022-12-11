@@ -20,7 +20,7 @@ public class QueryController {
 
     public QueryController(String ip) {
         handhaber = new ResultatHandhaber(this);
-        ausfuehrer = new QueryAusfuerer(handhaber, ip);
+        ausfuehrer = new QueryAusfuerer(handhaber, ip, this);
         try {
             aktualisiereAbbildungen();
         } catch (SQLException e) {
