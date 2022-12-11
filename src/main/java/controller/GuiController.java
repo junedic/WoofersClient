@@ -1,6 +1,6 @@
 package controller;
 
-import controller.events.ReiseHandhaber;
+import controller.ereignis.ReiseHandhaber;
 import controller.sql.QueryController;
 import model.db.DB;
 import org.eclipse.swt.events.MouseAdapter;
@@ -122,10 +122,12 @@ public class GuiController {
 
             hauptfenster.getErstelleTermin().addMouseListener(reiseHandhaber.getErstelleTermin().eingabeKundenId());
             gui.eingabeKundeId_TerminErstellen().getConfirm().addMouseListener(reiseHandhaber.getErstelleTermin().erstelleTermin());
+            gui.eingabeKundeId_TerminErstellen().getBack().addMouseListener(reiseHandhaber.getErstelleTermin().zurueck());
             gui.terminErstellung().getBestellUebersicht().addMouseListener(reiseHandhaber.getErstelleTermin().zeigeBuchung());
             gui.terminErstellung().getHundeAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleHund());
             gui.terminErstellung().getMitarbeiterAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleMa());
             gui.terminErstellung().getDatumsAuswahl().addSelectionListener(reiseHandhaber.getErstelleTermin().waehleDatum());
+            gui.terminErstellung().getZurueck().addMouseListener(reiseHandhaber.getErstelleTermin().zurueck());
             gui.buchungsDetails().getBtnAngabenAnpassen().addMouseListener(reiseHandhaber.getBestaetigeTermin().zurueck());
             gui.buchungsDetails().getBtnTerminBuchen().addMouseListener(reiseHandhaber.getBestaetigeTermin().bestaetige());
         }

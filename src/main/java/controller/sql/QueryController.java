@@ -42,14 +42,16 @@ public class QueryController {
         System.out.print(CRUD.tabellenAbbildung.kunde.getTable().get(0).get("Email"));
     }
 
-    public void query(String sql, ArrayList<Object> param, Reise.ReiseResultatsTyp typ) {
+    public Object query(String sql, ArrayList<Object> param, Reise.ReiseResultatsTyp typ) {
+        Object o;
         try {
-            ausfuehrer.fuehreAus(sql, param, typ);
+            o = ausfuehrer.fuehreAus(sql, param, typ);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return o;
     }
 
     public QueryAusfuerer getAusfuehrer() {

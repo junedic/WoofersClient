@@ -1,4 +1,4 @@
-package controller.events;
+package controller.ereignis;
 
 import controller.GuiController;
 import controller.sql.QueryController;
@@ -12,6 +12,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import view.View;
 import view.erstellen.Terminerstellung;
@@ -25,7 +26,10 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Logik der GUI, i.e. Verbindung zw. Fenstern und Button Listeners
@@ -38,9 +42,11 @@ public class ReiseHandhaber {
     private BearbeiteKunde bearbeiteKunde;
     private ErstelleTermin erstelleTermin;
     private BestaetigeTermin bestaetigeTermin;
-    private ArrayList<Object> param;
     private Display anzeige;
-    private ArrayList<Object> params;
+
+    private volatile ArrayList<Object> param;
+    private volatile ArrayList<Object> params;
+    private volatile ConcurrentHashMap<String, Boolean> gebDienste;
 
 
     public ReiseHandhaber(GuiController guiController, QueryController queryController, Display anzeige) {
@@ -49,6 +55,7 @@ public class ReiseHandhaber {
         param = new ArrayList<>();
         this.anzeige = anzeige;
         params = new ArrayList<>();
+        gebDienste = new ConcurrentHashMap<>();
         initTermin();
         initKunde();
     }
@@ -95,8 +102,42 @@ public class ReiseHandhaber {
         }
     }
 
+    private enum DienstZuId {
+        Schneiden("Schneiden", 1),
+        WaschenBaden("Waschen/Baden", 2),
+        Entfilzen("Entfilzen", 3),
+        Entlausen("Entlausen", 4),
+        Massage("Massage", 5);
+
+
+        private String text;
+        private int id;
+
+        private DienstZuId(String text, int id) {
+            this.text = text;
+            this.id = id;
+        }
+
+        public static int getIdFromText(String text) {
+            DienstZuId[] d = DienstZuId.values();
+            for(DienstZuId i : d) {
+                if(i.getText().equals(text)) return i.getId();
+            }
+            return -1;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getText() {
+            return text;
+        }
+    }
+
 
     private void initTermin() {
+
         erstelleTermin = new ErstelleTermin(
                 new MouseAdapter() {
                     @Override
@@ -118,11 +159,11 @@ public class ReiseHandhaber {
 
                             for (LinkedHashMap<String, String> mitarbeiter : ma) {
                                 guiController.getGui().terminErstellung().getMitarbeiterAuswahl().
-                                        add(mitarbeiter.get("Nr")+" - "+mitarbeiter.get("Vorname")+" "+mitarbeiter.get("Nachname"));
+                                        add(mitarbeiter.get("Nr") + " - " + mitarbeiter.get("Vorname") + " " + mitarbeiter.get("Nachname"));
                             }
                             for (LinkedHashMap<String, String> hund : hunde) {
                                 guiController.getGui().terminErstellung().getHundeAuswahl().
-                                        add(hund.get("ID")+" - "+hund.get("Name"));
+                                        add(hund.get("ID") + " - " + hund.get("Name"));
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -168,18 +209,34 @@ public class ReiseHandhaber {
                                 || er.getMassageCheck().getSelection() || er.getSchneidenCheck().getSelection()
                                 || er.getWaschenBadenCheck().getSelection()) && er.getHundeAuswahl().getSelectionIndex() >= 0
                                 && er.getMitarbeiterAuswahl().getSelectionIndex() >= 0 && er.getZeitAuswahl().getSelectionIndex() >= 0);
-                        if(allow) {
-                            System.out.println("Diese nR:"+Integer.parseInt(er.getMitarbeiterAuswahl().getText().replaceAll("[^0-9]", "")));
+                        if (allow) {
+                            System.out.println("Diese nR:" + Integer.parseInt(er.getMitarbeiterAuswahl().getText().replaceAll("[^0-9]", "")));
                             params.add(Integer.parseInt(er.getMitarbeiterAuswahl().getText().replaceAll("[^0-9]", "")));
                             params.add(Integer.parseInt(er.getHundeAuswahl().getText().replaceAll("[^0-9]", "")));
-                            params.add(Date.valueOf(er.getDatumsAuswahl().getYear()+"-"+(er.getDatumsAuswahl().getMonth()+1)+"-"+er.getDatumsAuswahl().getDay()));
+                            params.add(Date.valueOf(er.getDatumsAuswahl().getYear() + "-" + (er.getDatumsAuswahl().getMonth() + 1) + "-" + er.getDatumsAuswahl().getDay()));
                             params.add(Time.valueOf(er.getZeitAuswahl().getText()));
                             params.forEach((o) -> {
-                                System.out.println("Param: "+o.toString());
+                                System.out.println("Param: " + o.toString());
+                            });
+
+                            gebDienste.put(er.getEntfilzen().getText(), er.getEntfilzenCheck().getSelection());
+                            gebDienste.put(er.getEntlausen().getText(), er.getEntlausenCheck().getSelection());
+                            gebDienste.put(er.getMassage().getText(), er.getMassageCheck().getSelection());
+                            gebDienste.put(er.getSchneiden().getText(), er.getSchneidenCheck().getSelection());
+                            gebDienste.put(er.getWaschenBaden().getText(), er.getWaschenBadenCheck().getSelection());
+                            gebDienste.forEach((k, v) -> {
+                                gebDienste.remove(false);
                             });
                             oeffneFenster(guiController.getGui().buchungsDetails());
-                        }
-                        else anzeige.asyncExec(new GuiController.FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus"));
+                        } else
+                            anzeige.asyncExec(new GuiController.FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus"));
+                    }
+                },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        guiController.zuruecksetzen();
                     }
                 }
         );
@@ -188,8 +245,16 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
-                        queryController.query(SqlBefehle.ErstelleTermin, params, ReiseResultatsTyp.ErstelleTermin);
+                        int terminId = ((Integer)queryController.query(SqlBefehle.ErstelleTermin, params, ReiseResultatsTyp.ErstelleTermin)).intValue();
                         params.clear();
+                        gebDienste.forEach((k, v) -> {
+                            int dienstId = DienstZuId.getIdFromText(k);
+                            System.out.println("Execute for Checkbox "+k+" with id="+dienstId);
+                            if(v && dienstId > 0) queryController.query(SqlBefehle.ErstelleBuchung, new ArrayList<Object>(){{add(terminId); add(dienstId);}}, ReiseResultatsTyp.ErstelleTermin);
+                            System.out.println("Executed Checkbox");
+                        });
+                        gebDienste.clear();
+
                         guiController.zuruecksetzen();
                     }
                 },
@@ -274,10 +339,10 @@ public class ReiseHandhaber {
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
                         ArrayList<Object> paramsLocal = new ArrayList<>();
-                        paramsLocal.add(((view.bearbeiten.BearbeiteKunde) guiController.getAktuell()).getName().getText());
-                        paramsLocal.add(((view.bearbeiten.BearbeiteKunde) guiController.getAktuell()).getMobileInput().getText());
-                        paramsLocal.add(((view.bearbeiten.BearbeiteKunde) guiController.getAktuell()).getEmailInput().getText());
-                        paramsLocal.add(Integer.parseInt(((view.bearbeiten.BearbeiteKunde) guiController.getAktuell()).getCustomerIdInput().getText()));
+                        paramsLocal.add(guiController.getGui().bearbeiteKunde().getName().getText());
+                        paramsLocal.add(guiController.getGui().bearbeiteKunde().getMobileInput().getText());
+                        paramsLocal.add(guiController.getGui().bearbeiteKunde().getEmailInput().getText());
+                        paramsLocal.add(Integer.parseInt(guiController.getGui().bearbeiteKunde().getCustomerIdInput().getText()));
                         queryController.query(SqlBefehle.BearbeiteKunde, paramsLocal, ReiseResultatsTyp.BearbeiteKunde);
                         try {
                             queryController.aktualisiereAbbildungen();

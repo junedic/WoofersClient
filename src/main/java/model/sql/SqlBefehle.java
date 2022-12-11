@@ -21,6 +21,10 @@ public class SqlBefehle {
         ErstelleParamMap.get(ErstelleTermin).put(2, Integer.class);
         ErstelleParamMap.get(ErstelleTermin).put(3, Date.class);
         ErstelleParamMap.get(ErstelleTermin).put(4, Time.class);
+
+        ErstelleParamMap.put(ErstelleBuchung, new HashMap<>());
+        ErstelleParamMap.get(ErstelleBuchung).put(0, Integer.class);
+        ErstelleParamMap.get(ErstelleBuchung).put(1, Integer.class);
     }
     //
     //READ

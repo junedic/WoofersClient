@@ -9,7 +9,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 public class Reise {
 
     public record ErstelleTermin(MouseAdapter eingabeKundenId, MouseAdapter erstelleTermin, SelectionAdapter waehleHund, SelectionAdapter waehleMa,
-                                 SelectionAdapter waehleDatum, MouseAdapter zeigeBuchung) {}
+                                 SelectionAdapter waehleDatum, MouseAdapter zeigeBuchung, MouseAdapter zurueck) {}
     public record BestaetigeTermin(MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record EntferneTermin(MouseAdapter entferneTermin, MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record BearbeiteKunde(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter bearbeiteKunde) {}

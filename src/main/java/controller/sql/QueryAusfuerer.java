@@ -96,10 +96,11 @@ public class QueryAusfuerer {
      * @throws IOException
      * @throws SQLException
      */
-    public void fuehreAus(String sql, ArrayList<Object> param, Reise.ReiseResultatsTyp typ) throws IOException, SQLException {
+    public Object fuehreAus(String sql, ArrayList<Object> param, Reise.ReiseResultatsTyp typ) throws IOException, SQLException {
+        Object r = new Object();
         try(DB db = new DB(ip)) {
             Connection con = db.getVerbindung();
-            ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             param.forEach((o) -> {
                 System.out.println("Param2: "+o.toString());
             });
@@ -112,10 +113,15 @@ public class QueryAusfuerer {
             if(typ.getCrudTyp().equals(CRUD.SQL.READ)) {
                 ResultSet rs = ps.executeQuery(); //wird an ResultHandler uebergeben
                 handhaber.handhabeResultat(rs, typ);
+                r = ps.getGeneratedKeys();
             } else {
-                ps.execute();
+                ps.executeUpdate();
+                r = ps.getGeneratedKeys();
             }
+            if(((ResultSet)r).next())
+                r = ((ResultSet)r).getInt(1);
         }
+        return r;
     }
 
     public ArrayList<LinkedHashMap<String, String>> fuehreAus(String sql, ArrayList<Object> param) throws IOException, SQLException {
