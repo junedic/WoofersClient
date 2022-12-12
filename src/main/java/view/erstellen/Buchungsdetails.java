@@ -106,7 +106,6 @@ public class Buchungsdetails implements View {
 		lblPreis.setBackground(SWTResourceManager.getColor(64, 0, 64));
 		lblPreis.setAlignment(SWT.CENTER);
 		lblPreis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		lblPreis.setText("10000");
 		lblPreis.setBounds(137, 204, 49, 20);
 
 		lblWaehrung.setBackground(SWTResourceManager.getColor(64, 0, 64));
@@ -130,7 +129,6 @@ public class Buchungsdetails implements View {
 		lblDatum.setForeground(SWTResourceManager.getColor(255, 128, 128));
 		lblDatum.setBackground(SWTResourceManager.getColor(64, 0, 64));
 		lblDatum.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		lblDatum.setText("[Datum]");
 		lblDatum.setBounds(115, 167, 57, 20);
 
 		lblAm.setBackground(SWTResourceManager.getColor(64, 0, 64));
@@ -142,7 +140,6 @@ public class Buchungsdetails implements View {
 		lblMitarbeitername.setForeground(SWTResourceManager.getColor(255, 128, 128));
 		lblMitarbeitername.setBackground(SWTResourceManager.getColor(64, 0, 64));
 		lblMitarbeitername.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		lblMitarbeitername.setText("[Mitarbeitername]");
 		lblMitarbeitername.setBounds(76, 123, 132, 20);
 
 		lblBeiUnseremMitarbeiter.setBackground(SWTResourceManager.getColor(64, 0, 64));
@@ -154,13 +151,11 @@ public class Buchungsdetails implements View {
 		lblHundename.setForeground(SWTResourceManager.getColor(255, 128, 128));
 		lblHundename.setBackground(SWTResourceManager.getColor(64, 0, 64));
 		lblHundename.setFont(SWTResourceManager.getFont("Arial", 13, SWT.BOLD));
-		lblHundename.setText("BELLO");
 		lblHundename.setBounds(76, 67, 70, 20);
 
 		lblUhrzeit.setForeground(SWTResourceManager.getColor(255, 128, 128));
 		lblUhrzeit.setBackground(SWTResourceManager.getColor(64, 0, 64));
 		lblUhrzeit.setFont(SWTResourceManager.getFont("Arial", 9, SWT.BOLD));
-		lblUhrzeit.setText("[UhrzeitZeitslot]");
 		lblUhrzeit.setBounds(113, 193, 122, 20);
 
 		lblWeitereInfos.setBackground(SWTResourceManager.getColor(0, 0, 64));
@@ -237,7 +232,6 @@ public class Buchungsdetails implements View {
 		lblWaehrung = new Label(comp1, SWT.NONE);
 		lblUm = new Label(comp2, SWT.NONE);
 		list = new List(comp1, SWT.NONE);
-
 	}
 
 	@Override

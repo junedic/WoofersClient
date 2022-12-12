@@ -190,7 +190,7 @@ public class Terminerstellung implements View {
 		massage.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		massage.setBounds(55, 116, 58, 20);
 
-		waschenBaden.setText("Waschen/Baden");
+		waschenBaden.setText("Waschen/ Baden");
 		waschenBaden.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		waschenBaden.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		waschenBaden.setBackground(SWTResourceManager.getColor(64, 0, 128));

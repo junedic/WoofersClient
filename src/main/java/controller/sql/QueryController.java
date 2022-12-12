@@ -32,9 +32,8 @@ public class QueryController {
 
     public void aktualisiereAbbildungen() throws SQLException, IOException {
         ArrayList<LinkedHashMap<String, String>> konvertiert;
-        TabellenAbbildung.Tabelle[] tabellen = {CRUD.tabellenAbbildung.kunde, CRUD.tabellenAbbildung.termin, CRUD.tabellenAbbildung.gebuchteDienstleistung};
         int i = 0;
-        for(TabellenAbbildung.Tabelle t : tabellen) {
+        for(TabellenAbbildung.Tabelle t : CRUD.tabellenAbbildung.tabellen) {
             System.out.println(""+(i++));
             konvertiert = ausfuehrer.fuehreAus(String.format(SqlBefehle.LeseAlle, t.getTableName()));
             t.setTabelle(konvertiert);

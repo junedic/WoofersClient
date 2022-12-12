@@ -1,5 +1,6 @@
 package controller;
 
+import controller.ereignis.FehlerHandhaber;
 import controller.ereignis.ReiseHandhaber;
 import controller.sql.QueryController;
 import model.db.DB;
@@ -70,22 +71,6 @@ public class GuiController {
         }
     }
 
-    public static class FehlerHandhaber implements Runnable {
-
-        String ueberschrift;
-        String beschreibung;
-
-        public FehlerHandhaber(String ueberschrift, String beschreibung) {
-            this.ueberschrift = ueberschrift;
-            this.beschreibung = beschreibung;
-        }
-
-        @Override
-        public void run() {
-            Meldungsfenster m = new Meldungsfenster(ueberschrift, beschreibung);
-        }
-    }
-
     private class IpHandhaber implements Runnable {
 
         String ip;
@@ -101,14 +86,14 @@ public class GuiController {
             if(!ipGesetzt.get() || globaleIp != ip) {
                 try (DB db = new DB(ip)) {
                 } catch (Exception e) {
-                    anzeige.asyncExec(new FehlerHandhaber("Fehler", "IP Adresse ung\u00FCltig"));
+                    anzeige.asyncExec(new FehlerHandhaber("Fehler", "IP Adresse ung\u00FCltig", anzeige));
                     ipGesetzt.set(false);
                     globaleIp = null;
                     return;
                 }
                 ipGesetzt.set(true);
                 globaleIp = ip;
-                anzeige.asyncExec(new FehlerHandhaber("Erfolg", "IP Adresse gesetzt"));
+                anzeige.asyncExec(new FehlerHandhaber("Erfolg", "IP Adresse gesetzt", anzeige));
             }
             reiseHandhaber = new ReiseHandhaber(controller, new QueryController(ip), anzeige);
             hauptfenster.getIp().setText(globaleIp);
@@ -118,7 +103,9 @@ public class GuiController {
 
             hauptfenster.getBearbeiteKunde().addMouseListener(reiseHandhaber.getBearbeiteKunde().eingabeKundenId());
             gui.eingabeKundeId_BearbeiteKunde().getConfirm().addMouseListener(reiseHandhaber.getBearbeiteKunde().bestaetige());
+            gui.eingabeKundeId_BearbeiteKunde().getBack().addMouseListener(reiseHandhaber.getBearbeiteKunde().zurueck());
             gui.bearbeiteKunde().getSave().addMouseListener(reiseHandhaber.getBearbeiteKunde().bearbeiteKunde());
+            gui.bearbeiteKunde().getCancel().addMouseListener(reiseHandhaber.getBearbeiteKunde().zurueck());
 
             hauptfenster.getErstelleTermin().addMouseListener(reiseHandhaber.getErstelleTermin().eingabeKundenId());
             gui.eingabeKundeId_TerminErstellen().getConfirm().addMouseListener(reiseHandhaber.getErstelleTermin().erstelleTermin());

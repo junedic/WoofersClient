@@ -32,6 +32,8 @@ public  class TabellenAbbildung {
     public Tabelle kunde = new Tabelle("Kunde");
     public Tabelle termin = new Tabelle("Termin");
     public Tabelle gebuchteDienstleistung = new Tabelle("gebuchteDienstleistung");
+    public Tabelle dienstleistung = new Tabelle("Dienstleistung");
+    public Tabelle[] tabellen = {kunde, termin, gebuchteDienstleistung, dienstleistung};
 
     protected TabellenAbbildung() {
         initialisiereTabellen();

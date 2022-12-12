@@ -12,7 +12,7 @@ public class Reise {
                                  SelectionAdapter waehleDatum, MouseAdapter zeigeBuchung, MouseAdapter zurueck) {}
     public record BestaetigeTermin(MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record EntferneTermin(MouseAdapter entferneTermin, MouseAdapter bestaetige, MouseAdapter zurueck) {}
-    public record BearbeiteKunde(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter bearbeiteKunde) {}
+    public record BearbeiteKunde(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck, MouseAdapter bearbeiteKunde) {}
 
     public enum ReiseResultatsTyp {
 

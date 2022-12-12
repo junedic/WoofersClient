@@ -10,11 +10,9 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import view.View;
+import view.erstellen.Buchungsdetails;
 import view.erstellen.Terminerstellung;
 import view.gemeinsam.Bestaetigungsfenster;
 import view.gemeinsam.Meldungsfenster;
@@ -105,13 +103,15 @@ public class ReiseHandhaber {
                 throw new RuntimeException(e);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            } catch (Exception e) {
+                anzeige.asyncExec(new FehlerHandhaber("Fehler", "Waehlen Sie zunaechst einen Mitarbeiter aus", anzeige));
             }
         }
     }
 
     private enum DienstZuId {
         Schneiden("Schneiden", 1),
-        WaschenBaden("Waschen/Baden", 2),
+        WaschenBaden("Waschen/ Baden", 2),
         Entfilzen("Entfilzen", 3),
         Entlausen("Entlausen", 4),
         Massage("Massage", 5);
@@ -232,11 +232,32 @@ public class ReiseHandhaber {
                             gebDienste.put(er.getSchneiden().getText(), er.getSchneidenCheck().getSelection());
                             gebDienste.put(er.getWaschenBaden().getText(), er.getWaschenBadenCheck().getSelection());
                             gebDienste.forEach((k, v) -> {
-                                gebDienste.remove(false);
+                                if(!v) gebDienste.remove(k);
                             });
+
+                            Buchungsdetails details = guiController.getGui().buchungsDetails();
+                            details.getLblMitarbeitername().setText(er.getMitarbeiterAuswahl().getText());
+                            details.getLblHundename().setText(er.getHundeAuswahl().getText());
+                            details.getLblDatum().setText(er.getDatumsAuswahl().toString());
+                            details.getLblUhrzeit().setText(er.getZeitAuswahl().getText());
+
+                            TabellenAbbildung abb = CRUD.tabellenAbbildung;
+                            List l = details.getList();
+                            Label p = details.getLblPreis();
+                            AtomicInteger i = new AtomicInteger(0);
+                            AtomicInteger preis = new AtomicInteger(0);
+                            gebDienste.forEach((k,v) -> {
+                                l.add(k);
+                                abb.dienstleistung.getTable().forEach((m) -> {
+                                    if(m.get("Bezeichnung").equals(k)) preis.set(preis.get()+Integer.parseInt(m.get("Preis")));
+                                });
+                                i.set(i.getAndIncrement());
+                            });
+                            p.setText(String.valueOf(preis));
                             oeffneFenster(guiController.getGui().buchungsDetails());
-                        } else
-                            anzeige.asyncExec(new GuiController.FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus"));
+                        } else {
+                            anzeige.asyncExec(new FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus", anzeige));
+                        }
                     }
                 },
                 new MouseAdapter() {
@@ -292,7 +313,7 @@ public class ReiseHandhaber {
                             param.add(Integer.parseInt(text.getText()));
                             System.out.println(Integer.parseInt(text.getText()));
                             queryController.query(SqlBefehle.EntferneTermin, param, ReiseResultatsTyp.EntferneTermin);
-                            new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht");
+                            new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige);
                             guiController.zuruecksetzen();
                         }
                     }
@@ -320,24 +341,31 @@ public class ReiseHandhaber {
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
                         Text textHalter = ((EingabeKundeId) guiController.getAktuell()).getText();
-                        if(textHalter.getText() != null) {
+                        if (textHalter.getText() != null) {
                             ArrayList<Object> params = new ArrayList<>();
                             params.add(Integer.parseInt(textHalter.getText()));
                             TabellenAbbildung.Tabelle kunde = CRUD.tabellenAbbildung.kunde;
                             (guiController.getGui().bearbeiteKunde()).getCustomerIdInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText())-1).get("Nr")
+                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Nr")
                             );
                             (guiController.getGui().bearbeiteKunde()).getName().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText())-1).get("Nachname")
+                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Nachname")
                             );
                             (guiController.getGui().bearbeiteKunde()).getMobileInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText())-1).get("Telefonnummer")
+                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Telefonnummer")
                             );
                             (guiController.getGui().bearbeiteKunde()).getEmailInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText())-1).get("Email")
+                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Email")
                             );
                             oeffneFenster(guiController.getGui().bearbeiteKunde());
                         }
+                    }
+                },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        guiController.zuruecksetzen();
                     }
                 },
                 new MouseAdapter() {

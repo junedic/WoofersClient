@@ -24,6 +24,7 @@ public class BearbeiteKunde implements View {
 	private Text emailInput;
 
 	private Button save;
+	private Button cancel;
 
 	public BearbeiteKunde(Shell shell) {
 		this.shell = shell;
@@ -50,6 +51,7 @@ public class BearbeiteKunde implements View {
 		mobileInput = new Text(shell, SWT.BORDER);
 		emailInput = new Text(shell, SWT.BORDER);
 		save = new Button(shell, SWT.NONE);
+		cancel = new Button(shell, SWT.NONE);
 	}
 
 	@Override
@@ -64,6 +66,7 @@ public class BearbeiteKunde implements View {
 		mobileInput.dispose();
 		emailInput.dispose();
 		save.dispose();
+		cancel.dispose();
 		weiseElementeZu();
 	}
 
@@ -133,7 +136,10 @@ public class BearbeiteKunde implements View {
 		 */
 		save.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		save.setText("Speichern");
-		save.setBounds(143, 325, 75, 25);
+		save.setBounds(255, 325, 75, 25);
+		cancel.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		cancel.setText("Abbrechen");
+		cancel.setBounds(46, 325, 75, 25);
 	}
 
 	private void initText() {
@@ -191,4 +197,7 @@ public class BearbeiteKunde implements View {
 		return save;
 	}
 
+	public Button getCancel() {
+		return cancel;
+	}
 }
