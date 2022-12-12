@@ -572,6 +572,9 @@ public class ReiseHandhaber {
                         paramsLocal.add(guiController.getGui().bearbeiteKunde().getMobileInput().getText());
                         paramsLocal.add(guiController.getGui().bearbeiteKunde().getEmailInput().getText());
                         paramsLocal.add(Integer.parseInt(guiController.getGui().bearbeiteKunde().getCustomerIdInput().getText()));
+                        System.out.println(eingabeHandhaber.pruefeInput((String)paramsLocal.get(0), EingabeHandhaber.ErwarteterInput.Nachname)+" - "+
+                                " - "+eingabeHandhaber.pruefeInput((String)paramsLocal.get(1), EingabeHandhaber.ErwarteterInput.Telefonnummer)+" - "+
+                                eingabeHandhaber.pruefeInput((String)paramsLocal.get(2), EingabeHandhaber.ErwarteterInput.Email));
                         boolean valide = eingabeHandhaber.pruefeInput((String)paramsLocal.get(0), EingabeHandhaber.ErwarteterInput.Nachname) &&
                                          eingabeHandhaber.pruefeInput((String)paramsLocal.get(1), EingabeHandhaber.ErwarteterInput.Telefonnummer) &&
                                          eingabeHandhaber.pruefeInput((String)paramsLocal.get(2), EingabeHandhaber.ErwarteterInput.Email);
