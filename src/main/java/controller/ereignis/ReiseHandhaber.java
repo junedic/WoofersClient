@@ -307,7 +307,7 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
-                        Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich absagen");
+                        Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich absagen", anzeige);
                         if(bf.getBestaetigt()) {
                             Text text = ((EingabeTerminId) guiController.getAktuell()).getText();
                             param.add(Integer.parseInt(text.getText()));
