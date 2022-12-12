@@ -13,7 +13,7 @@ public class EingabeMitarbeiterId implements View {
 	private Label appointmentID;
 	private Button confirm;
 	private Button back;
-	private Text text;
+	private Combo mitarbeiterIdAuswahl;
 
 	public EingabeMitarbeiterId(Shell shell) {
 		this.shell = shell;
@@ -33,6 +33,7 @@ public class EingabeMitarbeiterId implements View {
 		appointmentID = new Label(shell, SWT.CENTER);
 		confirm = new Button(shell, SWT.CENTER);
 		back = new Button(shell, SWT.CENTER);
+		mitarbeiterIdAuswahl = new Combo(shell, SWT.NONE);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class EingabeMitarbeiterId implements View {
 		appointmentID.dispose();
 		confirm.dispose();
 		back.dispose();
-		text.dispose();
+		mitarbeiterIdAuswahl.dispose();
 		weiseElementeZu();
 	}
 
@@ -103,12 +104,11 @@ public class EingabeMitarbeiterId implements View {
 		back.setText("Zur\u00FCck");
 		back.setBounds(75, 179, 75, 25);
 
-		text = new Text(shell, SWT.BORDER);
-		text.setBounds(225, 107, 76, 21);
+		mitarbeiterIdAuswahl.setBounds(225, 107, 76, 21);
 	}
 
-	public Text getText() {
-		return text;
+	public Combo getMitarbeiterIdAuswahl() {
+		return mitarbeiterIdAuswahl;
 	}
 
 	public Button getBack() {

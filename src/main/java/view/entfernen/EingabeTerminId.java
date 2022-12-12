@@ -1,10 +1,7 @@
 package view.entfernen;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.wb.swt.SWTResourceManager;
 import view.View;
 
@@ -15,7 +12,7 @@ public class EingabeTerminId implements View {
 	private Label appointmentID;
 	private Button confirm;
 	private Button back;
-	private Text text;
+	private Combo terminIdAuswahl;
 
 	public EingabeTerminId(Shell shell) {
 		this.shell = shell;
@@ -35,6 +32,7 @@ public class EingabeTerminId implements View {
 		appointmentID = new Label(shell, SWT.NONE);
 		confirm = new Button(shell, SWT.NONE);
 		back = new Button(shell, SWT.NONE);
+		terminIdAuswahl = new Combo(shell, SWT.NONE);
 	}
 
 	@Override
@@ -43,7 +41,7 @@ public class EingabeTerminId implements View {
 		appointmentID.dispose();
 		confirm.dispose();
 		back.dispose();
-		text.dispose();
+		terminIdAuswahl.dispose();
 		weiseElementeZu();
 	}
 
@@ -66,8 +64,7 @@ public class EingabeTerminId implements View {
 		appointmentID.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		appointmentID.setBounds(75, 103, 110, 37);
 
-		text = new Text(shell, SWT.BORDER);
-		text.setBounds(225, 107, 76, 21);
+		terminIdAuswahl.setBounds(225, 107, 76, 21);
 	}
 
 	private void initButtons() {
@@ -132,8 +129,7 @@ public class EingabeTerminId implements View {
 		return back;
 	}
 
-	public Text getText() {
-		return text;
+	public Combo getTerminIdAuswahl() {
+		return terminIdAuswahl;
 	}
-
 }

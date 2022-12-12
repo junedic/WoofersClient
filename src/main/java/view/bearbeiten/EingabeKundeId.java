@@ -1,10 +1,7 @@
 package view.bearbeiten;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.wb.swt.SWTResourceManager;
 import view.View;
 
@@ -15,7 +12,7 @@ public class EingabeKundeId implements View {
 	private Label appointmentID;
 	private Button confirm;
 	private Button back;
-	private Text text;
+	private Combo kundeIdAuswahl;
 
 	public EingabeKundeId(Shell shell) {
 		this.shell = shell;
@@ -35,6 +32,7 @@ public class EingabeKundeId implements View {
 		appointmentID = new Label(shell, SWT.CENTER);
 		confirm = new Button(shell, SWT.CENTER);
 		back = new Button(shell, SWT.CENTER);
+		kundeIdAuswahl = new Combo(shell, SWT.NONE);
 	}
 
 	@Override
@@ -43,7 +41,7 @@ public class EingabeKundeId implements View {
 		appointmentID.dispose();
 		confirm.dispose();
 		back.dispose();
-		text.dispose();
+		kundeIdAuswahl.dispose();
 		weiseElementeZu();
 	}
 
@@ -105,13 +103,12 @@ public class EingabeKundeId implements View {
 		back.setText("Zur\u00FCck");
 		back.setBounds(75, 179, 75, 25);
 
-		text = new Text(shell, SWT.BORDER);
-		text.setBounds(225, 107, 76, 21);
+		//text = new Text(shell, SWT.BORDER);
+		//text.setBounds(225, 107, 76, 21);
+
+		kundeIdAuswahl.setBounds(225, 107, 76, 21);
 	}
 
-	public Text getText() {
-		return text;
-	}
 
 	public Button getBack() {
 		return back;
@@ -129,4 +126,7 @@ public class EingabeKundeId implements View {
 		return customerID;
 	}
 
+	public Combo getKundeIdAuswahl() {
+		return kundeIdAuswahl;
+	}
 }

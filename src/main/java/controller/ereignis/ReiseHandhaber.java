@@ -153,6 +153,17 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
+                        try {
+                            queryController.aktualisiereAbbildungen();
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        TabellenAbbildung.Tabelle t = CRUD.tabellenAbbildung.kunde;
+                        t.getTable().forEach((map) -> {
+                            guiController.getGui().eingabeKundeId_TerminErstellen().getKundeIdAuswahl().add(map.get("Nr"));
+                        });
                         oeffneFenster(guiController.getGui().eingabeKundeId_TerminErstellen());
                     }
                 },
@@ -160,25 +171,26 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
-                        params.add(Integer.parseInt(guiController.getGui().eingabeKundeId_TerminErstellen().getText().getText()));
                         try {
-                            ArrayList<LinkedHashMap<String, String>> ma = queryController.getAusfuehrer().fuehreAus(SqlBefehle.LeseMa);
-                            ArrayList<Object> param = new ArrayList<>();
-                            param.add(Integer.parseInt(guiController.getGui().eingabeKundeId_TerminErstellen().getText().getText()));
-                            ArrayList<LinkedHashMap<String, String>> hunde = queryController.getAusfuehrer().fuehreAus(SqlBefehle.LeseHunde, param);
-
-                            for (LinkedHashMap<String, String> mitarbeiter : ma) {
-                                guiController.getGui().terminErstellung().getMitarbeiterAuswahl().
-                                        add(mitarbeiter.get("Nr") + " - " + mitarbeiter.get("Vorname") + " " + mitarbeiter.get("Nachname"));
-                            }
-                            for (LinkedHashMap<String, String> hund : hunde) {
-                                guiController.getGui().terminErstellung().getHundeAuswahl().
-                                        add(hund.get("ID") + " - " + hund.get("Name"));
-                            }
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            queryController.aktualisiereAbbildungen();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        params.add(Integer.parseInt(guiController.getGui().eingabeKundeId_TerminErstellen().getKundeIdAuswahl().getText()));
+                        ArrayList<LinkedHashMap<String, String>> ma = CRUD.tabellenAbbildung.mitarbeiter.getTable();
+                        ArrayList<Object> param = new ArrayList<>();
+                        param.add(Integer.parseInt(guiController.getGui().eingabeKundeId_TerminErstellen().getKundeIdAuswahl().getText()));
+                        ArrayList<LinkedHashMap<String, String>> hunde = CRUD.tabellenAbbildung.hund.getTable();
+
+                        for (LinkedHashMap<String, String> mitarbeiter : ma) {
+                            guiController.getGui().terminErstellung().getMitarbeiterAuswahl().
+                                    add(mitarbeiter.get("Nr") + " - " + mitarbeiter.get("Vorname") + " " + mitarbeiter.get("Nachname"));
+                        }
+                        for (LinkedHashMap<String, String> hund : hunde) {
+                            guiController.getGui().terminErstellung().getHundeAuswahl().
+                                    add(hund.get("ID") + " - " + hund.get("Name"));
                         }
                         oeffneFenster(guiController.getGui().terminErstellung());
                     }
@@ -187,6 +199,7 @@ public class ReiseHandhaber {
                     @Override
                     public void widgetSelected(SelectionEvent selectionEvent) {
                         super.widgetSelected(selectionEvent);
+                        guiController.getGui().terminErstellung().getDatumsAuswahl().redraw();
                     }
                 },
                 new SelectionAdapter() {
@@ -303,6 +316,17 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
+                        try {
+                            queryController.aktualisiereAbbildungen();
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        TabellenAbbildung.Tabelle t = CRUD.tabellenAbbildung.termin;
+                        t.getTable().forEach((map) -> {
+                            guiController.getGui().eingabeTerminId().getTerminIdAuswahl().add(map.get("ID"));
+                        });
                         oeffneFenster(guiController.getGui().eingabeTerminId());
                     }
                 },
@@ -312,9 +336,9 @@ public class ReiseHandhaber {
                         super.mouseDown(e);
                         Bestaetigungsfenster bf = new Bestaetigungsfenster("Best\u00e4tigen", "Wollen Sie den Termin wirklich absagen", anzeige);
                         if(bf.getBestaetigt()) {
-                            Text text = ((EingabeTerminId) guiController.getAktuell()).getText();
-                            param.add(Integer.parseInt(text.getText()));
-                            System.out.println(Integer.parseInt(text.getText()));
+                            String text = guiController.getGui().eingabeTerminId().getTerminIdAuswahl().getText();
+                            param.add(Integer.parseInt(text));
+                            System.out.println(Integer.parseInt(text));
                             queryController.query(SqlBefehle.EntferneTermin, param, ReiseResultatsTyp.EntferneTermin);
                             new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige);
                             guiController.zuruecksetzen();
@@ -334,6 +358,17 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
+                        try {
+                            queryController.aktualisiereAbbildungen();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        TabellenAbbildung.Tabelle t = CRUD.tabellenAbbildung.mitarbeiter;
+                        t.getTable().forEach((map) -> {
+                            guiController.getGui().eingabeMitarbeiterId().getMitarbeiterIdAuswahl().add(map.get("Nr"));
+                        });
                         oeffneFenster(guiController.getGui().eingabeMitarbeiterId());
                     }
                 },
@@ -341,7 +376,7 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
-                        int maId = Integer.parseInt(guiController.getGui().eingabeMitarbeiterId().getText().getText());
+                        int maId = Integer.parseInt(guiController.getGui().eingabeMitarbeiterId().getMitarbeiterIdAuswahl().getText());
                         guiController.getGui().listeMaTermine().getLblX().setText(maId+"");
                         try {
                             ArrayList<LinkedHashMap<String, String>> terminListe;
@@ -398,6 +433,17 @@ public class ReiseHandhaber {
             @Override
             public void mouseDown(MouseEvent mouseEvent) {
                 super.mouseDown(mouseEvent);
+                try {
+                    queryController.aktualisiereAbbildungen();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                TabellenAbbildung.Tabelle t = CRUD.tabellenAbbildung.kunde;
+                t.getTable().forEach((map) -> {
+                    guiController.getGui().eingabeKundeId_ListeTermin().getKundeIdAuswahl().add(map.get("Nr"));
+                });
                 oeffneFenster(guiController.getGui().eingabeKundeId_ListeTermin());
             }
         },
@@ -405,7 +451,7 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
-                        int kuId = Integer.parseInt(guiController.getGui().eingabeKundeId_ListeTermin().getText().getText());
+                        int kuId = Integer.parseInt(guiController.getGui().eingabeKundeId_ListeTermin().getKundeIdAuswahl().getText());
                         guiController.getGui().listeKuTermine().getLblX().setText(kuId+"");
                         try {
                             ArrayList<LinkedHashMap<String, String>> terminListe;
@@ -467,6 +513,17 @@ public class ReiseHandhaber {
             @Override
             public void mouseDown(MouseEvent e) {
                 super.mouseDown(e);
+                try {
+                    queryController.aktualisiereAbbildungen();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                TabellenAbbildung.Tabelle t = CRUD.tabellenAbbildung.kunde;
+                t.getTable().forEach((map) -> {
+                    guiController.getGui().eingabeKundeId_BearbeiteKunde().getKundeIdAuswahl().add(map.get("Nr"));
+                });
                 oeffneFenster(guiController.getGui().eingabeKundeId_BearbeiteKunde());
             }
         },
@@ -474,22 +531,22 @@ public class ReiseHandhaber {
                     @Override
                     public void mouseDown(MouseEvent e) {
                         super.mouseDown(e);
-                        Text textHalter = ((EingabeKundeId) guiController.getAktuell()).getText();
-                        if (textHalter.getText() != null) {
+                        String text = ((EingabeKundeId) guiController.getAktuell()).getKundeIdAuswahl().getText();
+                        if (text != null) {
                             ArrayList<Object> params = new ArrayList<>();
-                            params.add(Integer.parseInt(textHalter.getText()));
+                            params.add(Integer.parseInt(text));
                             TabellenAbbildung.Tabelle kunde = CRUD.tabellenAbbildung.kunde;
                             (guiController.getGui().bearbeiteKunde()).getCustomerIdInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Nr")
+                                    kunde.getTable().get(Integer.parseInt(text) - 1).get("Nr")
                             );
                             (guiController.getGui().bearbeiteKunde()).getName().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Nachname")
+                                    kunde.getTable().get(Integer.parseInt(text) - 1).get("Nachname")
                             );
                             (guiController.getGui().bearbeiteKunde()).getMobileInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Telefonnummer")
+                                    kunde.getTable().get(Integer.parseInt(text) - 1).get("Telefonnummer")
                             );
                             (guiController.getGui().bearbeiteKunde()).getEmailInput().setText(
-                                    kunde.getTable().get(Integer.parseInt(textHalter.getText()) - 1).get("Email")
+                                    kunde.getTable().get(Integer.parseInt(text) - 1).get("Email")
                             );
                             oeffneFenster(guiController.getGui().bearbeiteKunde());
                         }

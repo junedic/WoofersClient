@@ -172,5 +172,6 @@ public class GuiController {
         hauptfenster.init();
         shell = hauptfenster.getShell();
         initialisiere();
+        oeffnen();
     }
 }
