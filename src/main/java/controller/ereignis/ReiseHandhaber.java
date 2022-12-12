@@ -1,6 +1,7 @@
 package controller.ereignis;
 
 import controller.GuiController;
+import controller.ereignis.handhaber.BestaetigungsHandhaber;
 import controller.ereignis.handhaber.FehlerHandhaber;
 import controller.sql.EingabeHandhaber;
 import controller.sql.QueryController;
@@ -275,7 +276,7 @@ public class ReiseHandhaber {
                             p.setText(String.valueOf(preis));
                             oeffneFenster(guiController.getGui().buchungsDetails());
                         } else {
-                            anzeige.asyncExec(new FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus", anzeige));
+                            anzeige.syncExec(new FehlerHandhaber("Fehler", "Bitte f\u00FCllen Sie alle Felder aus", anzeige));
                         }
                     }
                 },
@@ -343,7 +344,7 @@ public class ReiseHandhaber {
                             param.add(Integer.parseInt(text));
                             System.out.println(Integer.parseInt(text));
                             queryController.query(SqlBefehle.EntferneTermin, param, ReiseResultatsTyp.EntferneTermin);
-                            new Meldungsfenster("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige);
+                            anzeige.syncExec(new BestaetigungsHandhaber("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige));
                             guiController.zuruecksetzen();
                         }
                     }
@@ -573,7 +574,7 @@ public class ReiseHandhaber {
                         paramsLocal.add(Integer.parseInt(guiController.getGui().bearbeiteKunde().getCustomerIdInput().getText()));
                         boolean valide = eingabeHandhaber.pruefeInput((String)paramsLocal.get(0), EingabeHandhaber.ErwarteterInput.Nachname) &&
                                          eingabeHandhaber.pruefeInput((String)paramsLocal.get(1), EingabeHandhaber.ErwarteterInput.Telefonnummer) &&
-                                         eingabeHandhaber.pruefeInput((String) paramsLocal.get(2), EingabeHandhaber.ErwarteterInput.Email);
+                                         eingabeHandhaber.pruefeInput((String)paramsLocal.get(2), EingabeHandhaber.ErwarteterInput.Email);
                         if(!valide) {
                             anzeige.asyncExec(new FehlerHandhaber("Fehler", "Invalider Input", anzeige));
                             return;

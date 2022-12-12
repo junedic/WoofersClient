@@ -23,7 +23,7 @@ public class Bestaetigungsfenster {
 		messageBox = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.YES | SWT.NO);
 		messageBox.setText(ueberschrift);
 		messageBox.setMessage(beschreibung);
-		i =messageBox.open();
+		i = messageBox.open();
 	}
 
 	public boolean getBestaetigt() {
@@ -40,6 +40,7 @@ public class Bestaetigungsfenster {
 	}
 
 }
+
 /*
 public class Bestaetigungsfenster {
 

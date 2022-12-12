@@ -24,11 +24,11 @@ public class CRUD {
     /**
      * Sammlung der SQL statements je Typus
      */
+
     public static final Erstelle  CSQL      = new Erstelle(ErstelleTermin, ErstelleBuchung);
     public static final Lese      RSQL      = new Lese();
     public static final Bearbeite USQL      = new Bearbeite(BearbeiteKunde);
     public static final Entferne  DSQL      = new Entferne(EntferneTermin, EntferneBuchung);
-
     /**
      * Bestimmung von Typus eines Statements
      */
