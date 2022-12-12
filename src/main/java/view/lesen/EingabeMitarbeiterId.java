@@ -33,7 +33,7 @@ public class EingabeMitarbeiterId implements View {
 		appointmentID = new Label(shell, SWT.CENTER);
 		confirm = new Button(shell, SWT.CENTER);
 		back = new Button(shell, SWT.CENTER);
-		mitarbeiterIdAuswahl = new Combo(shell, SWT.NONE);
+		mitarbeiterIdAuswahl = new Combo(shell, SWT.READ_ONLY);
 	}
 
 	@Override
