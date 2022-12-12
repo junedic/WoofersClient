@@ -48,6 +48,7 @@ public class EingabeTerminId implements View {
 	private void initShell() {
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setText("TerminID eingeben");
+		shell.setSize(371, 273);
 		shell.setLayout(null);
 	}
 

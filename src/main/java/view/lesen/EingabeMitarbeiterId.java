@@ -49,6 +49,7 @@ public class EingabeMitarbeiterId implements View {
 	private void initShell() {
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setText("MitarbeiterID eingeben");
+		shell.setSize(371, 273);
 		shell.setLayout(null);
 	}
 

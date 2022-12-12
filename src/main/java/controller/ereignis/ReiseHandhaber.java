@@ -2,6 +2,7 @@ package controller.ereignis;
 
 import controller.GuiController;
 import controller.ereignis.handhaber.FehlerHandhaber;
+import controller.sql.EingabeHandhaber;
 import controller.sql.QueryController;
 import model.sql.CRUD;
 import model.sql.SqlBefehle;
@@ -44,6 +45,7 @@ public class ReiseHandhaber {
     private ListeMaTermine listeMaTermine;
     private ListeKuTermine listeKuTermine;
     private Display anzeige;
+    private EingabeHandhaber eingabeHandhaber;
 
     private volatile ArrayList<Object> param;
     private volatile ArrayList<Object> params;
@@ -57,6 +59,7 @@ public class ReiseHandhaber {
         this.anzeige = anzeige;
         params = new ArrayList<>();
         gebDienste = new ConcurrentHashMap<>();
+        eingabeHandhaber = new EingabeHandhaber();
         try {
             queryController.aktualisiereAbbildungen();
         } catch (SQLException e) {
@@ -568,6 +571,13 @@ public class ReiseHandhaber {
                         paramsLocal.add(guiController.getGui().bearbeiteKunde().getMobileInput().getText());
                         paramsLocal.add(guiController.getGui().bearbeiteKunde().getEmailInput().getText());
                         paramsLocal.add(Integer.parseInt(guiController.getGui().bearbeiteKunde().getCustomerIdInput().getText()));
+                        boolean valide = eingabeHandhaber.pruefeInput((String)paramsLocal.get(0), EingabeHandhaber.ErwarteterInput.Nachname) &&
+                                         eingabeHandhaber.pruefeInput((String)paramsLocal.get(1), EingabeHandhaber.ErwarteterInput.Telefonnummer) &&
+                                         eingabeHandhaber.pruefeInput((String) paramsLocal.get(2), EingabeHandhaber.ErwarteterInput.Email);
+                        if(!valide) {
+                            anzeige.asyncExec(new FehlerHandhaber("Fehler", "Invalider Input", anzeige));
+                            return;
+                        }
                         queryController.query(SqlBefehle.BearbeiteKunde, paramsLocal, ReiseResultatsTyp.BearbeiteKunde);
                         try {
                             queryController.aktualisiereAbbildungen();

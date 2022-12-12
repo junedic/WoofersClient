@@ -49,6 +49,7 @@ public class EingabeKundeId implements View {
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		shell.setText("KundenID eingeben");
 		shell.setLayout(null);
+		shell.setSize(371, 273);
 	}
 
 	private void initLabels() {
