@@ -1,6 +1,7 @@
 package controller.ereignis;
 
 import controller.GuiController;
+import controller.ereignis.handhaber.FehlerHandhaber;
 import controller.sql.QueryController;
 import model.sql.CRUD;
 import model.sql.SqlBefehle;
@@ -23,8 +24,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.Year;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,6 +41,7 @@ public class ReiseHandhaber {
     private BearbeiteKunde bearbeiteKunde;
     private ErstelleTermin erstelleTermin;
     private BestaetigeTermin bestaetigeTermin;
+    private ListeMaTermine listeMaTermine;
     private Display anzeige;
 
     private volatile ArrayList<Object> param;
@@ -326,6 +328,69 @@ public class ReiseHandhaber {
                     }
                 }
         );
+        listeMaTermine = new ListeMaTermine(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        oeffneFenster(guiController.getGui().eingabeMitarbeiterId());
+                    }
+                },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        int maId = Integer.parseInt(guiController.getGui().eingabeMitarbeiterId().getText().getText());
+                        try {
+                            ArrayList<LinkedHashMap<String, String>> terminListe;
+                            queryController.aktualisiereAbbildungen();
+                            terminListe = queryController.getAusfuehrer().fuehreAus(SqlBefehle.LeseMaTermine, new ArrayList<>(){{add(maId);}});
+
+                            TabellenAbbildung.Tabelle m = CRUD.tabellenAbbildung.mitarbeiter;
+                            TabellenAbbildung.Tabelle k = CRUD.tabellenAbbildung.kunde;
+                            TabellenAbbildung.Tabelle d = CRUD.tabellenAbbildung.dienstleistung;
+                            TabellenAbbildung.Tabelle gd = CRUD.tabellenAbbildung.gebuchteDienstleistung;
+                            TabellenAbbildung.Tabelle h = CRUD.tabellenAbbildung.hund;
+                            TabellenAbbildung.Tabelle r = CRUD.tabellenAbbildung.rasse;
+                            List l = guiController.getGui().listeMaTermine().getList();
+
+                            terminListe.forEach((map) -> {
+                                String item = "";
+                                int tNr = Integer.parseInt(map.get("ID"));
+                                int kNr = Integer.parseInt(map.get("Kunde_Nr"))-1;
+                                int hNr = Integer.parseInt(map.get("Hund_ID"))-1;
+                                item = item.concat(" Kunde: "+(kNr+1)+" - "+k.getTable().get(kNr).get("Nachname")
+                                                    +" Tel.: "+k.getTable().get(kNr).get("Telefonnummer"));
+                                item = item.concat(" mit einem "+r.getTable().get(Integer.parseInt(h.getTable().get(hNr).get("Rasse_ID"))-1).get("Rasse"));
+                                item = item.concat(" "+h.getTable().get(hNr).get("Geschlecht")+" im Alter von "+
+                                        (Year.now().getValue()-Integer.parseInt(h.getTable().get(hNr).get("Geburtsjahr").split("-")[0])));
+                                item = item.concat(" fuer:");
+                                for(LinkedHashMap<String, String> gebucht : gd.getTable()) {
+                                    if(gebucht.get("Termin_ID").equals(String.valueOf(tNr))) {
+                                        item = item.concat(
+                                                " "+d.getTable().get(Integer.parseInt(gebucht.get("Dienstleistung_ID"))-1).get("Bezeichnung")
+                                        );
+                                    }
+                                }
+                                System.out.println("Item: "+item);
+                                l.add(item);
+                            });
+                            oeffneFenster(guiController.getGui().listeMaTermine());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        guiController.zuruecksetzen();
+                    }
+                }
+        );
     }
 
     private void initKunde() {
@@ -404,5 +469,9 @@ public class ReiseHandhaber {
 
     public BearbeiteKunde getBearbeiteKunde() {
         return bearbeiteKunde;
+    }
+
+    public ListeMaTermine getListeMaTermine() {
+        return listeMaTermine;
     }
 }

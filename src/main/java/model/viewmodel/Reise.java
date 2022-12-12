@@ -13,12 +13,14 @@ public class Reise {
     public record BestaetigeTermin(MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record EntferneTermin(MouseAdapter entferneTermin, MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record BearbeiteKunde(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck, MouseAdapter bearbeiteKunde) {}
+    public record ListeMaTermine(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck) {}
 
     public enum ReiseResultatsTyp {
 
         ErstelleTermin(SQL.CREATE, SqlBefehle.ErstelleTermin),
         EntferneTermin(SQL.DELETE, SqlBefehle.EntferneBuchung),
-        BearbeiteKunde(SQL.UPDATE, SqlBefehle.BearbeiteKunde);
+        BearbeiteKunde(SQL.UPDATE, SqlBefehle.BearbeiteKunde),
+        ListeMaTermine(SQL.READ, SqlBefehle.LeseMaTermine);
 
         private CRUD.SQL crudTyp;
         private String ergebnisSql;

@@ -30,6 +30,8 @@ public class SqlBefehle {
     //READ
     public static final String LeseAlle          = "SELECT * FROM %s";
     public static final String LeseKunde         = "SELECT * FROM Kunde WHERE Nr = ?";
+    public static final String LeseMaTermine     = "SELECT * FROM Termin WHERE Mitarbeiter_Nr = ?";
+    public static final String LeseKundeTermine  = "SELECT * FROM Termin WHERE Kunde_Nr = ?";
     public static final String LeseMaZeiten      = "SELECT Uhrzeit FROM Termin WHERE Mitarbeiter_Nr = ? AND DATE(Datum) = ?";
     public static final String LeseMa            = "SELECT Nr, Vorname, Nachname FROM Mitarbeiter";
     public static final String LeseHunde         = "SELECT ID, Name FROM Hund WHERE Kunde_Nr = ?";
@@ -45,6 +47,9 @@ public class SqlBefehle {
 
         LesenParamMap.put(LeseHunde, new HashMap<>());
         LesenParamMap.get(LeseHunde).put(0, Integer.class);
+
+        LesenParamMap.put(LeseMaTermine, new HashMap<>());
+        LesenParamMap.get(LeseMaTermine).put(0, Integer.class);
     }
     //
     //UPDATE

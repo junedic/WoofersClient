@@ -13,7 +13,7 @@ import view.View;
 public class Mitarbeiterliste implements View {
 
 	private Shell shell;
-	private Button btnNewButton;
+	private Button btnZurueck;
 	private Label lblWelchenGenauMeinen;
 	private List list;
 	private Label lblKundenid;
@@ -80,9 +80,9 @@ public class Mitarbeiterliste implements View {
 
 	private void initButtons() {
 		// I. Button
-		btnNewButton.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		btnNewButton.setText("Zur\u00FCck zum Hauptemen\u00FC");
-		btnNewButton.setBounds(111, 348, 271, 25);
+		btnZurueck.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
+		btnZurueck.setText("Zur\u00FCck zum Hauptemen\u00FC");
+		btnZurueck.setBounds(111, 348, 271, 25);
 
 	}
 
@@ -97,7 +97,7 @@ public class Mitarbeiterliste implements View {
 		list = new List(shell, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		lblKundenid = new Label(shell, SWT.NONE);
 		lblX = new Label(shell, SWT.NONE);
-		btnNewButton = new Button(shell, SWT.NONE);
+		btnZurueck = new Button(shell, SWT.NONE);
 	}
 
 	@Override
@@ -106,16 +106,16 @@ public class Mitarbeiterliste implements View {
 		list.dispose();
 		lblKundenid.dispose();
 		lblX.dispose();
-		btnNewButton.dispose();
+		btnZurueck.dispose();
 		weiseElementeZu();
 	}
 
-	public Button getBtnNewButton() {
-		return btnNewButton;
+	public Button getBtnZurueck() {
+		return btnZurueck;
 	}
 
-	public void setBtnNewButton(Button btnNewButton) {
-		this.btnNewButton = btnNewButton;
+	public void setBtnZurueck(Button btnZurueck) {
+		this.btnZurueck = btnZurueck;
 	}
 
 	public Label getLblWelchenGenauMeinen() {

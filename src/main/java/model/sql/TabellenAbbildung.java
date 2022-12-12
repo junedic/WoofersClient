@@ -33,7 +33,10 @@ public  class TabellenAbbildung {
     public Tabelle termin = new Tabelle("Termin");
     public Tabelle gebuchteDienstleistung = new Tabelle("gebuchteDienstleistung");
     public Tabelle dienstleistung = new Tabelle("Dienstleistung");
-    public Tabelle[] tabellen = {kunde, termin, gebuchteDienstleistung, dienstleistung};
+    public Tabelle mitarbeiter = new Tabelle("Mitarbeiter");
+    public Tabelle hund = new Tabelle("Hund");
+    public Tabelle rasse = new Tabelle("Rasse");
+    public Tabelle[] tabellen = {kunde, termin, gebuchteDienstleistung, dienstleistung, mitarbeiter, hund, rasse};
 
     protected TabellenAbbildung() {
         initialisiereTabellen();

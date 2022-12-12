@@ -1,4 +1,4 @@
-package controller.ereignis;
+package controller.ereignis.handhaber;
 
 public class TerminEntfernenHandhaber {
 }

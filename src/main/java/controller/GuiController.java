@@ -1,9 +1,10 @@
 package controller;
 
-import controller.ereignis.FehlerHandhaber;
+import controller.ereignis.handhaber.FehlerHandhaber;
 import controller.ereignis.ReiseHandhaber;
 import controller.sql.QueryController;
 import model.db.DB;
+import model.viewmodel.Reise;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -14,10 +15,11 @@ import view.Hauptfenster;
 import view.View;
 import view.erstellen.Buchungsdetails;
 import view.erstellen.Terminerstellung;
-import view.gemeinsam.Meldungsfenster;
 import view.entfernen.EingabeTerminId;
 import view.bearbeiten.EingabeKundeId;
 import view.bearbeiten.BearbeiteKunde;
+import view.lesen.EingabeMitarbeiterId;
+import view.lesen.Mitarbeiterliste;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -26,8 +28,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GuiController {
 
-    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId_BearbeiteKunde, EingabeKundeId eingabeKundeId_TerminErstellen,
-                      BearbeiteKunde bearbeiteKunde, Terminerstellung terminErstellung, Buchungsdetails buchungsDetails) {}
+    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId_BearbeiteKunde, EingabeKundeId eingabeKundeId_TerminErstellen, EingabeMitarbeiterId eingabeMitarbeiterId,
+                      BearbeiteKunde bearbeiteKunde, Terminerstellung terminErstellung, Buchungsdetails buchungsDetails, Mitarbeiterliste listeMaTermine) {}
 
     private Display anzeige;
     private Monitor primaer;
@@ -43,7 +45,8 @@ public class GuiController {
         hauptfenster = new Hauptfenster();
         aktuell = hauptfenster;
         shell = hauptfenster.getShell();
-        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new BearbeiteKunde(shell), new Terminerstellung(shell), new Buchungsdetails(shell));
+        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new EingabeMitarbeiterId(shell), new BearbeiteKunde(shell),
+                new Terminerstellung(shell), new Buchungsdetails(shell), new Mitarbeiterliste(shell));
         ipGesetzt = new AtomicBoolean(false);
         initView();
     }
@@ -117,6 +120,11 @@ public class GuiController {
             gui.terminErstellung().getZurueck().addMouseListener(reiseHandhaber.getErstelleTermin().zurueck());
             gui.buchungsDetails().getBtnAngabenAnpassen().addMouseListener(reiseHandhaber.getBestaetigeTermin().zurueck());
             gui.buchungsDetails().getBtnTerminBuchen().addMouseListener(reiseHandhaber.getBestaetigeTermin().bestaetige());
+
+            hauptfenster.getTerminMitarbeiter().addMouseListener(reiseHandhaber.getListeMaTermine().eingabeKundenId());
+            gui.eingabeMitarbeiterId().getConfirm().addMouseListener(reiseHandhaber.getListeMaTermine().bestaetige());
+            gui.eingabeMitarbeiterId().getBack().addMouseListener(reiseHandhaber.getListeMaTermine().zurueck());
+            gui.listeMaTermine().getBtnZurueck().addMouseListener(reiseHandhaber.getListeMaTermine().zurueck());
         }
     }
 

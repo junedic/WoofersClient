@@ -1,4 +1,4 @@
-package controller.ereignis;
+package controller.ereignis.handhaber;
 
 import org.eclipse.swt.widgets.Display;
 import view.gemeinsam.Meldungsfenster;
