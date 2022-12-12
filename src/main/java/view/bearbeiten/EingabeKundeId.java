@@ -90,7 +90,7 @@ public class EingabeKundeId implements View {
 		});
 		 */
 		confirm.setBounds(226, 179, 75, 25);
-		confirm.setText("OKiii");
+		confirm.setText("OK");
 
 		/*
 		btnZurck.addMouseListener(new MouseAdapter() {

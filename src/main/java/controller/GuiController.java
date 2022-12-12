@@ -19,6 +19,7 @@ import view.entfernen.EingabeTerminId;
 import view.bearbeiten.EingabeKundeId;
 import view.bearbeiten.BearbeiteKunde;
 import view.lesen.EingabeMitarbeiterId;
+import view.lesen.Kundenliste;
 import view.lesen.Mitarbeiterliste;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -28,8 +29,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GuiController {
 
-    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId_BearbeiteKunde, EingabeKundeId eingabeKundeId_TerminErstellen, EingabeMitarbeiterId eingabeMitarbeiterId,
-                      BearbeiteKunde bearbeiteKunde, Terminerstellung terminErstellung, Buchungsdetails buchungsDetails, Mitarbeiterliste listeMaTermine) {}
+    public record GUI(EingabeTerminId eingabeTerminId, EingabeKundeId eingabeKundeId_BearbeiteKunde, EingabeKundeId eingabeKundeId_TerminErstellen,
+                      EingabeKundeId eingabeKundeId_ListeTermin ,EingabeMitarbeiterId eingabeMitarbeiterId,
+                      BearbeiteKunde bearbeiteKunde, Terminerstellung terminErstellung, Buchungsdetails buchungsDetails, Mitarbeiterliste listeMaTermine, Kundenliste listeKuTermine) {}
 
     private Display anzeige;
     private Monitor primaer;
@@ -45,8 +47,8 @@ public class GuiController {
         hauptfenster = new Hauptfenster();
         aktuell = hauptfenster;
         shell = hauptfenster.getShell();
-        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new EingabeMitarbeiterId(shell), new BearbeiteKunde(shell),
-                new Terminerstellung(shell), new Buchungsdetails(shell), new Mitarbeiterliste(shell));
+        gui = new GUI(new EingabeTerminId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new EingabeKundeId(shell), new EingabeMitarbeiterId(shell), new BearbeiteKunde(shell),
+                new Terminerstellung(shell), new Buchungsdetails(shell), new Mitarbeiterliste(shell), new Kundenliste(shell));
         ipGesetzt = new AtomicBoolean(false);
         initView();
     }
@@ -121,10 +123,15 @@ public class GuiController {
             gui.buchungsDetails().getBtnAngabenAnpassen().addMouseListener(reiseHandhaber.getBestaetigeTermin().zurueck());
             gui.buchungsDetails().getBtnTerminBuchen().addMouseListener(reiseHandhaber.getBestaetigeTermin().bestaetige());
 
-            hauptfenster.getTerminMitarbeiter().addMouseListener(reiseHandhaber.getListeMaTermine().eingabeKundenId());
+            hauptfenster.getTerminMitarbeiter().addMouseListener(reiseHandhaber.getListeMaTermine().eingabeMitarbeiterId());
             gui.eingabeMitarbeiterId().getConfirm().addMouseListener(reiseHandhaber.getListeMaTermine().bestaetige());
             gui.eingabeMitarbeiterId().getBack().addMouseListener(reiseHandhaber.getListeMaTermine().zurueck());
             gui.listeMaTermine().getBtnZurueck().addMouseListener(reiseHandhaber.getListeMaTermine().zurueck());
+
+            hauptfenster.getTerminKunde().addMouseListener(reiseHandhaber.getListeKuTermine().eingabeKundenId());
+            gui.eingabeKundeId_ListeTermin().getConfirm().addMouseListener(reiseHandhaber.getListeKuTermine().bestaetige());
+            gui.eingabeKundeId_ListeTermin().getBack().addMouseListener(reiseHandhaber.getListeKuTermine().zurueck());
+            gui.listeMaTermine().getBtnZurueck().addMouseListener(reiseHandhaber.getListeKuTermine().zurueck());
         }
     }
 

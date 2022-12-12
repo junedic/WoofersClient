@@ -42,6 +42,7 @@ public class ReiseHandhaber {
     private ErstelleTermin erstelleTermin;
     private BestaetigeTermin bestaetigeTermin;
     private ListeMaTermine listeMaTermine;
+    private ListeKuTermine listeKuTermine;
     private Display anzeige;
 
     private volatile ArrayList<Object> param;
@@ -341,6 +342,7 @@ public class ReiseHandhaber {
                     public void mouseDown(MouseEvent mouseEvent) {
                         super.mouseDown(mouseEvent);
                         int maId = Integer.parseInt(guiController.getGui().eingabeMitarbeiterId().getText().getText());
+                        guiController.getGui().listeMaTermine().getLblX().setText(maId+"");
                         try {
                             ArrayList<LinkedHashMap<String, String>> terminListe;
                             queryController.aktualisiereAbbildungen();
@@ -359,6 +361,7 @@ public class ReiseHandhaber {
                                 int tNr = Integer.parseInt(map.get("ID"));
                                 int kNr = Integer.parseInt(map.get("Kunde_Nr"))-1;
                                 int hNr = Integer.parseInt(map.get("Hund_ID"))-1;
+                                item = item.concat(map.get("Datum")+" um "+map.get("Uhrzeit"));
                                 item = item.concat(" Kunde: "+(kNr+1)+" - "+k.getTable().get(kNr).get("Nachname")
                                                     +" Tel.: "+k.getTable().get(kNr).get("Telefonnummer"));
                                 item = item.concat(" mit einem "+r.getTable().get(Integer.parseInt(h.getTable().get(hNr).get("Rasse_ID"))-1).get("Rasse"));
@@ -391,6 +394,72 @@ public class ReiseHandhaber {
                     }
                 }
         );
+        listeKuTermine = new ListeKuTermine(new MouseAdapter() {
+            @Override
+            public void mouseDown(MouseEvent mouseEvent) {
+                super.mouseDown(mouseEvent);
+                oeffneFenster(guiController.getGui().eingabeKundeId_ListeTermin());
+            }
+        },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        int kuId = Integer.parseInt(guiController.getGui().eingabeKundeId_ListeTermin().getText().getText());
+                        guiController.getGui().listeKuTermine().getLblX().setText(kuId+"");
+                        try {
+                            ArrayList<LinkedHashMap<String, String>> terminListe;
+                            queryController.aktualisiereAbbildungen();
+                            terminListe = queryController.getAusfuehrer().fuehreAus(SqlBefehle.LeseKuTermine, new ArrayList<>(){{add(kuId);}});
+
+                            TabellenAbbildung.Tabelle m = CRUD.tabellenAbbildung.mitarbeiter;
+                            TabellenAbbildung.Tabelle k = CRUD.tabellenAbbildung.kunde;
+                            TabellenAbbildung.Tabelle d = CRUD.tabellenAbbildung.dienstleistung;
+                            TabellenAbbildung.Tabelle gd = CRUD.tabellenAbbildung.gebuchteDienstleistung;
+                            TabellenAbbildung.Tabelle h = CRUD.tabellenAbbildung.hund;
+                            TabellenAbbildung.Tabelle r = CRUD.tabellenAbbildung.rasse;
+                            List l = guiController.getGui().listeMaTermine().getList();
+
+                            terminListe.forEach((map) -> {
+                                String item = "";
+                                int preis = 0;
+                                int tNr = Integer.parseInt(map.get("ID"));
+                                int mNr = Integer.parseInt(map.get("Mitarbeiter_Nr"))-1;
+                                int hNr = Integer.parseInt(map.get("Hund_ID"))-1;
+                                item = item.concat(map.get("Datum")+" um "+map.get("Uhrzeit"));
+                                item = item.concat(" MA: "+(mNr+1)+" - "+m.getTable().get(mNr).get("Nachname")
+                                        +" Tel.: "+m.getTable().get(mNr).get("Telefonnummer"));
+                                item = item.concat(" mit "+r.getTable().get(Integer.parseInt(h.getTable().get(hNr).get("Rasse_ID"))-1).get("Rasse"));
+                                item = item.concat(" "+h.getTable().get(hNr).get("Geschlecht")+" im Alter von "+
+                                        (Year.now().getValue()-Integer.parseInt(h.getTable().get(hNr).get("Geburtsjahr").split("-")[0])));
+                                item = item.concat(" fuer:");
+                                for(LinkedHashMap<String, String> gebucht : gd.getTable()) {
+                                    if(gebucht.get("Termin_ID").equals(String.valueOf(tNr))) {
+                                        preis += Integer.parseInt(d.getTable().get(Integer.parseInt(gebucht.get("Dienstleistung_ID"))-1).get("Preis"));
+                                        item = item.concat(
+                                                " "+d.getTable().get(Integer.parseInt(gebucht.get("Dienstleistung_ID"))-1).get("Bezeichnung")
+                                        );
+                                    }
+                                }
+                                item = item.concat(" zum Preis von: "+preis+" Euro");
+                                System.out.println("Item: "+item);
+                                l.add(item);
+                            });
+                            oeffneFenster(guiController.getGui().listeMaTermine());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                new MouseAdapter() {
+                    @Override
+                    public void mouseDown(MouseEvent mouseEvent) {
+                        super.mouseDown(mouseEvent);
+                        guiController.zuruecksetzen();
+                    }
+                });
     }
 
     private void initKunde() {
@@ -473,5 +542,9 @@ public class ReiseHandhaber {
 
     public ListeMaTermine getListeMaTermine() {
         return listeMaTermine;
+    }
+
+    public ListeKuTermine getListeKuTermine() {
+        return listeKuTermine;
     }
 }

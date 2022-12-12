@@ -70,7 +70,6 @@ public class Mitarbeiterliste implements View {
 		lblKundenid.setBounds(141, 50, 143, 38);
 
 		// III. Label: "X"
-		lblX.setText("X");
 		lblX.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		lblX.setFont(SWTResourceManager.getFont("Arial", 19, SWT.NORMAL));
 		lblX.setBackground(SWTResourceManager.getColor(64, 0, 128));

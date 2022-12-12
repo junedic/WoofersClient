@@ -13,7 +13,8 @@ public class Reise {
     public record BestaetigeTermin(MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record EntferneTermin(MouseAdapter entferneTermin, MouseAdapter bestaetige, MouseAdapter zurueck) {}
     public record BearbeiteKunde(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck, MouseAdapter bearbeiteKunde) {}
-    public record ListeMaTermine(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck) {}
+    public record ListeMaTermine(MouseAdapter eingabeMitarbeiterId, MouseAdapter bestaetige, MouseAdapter zurueck) {}
+    public record ListeKuTermine(MouseAdapter eingabeKundenId, MouseAdapter bestaetige, MouseAdapter zurueck) {}
 
     public enum ReiseResultatsTyp {
 

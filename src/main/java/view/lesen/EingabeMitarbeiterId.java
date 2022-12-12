@@ -47,7 +47,7 @@ public class EingabeMitarbeiterId implements View {
 
 	private void initShell() {
 		shell.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		shell.setText("KundenID eingeben");
+		shell.setText("MitarbeiterID eingeben");
 		shell.setLayout(null);
 	}
 
@@ -57,9 +57,9 @@ public class EingabeMitarbeiterId implements View {
 		customerID.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		customerID.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		customerID.setBounds(57, 27, 244, 56);
-		customerID.setText("Bitte geben Sie die ID \r\ndes Kunden ein");
+		customerID.setText("Bitte geben Sie die ID des Mitarbeiters ein");
 
-		appointmentID.setText("KundenID");
+		appointmentID.setText("MitarbeiterID");
 		appointmentID.setForeground(SWTResourceManager.getColor(255, 255, 255));
 		appointmentID.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		appointmentID.setBackground(SWTResourceManager.getColor(64, 0, 128));
@@ -88,7 +88,7 @@ public class EingabeMitarbeiterId implements View {
 		});
 		 */
 		confirm.setBounds(226, 179, 75, 25);
-		confirm.setText("OKiii");
+		confirm.setText("OK");
 
 		/*
 		btnZurck.addMouseListener(new MouseAdapter() {
