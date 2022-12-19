@@ -39,7 +39,7 @@ public class Mitarbeiterliste implements View {
 	@Override
 	public void init() {
 		initShell();
-		initLabel();
+		initLabels();
 		initButtons();
 		initList();
 
@@ -52,7 +52,7 @@ public class Mitarbeiterliste implements View {
 		shell.setText("Mehrere gleichnamige Kunden");
 	}
 
-	private void initLabel() {
+	private void initLabels() {
 		// I. Label: "Terminliste"
 		lblWelchenGenauMeinen.setForeground(SWTResourceManager.getColor(255, 128, 0));
 		lblWelchenGenauMeinen.setBackground(SWTResourceManager.getColor(64, 0, 128));
@@ -80,7 +80,7 @@ public class Mitarbeiterliste implements View {
 	private void initButtons() {
 		// I. Button
 		btnZurueck.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		btnZurueck.setText("Zur\u00FCck zum Hauptemen\u00FC");
+		btnZurueck.setText("Zur\u00FCck zum Hauptmen\u00FC");
 		btnZurueck.setBounds(111, 348, 271, 25);
 
 	}

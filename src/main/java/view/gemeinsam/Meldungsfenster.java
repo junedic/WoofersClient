@@ -18,12 +18,5 @@ import javax.swing.*;
 			messageBox.setMessage(beschreibung);
 			messageBox.open();
 		}
-	/*
-	public Meldungsfenster(String ueberschrift, String beschreibung) {
-		JFrame frame = new JFrame();
-		JOptionPane.showMessageDialog(frame, beschreibung, ueberschrift, JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	 */
 
 }

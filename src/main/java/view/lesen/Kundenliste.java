@@ -82,7 +82,7 @@ public class Kundenliste implements View {
 		// I. Button: Zurueck zum Hauptmenue
 		btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		btnNewButton.setText("Zur\u00FCck zum Hauptemen\u00FC");
+		btnNewButton.setText("Zur\u00FCck zum Hauptmen\u00FC");
 		btnNewButton.setBounds(111, 348, 271, 25);
 
 	}

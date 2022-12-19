@@ -241,6 +241,7 @@ public class ReiseHandhaber {
                             params.add(Integer.parseInt(er.getMitarbeiterAuswahl().getText().replaceAll("[^0-9]", "")));
                             params.add(Integer.parseInt(er.getHundeAuswahl().getText().replaceAll("[^0-9]", "")));
                             params.add(Date.valueOf(er.getDatumsAuswahl().getYear() + "-" + (er.getDatumsAuswahl().getMonth() + 1) + "-" + er.getDatumsAuswahl().getDay()));
+                            System.out.println(Time.valueOf(er.getZeitAuswahl().getText()));
                             params.add(Time.valueOf(er.getZeitAuswahl().getText()));
                             params.forEach((o) -> {
                                 System.out.println("Param: " + o.toString());
@@ -344,7 +345,7 @@ public class ReiseHandhaber {
                             param.add(Integer.parseInt(text));
                             System.out.println(Integer.parseInt(text));
                             queryController.query(SqlBefehle.EntferneTermin, param, ReiseResultatsTyp.EntferneTermin);
-                            anzeige.syncExec(new BestaetigungsHandhaber("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige));
+                            anzeige.syncExec(new FehlerHandhaber("Termin abgesagt", "Der Termin wurde gel\u00F6scht", anzeige));
                             guiController.zuruecksetzen();
                         }
                     }

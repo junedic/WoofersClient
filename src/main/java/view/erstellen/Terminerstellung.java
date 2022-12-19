@@ -90,7 +90,6 @@ public class Terminerstellung implements View {
 		waeleMitarbeiter = new Label(shell, SWT.NONE);
 		buchbareDienstleistungen = new Label(shell, SWT.NONE);
 		preisPlatzhalter = new Label(shell, SWT.NONE);
-		preis = new Label(shell, SWT.NONE);
 		verfuegbareZeitslots = new Label(shell, SWT.NONE);
 		massageCheck = new Button(shell, SWT.BORDER | SWT.CHECK);
 		schneidenCheck = new Button(shell, SWT.BORDER | SWT.CHECK);
@@ -117,8 +116,6 @@ public class Terminerstellung implements View {
 		waehleHund.dispose();
 		waeleMitarbeiter.dispose();
 		buchbareDienstleistungen.dispose();
-		preisPlatzhalter.dispose();
-		preis.dispose();
 		verfuegbareZeitslots.dispose();
 		massageCheck.dispose();
 		schneidenCheck.dispose();
@@ -152,12 +149,6 @@ public class Terminerstellung implements View {
 		verfuegbareZeitslots.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		verfuegbareZeitslots.setAlignment(SWT.CENTER);
 		verfuegbareZeitslots.setBounds(230, 330, 148, 20);
-
-		preis.setText("Preis :");
-		preis.setForeground(SWTResourceManager.getColor(255, 255, 255));
-		preis.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
-		preis.setBackground(SWTResourceManager.getColor(64, 0, 128));
-		preis.setBounds(53, 285, 70, 20);
 
 		waehleHund.setText("W\u00e4hlen Sie ihren Hund");
 		waehleHund.setForeground(SWTResourceManager.getColor(255, 255, 255));
@@ -202,10 +193,6 @@ public class Terminerstellung implements View {
 		waeleMitarbeiter.setBackground(SWTResourceManager.getColor(64, 0, 128));
 		waeleMitarbeiter.setAlignment(SWT.RIGHT);
 		waeleMitarbeiter.setBounds(15, 255, 186, 20);
-
-		// Preis hier anpassen
-		preisPlatzhalter.setBounds(230, 283, 132, 20);
-		preisPlatzhalter.setText("[Preis]");
 
 		terminErstellenUeberschrift.setText("Terminerstellung");
 		terminErstellenUeberschrift.setForeground(SWTResourceManager.getColor(255, 128, 0));
@@ -445,14 +432,6 @@ public class Terminerstellung implements View {
 
 	public void setPreisPlatzhalter(Label preisPlatzhalter) {
 		this.preisPlatzhalter = preisPlatzhalter;
-	}
-
-	public Label getPreis() {
-		return preis;
-	}
-
-	public void setPreis(Label preis) {
-		this.preis = preis;
 	}
 
 	public Label getVerfuegbareZeitslots() {

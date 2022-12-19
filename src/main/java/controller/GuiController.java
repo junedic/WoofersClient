@@ -91,14 +91,14 @@ public class GuiController {
             if(!ipGesetzt.get() || globaleIp != ip) {
                 try (DB db = new DB(ip)) {
                 } catch (Exception e) {
-                    anzeige.asyncExec(new FehlerHandhaber("Fehler", "IP Adresse ung\u00FCltig", anzeige));
+                    anzeige.asyncExec(new FehlerHandhaber("Fehler 101", "IP Adresse ung\u00FCltig", anzeige));
                     ipGesetzt.set(false);
                     globaleIp = null;
                     return;
                 }
                 ipGesetzt.set(true);
                 globaleIp = ip;
-                anzeige.asyncExec(new FehlerHandhaber("Erfolg", "IP Adresse gesetzt", anzeige));
+                anzeige.asyncExec(new FehlerHandhaber("IP-Adresse gesetzt", "IP Adresse wurde erfolgreich gesetzt", anzeige));
             }
             reiseHandhaber = new ReiseHandhaber(controller, new QueryController(ip), anzeige);
             hauptfenster.getIp().setText(globaleIp);
