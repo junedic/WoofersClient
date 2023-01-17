@@ -1,4 +1,4 @@
-# WoofersClient
+# Client
 Client
 
 # Preliminary Architecture
